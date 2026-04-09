@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+---
+
+<BaseLayout
+  title="Revenue Performance Audit"
+  description="Analytics integrity, conversion path analysis, and strategic synthesis. Finds where your data is lying and where revenue is leaking."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-3xl">
+      <p class="text-accent font-mono text-sm mb-4">The Get Right &rsaquo; Revenue Performance Audit</p>
+      <h1 class="mb-6">Revenue Performance Audit</h1>
+      <p class="text-accent text-lg font-medium mb-4">Powered by Delphi</p>
+      <p class="text-secondary-text text-xl leading-relaxed">
+        Measurement integrity, conversion path analysis, and the strategic synthesis
+        that ties all three audits together. This is where the revenue numbers live
+        &mdash; and where the unified 90-day execution plan is built.
+      </p>
+    </div>
+  </Section>
+
+  <Section elevated>
+    <h2 class="mb-8">Three layers of analysis</h2>
+    <div class="grid md:grid-cols-1 gap-6 max-w-3xl">
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Layer 1: Measurement Integrity</h4>
+        <p class="text-secondary-text mb-4">Can you trust your data?</p>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Analytics tag firing, duplicates, and missing page coverage</li>
+          <li>Goal and conversion setup validation</li>
+          <li>Attribution model assessment</li>
+          <li>Data hygiene (bot traffic, internal traffic, referral spam)</li>
+          <li>Consent/privacy compliance impact on data collection</li>
+          <li>Tool stack audit (installed, conflicting, redundant, missing)</li>
+        </ul>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Layer 2: Conversion Path Analysis</h4>
+        <p class="text-secondary-text mb-4">Where is money leaking from your funnel?</p>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Funnel mapping with drop-off rates and revenue impact per stage</li>
+          <li>Form friction analysis (fields, error handling, mobile vs desktop)</li>
+          <li>CTA effectiveness (visibility, placement, intent matching)</li>
+          <li>Page-level conversion matrix (traffic &times; conversion)</li>
+          <li>Mobile conversion gap analysis</li>
+          <li>Speed-to-conversion (ties Muttr findings to conversion loss in $)</li>
+        </ul>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Layer 3: Strategic Synthesis</h4>
+        <p class="text-secondary-text mb-4">The keystone. All findings become one plan.</p>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Intake all findings from Muttr + Canary + Rev Ops layers 1-2</li>
+          <li>Unified scoring: revenue impact &times; effort &times; dependency chain</li>
+          <li>Produces the 90-day execution roadmap across all three pillars</li>
+          <li>Revenue projection model (conservative / moderate / aggressive)</li>
+          <li>Measurement plan with KPIs at 30 / 60 / 90 days</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="max-w-2xl">
+      <h2 class="mb-4">Where the experience shows</h2>
+      <p class="text-secondary-text text-lg mb-6">
+        The Revenue Performance Audit is the most founder-intensive piece of The Get Right.
+        Tools can detect tag issues and map conversion paths. But synthesizing findings
+        from three different audits into one coherent execution plan &mdash; prioritized
+        by business impact, scoped to your team's capacity, and sequenced so fixes
+        don't block each other &mdash; that takes 34 years of combined experience.
+      </p>
+      <p class="text-secondary-text text-lg">
+        This pillar is why you always talk to the people who built the system.
+      </p>
+    </div>
+  </Section>
+
+  <Section elevated>
+    <div class="max-w-2xl">
+      <h2 class="mb-4">How it connects</h2>
+      <p class="text-secondary-text text-lg mb-6">
+        The Revenue Performance Audit <span class="text-primary-text">owns the synthesis</span>.
+        It takes technical findings from the Platform Audit and converts them to dollar
+        amounts. It takes content gaps from the Content Audit and sequences them by
+        conversion potential. Then it produces the single 90-day roadmap that your
+        team actually executes against.
+      </p>
+      <p class="text-secondary-text text-lg">
+        Without this pillar, you have two backlogs. With it, you have one plan.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="text-center">
+      <h2 class="mb-4">See the full engagement</h2>
+      <p class="text-secondary-text text-lg mb-8 max-w-xl mx-auto">
+        The Revenue Performance Audit only reaches its potential when paired with
+        the other two pillars. That's why The Get Right runs all three together.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button href="/the-get-right">See The Full Get Right</Button>
+        <Button href="/contact" variant="secondary">Talk to a Founder</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Talk to a founder. No sales team, no account managers. We respond within 24 hours."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-2xl mx-auto">
+      <h1 class="mb-4">Talk to a founder.</h1>
+      <p class="text-secondary-text text-xl leading-relaxed mb-12">
+        No sales team. No account managers. You'll hear back from someone who
+        builds and runs the tools. We respond within 24 hours.
+      </p>
+
+      <form
+        method="POST"
+        action="/api/contact"
+        class="space-y-6"
+      >
+        <div>
+          <label for="name" class="block text-sm font-medium text-primary-text mb-2">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full bg-bg-inset border border-border-subtle rounded-lg px-4 py-3 text-primary-text placeholder:text-secondary-text/50 focus:outline-none focus:border-accent transition-colors"
+            placeholder="Your name"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-primary-text mb-2">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full bg-bg-inset border border-border-subtle rounded-lg px-4 py-3 text-primary-text placeholder:text-secondary-text/50 focus:outline-none focus:border-accent transition-colors"
+            placeholder="you@company.com"
+          />
+        </div>
+        <div>
+          <label for="company" class="block text-sm font-medium text-primary-text mb-2">Company</label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            class="w-full bg-bg-inset border border-border-subtle rounded-lg px-4 py-3 text-primary-text placeholder:text-secondary-text/50 focus:outline-none focus:border-accent transition-colors"
+            placeholder="Company name"
+          />
+        </div>
+        <div>
+          <label for="url" class="block text-sm font-medium text-primary-text mb-2">Website URL <span class="text-secondary-text">(optional)</span></label>
+          <input
+            type="url"
+            id="url"
+            name="url"
+            class="w-full bg-bg-inset border border-border-subtle rounded-lg px-4 py-3 text-primary-text placeholder:text-secondary-text/50 focus:outline-none focus:border-accent transition-colors"
+            placeholder="https://yoursite.com"
+          />
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-primary-text mb-2">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            class="w-full bg-bg-inset border border-border-subtle rounded-lg px-4 py-3 text-primary-text placeholder:text-secondary-text/50 focus:outline-none focus:border-accent transition-colors resize-y"
+            placeholder="Tell us what's going on with your site, or what you'd like to explore."
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="bg-accent text-on-primary px-8 py-3 rounded-lg font-semibold hover:bg-accent-hover transition-colors w-full md:w-auto"
+        >
+          Send Message
+        </button>
+      </form>
+
+      <p class="text-secondary-text text-sm mt-6">
+        Prefer to book a time directly?
+        <!-- Replace with actual Calendly/Cal.com link -->
+        <a href="#" class="text-accent hover:text-accent-hover">Schedule a call with a founder &rarr;</a>
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

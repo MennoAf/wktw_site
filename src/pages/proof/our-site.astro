@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+---
+
+<BaseLayout
+  title="We Audited Our Own Site"
+  description="Full Muttr, Canary, and Delphi audit results for weknowthewhy.com. What we found, what we fixed, full transparency."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-3xl">
+      <p class="text-accent font-mono text-sm mb-4">Proof &rsaquo; Self-Audit</p>
+      <h1 class="mb-6">We audited our own site.</h1>
+      <p class="text-secondary-text text-xl leading-relaxed mb-6">
+        We run Muttr, Canary, and Delphi against weknowthewhy.com using the same
+        configuration and standards we apply to client sites. Here are the real results.
+      </p>
+      <p class="text-secondary-text text-sm">
+        Last updated: <span class="text-primary-text">Coming soon &mdash; this page will be populated after Phase 2</span>
+      </p>
+    </div>
+  </Section>
+
+  <!-- Muttr Results -->
+  <Section elevated>
+    <h2 class="mb-6">Platform Technical Audit (Muttr)</h2>
+    <div class="bg-bg-surface border border-border-subtle rounded-xl p-8">
+      <p class="text-secondary-text text-center py-8">
+        Audit results will be published here after the site is live and Muttr has been run against it.
+        Check back after launch.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Canary Results -->
+  <Section>
+    <h2 class="mb-6">Content Authority Audit (Canary)</h2>
+    <div class="bg-bg-elevated border border-border-subtle rounded-xl p-8">
+      <p class="text-secondary-text text-center py-8">
+        Content audit results will be published here once the insights section is live
+        and Canary has been run against the site's topic coverage.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Delphi Results -->
+  <Section elevated>
+    <h2 class="mb-6">Revenue Performance Audit (Delphi)</h2>
+    <div class="bg-bg-surface border border-border-subtle rounded-xl p-8">
+      <p class="text-secondary-text text-center py-8">
+        Analytics audit results will be published here once measurement is established
+        and Delphi has verified the analytics implementation.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="text-center">
+      <h2 class="mb-4">Want to see what we'd find on yours?</h2>
+      <p class="text-secondary-text text-lg mb-8">
+        We apply the same rigor to every site we audit. Start with a free scan.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button href="/scan">Run a Free Scan</Button>
+        <Button href="/the-get-right" variant="secondary">Learn About The Get Right</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

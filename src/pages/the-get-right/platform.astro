@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+---
+
+<BaseLayout
+  title="Platform Technical Audit"
+  description="130+ structural checks across server, platform, and template tiers. Sprint-ready dev backlog with code fixes, prioritized by revenue impact."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-3xl">
+      <p class="text-accent font-mono text-sm mb-4">The Get Right &rsaquo; Platform Technical Audit</p>
+      <h1 class="mb-6">Platform Technical Audit</h1>
+      <p class="text-accent text-lg font-medium mb-4">Powered by Muttr</p>
+      <p class="text-secondary-text text-xl leading-relaxed">
+        130+ structural checks across three tiers &mdash; server, platform, and template.
+        Every finding tied to business KPI impact. Delivered as sprint-ready tickets
+        with code fixes, not a PDF of suggestions.
+      </p>
+    </div>
+  </Section>
+
+  <Section elevated>
+    <h2 class="mb-8">What we examine</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Server Tier</h4>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>TLS configuration and certificate chain</li>
+          <li>HTTP/2+ support and protocol negotiation</li>
+          <li>Security headers (CSP, HSTS, X-Frame-Options)</li>
+          <li>CDN configuration and caching strategy</li>
+          <li>TTFB and server response optimization</li>
+          <li>Redirect chain analysis</li>
+        </ul>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Platform Tier</h4>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>CMS/framework detection and version analysis</li>
+          <li>Core Web Vitals (LCP, INP, CLS) with root causes</li>
+          <li>Resource loading and render-blocking audit</li>
+          <li>Third-party script impact analysis</li>
+          <li>Consent management and privacy compliance</li>
+          <li>Ad stack conflicts and duplicate tags</li>
+        </ul>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Template Tier</h4>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Structured data validation and completeness</li>
+          <li>Image optimization (format, sizing, lazy loading)</li>
+          <li>Accessibility (WCAG 2.1 AA compliance)</li>
+          <li>Mobile responsiveness and viewport issues</li>
+          <li>Internal linking structure</li>
+          <li>Form friction and UX patterns</li>
+        </ul>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Root Cause Synthesis</h4>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Pattern detection across findings</li>
+          <li>Systemic vs. one-off issue classification</li>
+          <li>Compliance risk flagging (GDPR, CCPA, WCAG)</li>
+          <li>Revenue impact estimation per finding</li>
+          <li>Fix prioritization by impact &times; effort</li>
+          <li>Dependency chain mapping</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <h2 class="mb-8">The deliverable</h2>
+    <div class="max-w-2xl">
+      <p class="text-secondary-text text-lg mb-6">
+        Not a report. A backlog. Every finding is a ticket your engineering team
+        can pick up and ship.
+      </p>
+      <div class="bg-bg-inset border border-border-subtle rounded-lg p-6 font-mono text-sm">
+        <div class="text-accent mb-2">Finding: Render-blocking CSS on mobile</div>
+        <div class="text-secondary-text mb-1"><span class="text-danger">Severity:</span> High</div>
+        <div class="text-secondary-text mb-1"><span class="text-warning">Revenue impact:</span> ~$4,200/mo in mobile bounce rate</div>
+        <div class="text-secondary-text mb-1"><span class="text-primary-text">Root cause:</span> Unoptimized Google Fonts loading</div>
+        <div class="text-secondary-text mb-1"><span class="text-success">Fix:</span> Preload critical font faces, defer non-critical</div>
+        <div class="text-secondary-text mt-3 border-t border-border-subtle pt-3">
+          <span class="text-primary-text">Code:</span> Add &lt;link rel="preload"&gt; for primary font, move secondary to font-display: swap
+        </div>
+      </div>
+      <p class="text-secondary-text text-sm mt-4">
+        Every finding follows this format. Severity, revenue impact, root cause, and
+        the actual fix &mdash; with code when applicable.
+      </p>
+    </div>
+  </Section>
+
+  <Section elevated>
+    <div class="max-w-2xl">
+      <h2 class="mb-4">How it connects</h2>
+      <p class="text-secondary-text text-lg mb-6">
+        Technical findings feed directly into the other two pillars. Slow page speed
+        becomes a conversion cost in the Revenue Performance Audit. Missing structured
+        data becomes a content visibility gap in the Content Authority Audit.
+      </p>
+      <p class="text-secondary-text text-lg">
+        That cross-pollination is why a single-pillar audit misses things.
+        A technical issue isn't just a technical issue &mdash; it's a revenue issue.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="text-center">
+      <h2 class="mb-4">See it in action</h2>
+      <p class="text-secondary-text text-lg mb-8 max-w-xl mx-auto">
+        Start with a free scan to preview what Muttr finds on your site.
+        Or see the full Get Right engagement.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button href="/scan">Run a Free Scan</Button>
+        <Button href="/the-get-right" variant="secondary">See The Full Get Right</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

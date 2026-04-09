@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  tool: string;
+  description: string;
+  href: string;
+  icon: string;
+}
+
+const { title, tool, description, href, icon } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group block bg-bg-elevated border border-border-subtle rounded-xl p-8 hover:border-accent/40 transition-all"
+>
+  <div class="text-3xl mb-4">{icon}</div>
+  <h3 class="text-xl mb-1 group-hover:text-accent transition-colors">{title}</h3>
+  <p class="text-sm text-accent/80 font-mono mb-3">Powered by {tool}</p>
+  <p class="text-secondary-text text-base leading-relaxed">{description}</p>
+  <span class="inline-block mt-4 text-accent text-sm font-medium group-hover:translate-x-1 transition-transform">
+    Learn more &rarr;
+  </span>
+</a>

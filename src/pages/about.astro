@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Three founders. 34 years combined experience. No juniors. You always talk to the people who built the system."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-3xl">
+      <h1 class="mb-6">You always talk to the people who built the system.</h1>
+      <p class="text-secondary-text text-xl leading-relaxed">
+        WKTW is three founders with 34 years of combined experience in digital growth,
+        technical infrastructure, and content strategy. No juniors. No account managers.
+        The people who built the diagnostic tools are the people you work with.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Team -->
+  <Section elevated>
+    <h2 class="mb-10">The team</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-bg-surface border border-border-subtle rounded-xl p-8">
+        <div class="w-20 h-20 rounded-full bg-bg-inset border border-border-subtle mb-6"></div>
+        <!-- Replace with real photo: <img src="/team/founder-1.webp" ... /> -->
+        <h3 class="text-xl mb-1">Founder Name</h3>
+        <p class="text-accent text-sm font-mono mb-3">14 years experience</p>
+        <p class="text-secondary-text">
+          Pitch lead. Strategy and client engagement. Turns audit findings
+          into business narratives that get executive buy-in.
+        </p>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-xl p-8">
+        <div class="w-20 h-20 rounded-full bg-bg-inset border border-border-subtle mb-6"></div>
+        <h3 class="text-xl mb-1">Jason</h3>
+        <p class="text-accent text-sm font-mono mb-3">12 years experience</p>
+        <p class="text-secondary-text">
+          Technical lead. Built Muttr, Canary, and Delphi. Turns structural
+          problems into sprint-ready fixes with code.
+        </p>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-xl p-8">
+        <div class="w-20 h-20 rounded-full bg-bg-inset border border-border-subtle mb-6"></div>
+        <h3 class="text-xl mb-1">Founder Name</h3>
+        <p class="text-accent text-sm font-mono mb-3">8 years experience</p>
+        <p class="text-secondary-text">
+          Content and analytics. Maps competitive content landscapes and ensures
+          measurement integrity across every engagement.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Philosophy -->
+  <Section>
+    <div class="max-w-2xl">
+      <h2 class="mb-6">Why we built our own tools</h2>
+      <p class="text-secondary-text text-lg mb-6">
+        We spent years running audits with off-the-shelf tools. They all had the same
+        problem: shallow findings, generic recommendations, and zero connection to
+        actual revenue impact. The output was technically correct and practically useless.
+      </p>
+      <p class="text-secondary-text text-lg mb-6">
+        So we built what we wished existed. Muttr does deep structural analysis that
+        ties every finding to business KPIs. Canary maps content authority at the topic
+        level, not the keyword level. Delphi verifies that your measurement foundation
+        is solid before you try to build on it.
+      </p>
+      <p class="text-secondary-text text-lg">
+        The tools aren't the product. <span class="text-primary-text">The insight is the product.</span>
+        The tools just make sure the insight is grounded in evidence, not opinion.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Principles -->
+  <Section elevated>
+    <h2 class="mb-8">How we work</h2>
+    <div class="grid md:grid-cols-2 gap-6 max-w-3xl">
+      <div>
+        <h4 class="text-accent mb-2">Project-first, always</h4>
+        <p class="text-secondary-text">We don't sell retainers on day one. We sell a 90-day diagnostic sprint. Continued engagement is earned by proving value, not by contract lock-in.</p>
+      </div>
+      <div>
+        <h4 class="text-accent mb-2">Backlogs, not reports</h4>
+        <p class="text-secondary-text">Every deliverable is designed to be actionable. Sprint-ready tickets, not executive summaries. Your team ships fixes, not reads recommendations.</p>
+      </div>
+      <div>
+        <h4 class="text-accent mb-2">Revenue-tied everything</h4>
+        <p class="text-secondary-text">Every finding is connected to revenue impact. Not "this is a best practice" but "this is costing you approximately $X per month."</p>
+      </div>
+      <div>
+        <h4 class="text-accent mb-2">We practice what we preach</h4>
+        <p class="text-secondary-text">We run our own tools on our own site and publish the results. Same standards, full transparency.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="text-center">
+      <h2 class="mb-4">Ready to talk?</h2>
+      <p class="text-secondary-text text-lg mb-8">
+        No pitch deck. No discovery call script. Just a conversation with someone
+        who's been doing this for over a decade.
+      </p>
+      <Button href="/contact">Talk to a Founder</Button>
+    </div>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="How We Know The Why collects, uses, and protects your information."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-2xl mx-auto prose-invert">
+      <h1 class="mb-8">Privacy Policy</h1>
+      <p class="text-secondary-text text-sm mb-8">Last updated: April 2026</p>
+
+      <div class="space-y-8 text-secondary-text leading-relaxed">
+        <div>
+          <h2 class="text-xl text-primary-text mb-3">Who we are</h2>
+          <p>We Know The Why (WKTW) is a systems-driven growth agency. This policy describes how we handle information collected through weknowthewhy.com.</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl text-primary-text mb-3">What we collect</h2>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong class="text-primary-text">Contact form submissions:</strong> Name, email, company, website URL, and message content.</li>
+            <li><strong class="text-primary-text">Scan requests:</strong> Website URL, email, and company name.</li>
+            <li><strong class="text-primary-text">Analytics:</strong> We use Plausible Analytics, which collects no personal data and uses no cookies. We may also use Google Analytics 4 for measurement purposes.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xl text-primary-text mb-3">How we use it</h2>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>To respond to your inquiries</li>
+            <li>To process and deliver scan results</li>
+            <li>To improve our services and website</li>
+            <li>We do not sell your information to third parties</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xl text-primary-text mb-3">Data storage</h2>
+          <p>Your data is stored securely using industry-standard practices. Contact and scan data is stored in Supabase (hosted on AWS). Payment processing is handled by Stripe — we never store payment card details.</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl text-primary-text mb-3">Your rights</h2>
+          <p>You may request access to, correction of, or deletion of your personal data at any time by contacting us.</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl text-primary-text mb-3">Contact</h2>
+          <p>Questions about this policy? <a href="/contact">Contact us</a>.</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

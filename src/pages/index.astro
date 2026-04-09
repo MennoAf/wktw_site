@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import PillarCard from '../components/PillarCard.astro';
+---
+
+<BaseLayout
+  title="We Know The Why"
+  description="Systems-driven growth agency. We built proprietary diagnostic tools that find what's broken, quantify the revenue impact, and deliver a prioritized execution plan."
+>
+  <!-- Hero -->
+  <Section class="pt-28 pb-20">
+    <div class="max-w-3xl">
+      <h1 class="mb-6">
+        Your website has problems you can't see.
+        <span class="text-accent">We built the tools that find them.</span>
+      </h1>
+      <p class="text-secondary-text text-xl leading-relaxed mb-10 max-w-2xl">
+        Three simultaneous audits. One unified execution plan. Every fix prioritized
+        by revenue impact. You always talk to the people who built the system.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <Button href="/scan">Run a Free Scan</Button>
+        <Button href="/the-get-right" variant="secondary">Learn About The Get Right</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Three Pillars -->
+  <Section id="pillars" elevated>
+    <h2 class="text-center mb-4">Three audits. One roadmap.</h2>
+    <p class="text-secondary-text text-center text-lg mb-12 max-w-2xl mx-auto">
+      Each pillar finds problems the others can't see. Together, they build a complete
+      picture of what's costing you revenue and exactly how to fix it.
+    </p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <PillarCard
+        title="Platform Technical Audit"
+        tool="Muttr"
+        description="Server config, performance, security, accessibility, structured data. Delivers a sprint-ready dev backlog with code fixes, not a PDF of suggestions."
+        href="/the-get-right/platform"
+        icon="&#9881;"
+      />
+      <PillarCard
+        title="Content Authority Audit"
+        tool="Canary"
+        description="Topic gap analysis across your site and competitors. Finds every question your brand should answer but doesn't. Produces a prioritized content roadmap."
+        href="/the-get-right/content"
+        icon="&#9998;"
+      />
+      <PillarCard
+        title="Revenue Performance Audit"
+        tool="Delphi"
+        description="Analytics integrity, conversion paths, measurement gaps. Finds where data is lying to you and where money is leaking from your funnel."
+        href="/the-get-right/revenue"
+        icon="&#9783;"
+      />
+    </div>
+  </Section>
+
+  <!-- Proof Strip -->
+  <Section>
+    <div class="grid md:grid-cols-3 gap-8 text-center">
+      <div>
+        <div class="text-4xl font-heading font-bold text-accent mb-2">130+</div>
+        <div class="text-secondary-text">Technical checks per audit</div>
+      </div>
+      <div>
+        <div class="text-4xl font-heading font-bold text-accent mb-2">3</div>
+        <div class="text-secondary-text">Simultaneous audit pillars</div>
+      </div>
+      <div>
+        <div class="text-4xl font-heading font-bold text-accent mb-2">34</div>
+        <div class="text-secondary-text">Years combined experience</div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- How It Works -->
+  <Section id="how-it-works" elevated>
+    <h2 class="text-center mb-12">How The Get Right works</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="w-12 h-12 rounded-full bg-accent text-on-primary font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">1</div>
+        <h3 class="text-lg mb-3">Diagnose</h3>
+        <p class="text-secondary-text">
+          Month one: all three audits run simultaneously. Technical infrastructure,
+          content gaps, and analytics integrity &mdash; examined in parallel.
+        </p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 rounded-full bg-accent text-on-primary font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">2</div>
+        <h3 class="text-lg mb-3">Execute</h3>
+        <p class="text-secondary-text">
+          Month two: your team ships fixes from a unified, prioritized backlog.
+          Every fix ranked by revenue impact and implementation effort.
+        </p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 rounded-full bg-accent text-on-primary font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">3</div>
+        <h3 class="text-lg mb-3">Verify</h3>
+        <p class="text-secondary-text">
+          Month three: re-audit to measure improvement. Clean measurement baseline.
+          Growth plan for continued engagement.
+        </p>
+      </div>
+    </div>
+    <div class="text-center mt-12">
+      <Button href="/the-get-right">See the full breakdown</Button>
+    </div>
+  </Section>
+
+  <!-- Self-Audit Showcase -->
+  <Section>
+    <div class="bg-bg-elevated border border-border-subtle rounded-xl p-10 md:p-14 text-center">
+      <h2 class="mb-4">We audit our own site.</h2>
+      <p class="text-secondary-text text-lg max-w-2xl mx-auto mb-8">
+        We run Muttr, Canary, and Delphi against this website. Same tools, same standards,
+        full transparency. If we're going to tell you what's broken, ours better not be.
+      </p>
+      <Button href="/proof/our-site" variant="secondary">See our audit results &rarr;</Button>
+    </div>
+  </Section>
+
+  <!-- CTA -->
+  <Section elevated>
+    <div class="text-center">
+      <h2 class="mb-4">Ready to find what's broken?</h2>
+      <p class="text-secondary-text text-lg mb-8 max-w-xl mx-auto">
+        Start with a free scan to see a preview of what we find. Or skip ahead
+        and talk to a founder about The Get Right.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button href="/scan">Run a Free Scan</Button>
+        <Button href="/contact" variant="secondary">Talk to a Founder</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

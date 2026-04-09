@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+import PillarCard from '../../components/PillarCard.astro';
+---
+
+<BaseLayout
+  title="The Get Right"
+  description="A 90-day diagnostic sprint. Three simultaneous audits produce one unified execution plan, with every fix prioritized by revenue impact."
+>
+  <!-- Hero -->
+  <Section class="pt-28 pb-16">
+    <div class="max-w-3xl">
+      <h1 class="mb-6">The Get Right</h1>
+      <p class="text-accent text-xl font-medium mb-4">A 90-day diagnostic sprint.</p>
+      <p class="text-secondary-text text-xl leading-relaxed max-w-2xl">
+        Three simultaneous audits &mdash; technical infrastructure, content authority,
+        and revenue performance &mdash; produce one unified execution plan. Every fix
+        is prioritized by revenue impact and delivered as sprint-ready work, not a
+        shelf-ready report.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Three Pillars -->
+  <Section elevated>
+    <h2 class="mb-8">Three pillars, one roadmap</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <PillarCard
+        title="Platform Technical Audit"
+        tool="Muttr"
+        description="130+ structural checks across server, platform, and template tiers. Delivers sprint-ready tickets with code fixes, ranked by revenue impact."
+        href="/the-get-right/platform"
+        icon="&#9881;"
+      />
+      <PillarCard
+        title="Content Authority Audit"
+        tool="Canary"
+        description="Topic-level competitive gap analysis. Maps every question your audience asks and shows where competitors are answering and you're not."
+        href="/the-get-right/content"
+        icon="&#9998;"
+      />
+      <PillarCard
+        title="Revenue Performance Audit"
+        tool="Delphi"
+        description="Measurement integrity, conversion path analysis, and strategic synthesis. Finds where your data lies and your funnel leaks."
+        href="/the-get-right/revenue"
+        icon="&#9783;"
+      />
+    </div>
+  </Section>
+
+  <!-- Timeline -->
+  <Section>
+    <h2 class="text-center mb-12">The 90-day timeline</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-bg-elevated border border-border-subtle rounded-xl p-8">
+        <div class="text-accent font-mono text-sm mb-2">Month 1</div>
+        <h3 class="text-xl mb-4">Diagnose</h3>
+        <ul class="text-secondary-text space-y-2">
+          <li>All three audits run simultaneously</li>
+          <li>Full technical crawl and analysis</li>
+          <li>Competitive content gap mapping</li>
+          <li>Analytics and conversion path review</li>
+          <li>Unified findings synthesis</li>
+        </ul>
+      </div>
+      <div class="bg-bg-elevated border border-border-subtle rounded-xl p-8">
+        <div class="text-accent font-mono text-sm mb-2">Month 2</div>
+        <h3 class="text-xl mb-4">Execute</h3>
+        <ul class="text-secondary-text space-y-2">
+          <li>Ship fixes from the prioritized backlog</li>
+          <li>Critical technical fixes first</li>
+          <li>Content production against the roadmap</li>
+          <li>Measurement fixes and baseline setup</li>
+          <li>Weekly check-ins with your team</li>
+        </ul>
+      </div>
+      <div class="bg-bg-elevated border border-border-subtle rounded-xl p-8">
+        <div class="text-accent font-mono text-sm mb-2">Month 3</div>
+        <h3 class="text-xl mb-4">Verify</h3>
+        <ul class="text-secondary-text space-y-2">
+          <li>Re-audit to measure improvement</li>
+          <li>Before/after metrics with revenue impact</li>
+          <li>Clean measurement baseline established</li>
+          <li>Growth plan for continued engagement</li>
+          <li>Handoff documentation</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <!-- What You Get -->
+  <Section elevated>
+    <h2 class="mb-8">What you get</h2>
+    <p class="text-secondary-text text-lg mb-8 max-w-2xl">
+      These aren't recommendations. They're tickets your team can ship.
+    </p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-2">Sprint-ready technical backlog</h4>
+        <p class="text-secondary-text">Code fixes with implementation context. Copy, paste, deploy. Prioritized by revenue impact and effort.</p>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-2">Prioritized content roadmap</h4>
+        <p class="text-secondary-text">Every topic gap mapped against competitive coverage. Content briefs ready for your writers or ours.</p>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-2">Unified 90-day execution plan</h4>
+        <p class="text-secondary-text">All three pillars synthesized into one prioritized roadmap. Revenue projections at conservative, moderate, and aggressive scenarios.</p>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-2">Measurement baseline + KPIs</h4>
+        <p class="text-secondary-text">Clean analytics setup. 30/60/90 day KPIs. The foundation for proving ROI on everything that follows.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Pricing -->
+  <Section>
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="mb-4">Investment</h2>
+      <p class="text-secondary-text text-lg mb-6">
+        The Get Right is a project-based engagement. No retainer commitment upfront.
+        We earn continued engagement by proving value in the first 90 days.
+      </p>
+      <div class="bg-bg-elevated border border-border-subtle rounded-xl p-10">
+        <div class="text-accent font-heading text-4xl font-bold mb-2">Starting at $12,000</div>
+        <p class="text-secondary-text">Custom scoped per engagement. Includes all three audit pillars, the unified execution plan, and 90 days of founder-level support.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA -->
+  <Section elevated>
+    <div class="text-center">
+      <h2 class="mb-4">Let's find what's costing you revenue.</h2>
+      <p class="text-secondary-text text-lg mb-8 max-w-xl mx-auto">
+        Every conversation starts with a founder. No sales team, no account managers.
+        The people who built the tools are the people you talk to.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button href="/contact">Talk to a Founder</Button>
+        <Button href="/scan" variant="secondary">Start with a Free Scan</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

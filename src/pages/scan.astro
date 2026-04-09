@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+---
+
+<BaseLayout
+  title="Free Scan"
+  description="See what we'd find on your site. Enter your URL and get a preview of our structural audit — top findings, prioritized by severity."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-2xl mx-auto text-center">
+      <h1 class="mb-4">See what we'd find.</h1>
+      <p class="text-secondary-text text-xl leading-relaxed mb-12">
+        Enter your URL and we'll run a structural scan powered by Muttr. You'll get
+        a preview of your top findings &mdash; prioritized by severity and tied to
+        revenue impact.
+      </p>
+
+      <!-- V1: Static form, will be replaced with Svelte island in Phase 3 -->
+      <form
+        method="POST"
+        action="/api/scan-request"
+        class="space-y-4 text-left max-w-lg mx-auto"
+      >
+        <div>
+          <label for="scan-url" class="block text-sm font-medium text-primary-text mb-2">Website URL</label>
+          <input
+            type="url"
+            id="scan-url"
+            name="url"
+            required
+            class="w-full bg-bg-inset border border-border-subtle rounded-lg px-4 py-3 text-primary-text placeholder:text-secondary-text/50 focus:outline-none focus:border-accent transition-colors"
+            placeholder="https://yoursite.com"
+          />
+        </div>
+        <div>
+          <label for="scan-email" class="block text-sm font-medium text-primary-text mb-2">Email</label>
+          <input
+            type="email"
+            id="scan-email"
+            name="email"
+            required
+            class="w-full bg-bg-inset border border-border-subtle rounded-lg px-4 py-3 text-primary-text placeholder:text-secondary-text/50 focus:outline-none focus:border-accent transition-colors"
+            placeholder="you@company.com"
+          />
+        </div>
+        <div>
+          <label for="scan-company" class="block text-sm font-medium text-primary-text mb-2">Company <span class="text-secondary-text">(optional)</span></label>
+          <input
+            type="text"
+            id="scan-company"
+            name="company"
+            class="w-full bg-bg-inset border border-border-subtle rounded-lg px-4 py-3 text-primary-text placeholder:text-secondary-text/50 focus:outline-none focus:border-accent transition-colors"
+            placeholder="Company name"
+          />
+        </div>
+        <button
+          type="submit"
+          class="bg-accent text-on-primary px-8 py-3 rounded-lg font-semibold hover:bg-accent-hover transition-colors w-full"
+        >
+          Scan My Site
+        </button>
+      </form>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-6 text-secondary-text text-sm">
+        <span>No credit card required</span>
+        <span>&bull;</span>
+        <span>Results in 24-48 hours</span>
+        <span>&bull;</span>
+        <span>Top 5-10 findings</span>
+      </div>
+    </div>
+  </Section>
+
+  <!-- What You Get -->
+  <Section elevated>
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-center mb-8">What's in a scan</h2>
+      <div class="space-y-4">
+        <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+          <h4 class="text-accent mb-2">Top findings by severity</h4>
+          <p class="text-secondary-text">The 5-10 most impactful structural issues on your site, each with severity rating and category.</p>
+        </div>
+        <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+          <h4 class="text-accent mb-2">Revenue impact estimates</h4>
+          <p class="text-secondary-text">Where applicable, each finding includes an estimate of its impact on your bottom line.</p>
+        </div>
+        <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+          <h4 class="text-accent mb-2">The full picture preview</h4>
+          <p class="text-secondary-text">A count of all detected issues beyond the top findings. "We found N additional issues across X categories" &mdash; explored in the full Platform Technical Audit.</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="text-center max-w-xl mx-auto">
+      <h2 class="mb-4">Want the full audit?</h2>
+      <p class="text-secondary-text text-lg mb-8">
+        The scan is a preview. The Get Right is the full engagement &mdash; three
+        simultaneous audits, one unified roadmap, 90 days of founder-level support.
+      </p>
+      <a href="/the-get-right" class="text-accent font-medium hover:text-accent-hover transition-colors">
+        Learn about The Get Right &rarr;
+      </a>
+    </div>
+  </Section>
+</BaseLayout>

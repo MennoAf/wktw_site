@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+---
+
+<BaseLayout
+  title="Content Authority Audit"
+  description="Topic-level competitive gap analysis. Every question your audience asks, mapped against what you and your competitors actually answer."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-3xl">
+      <p class="text-accent font-mono text-sm mb-4">The Get Right &rsaquo; Content Authority Audit</p>
+      <h1 class="mb-6">Content Authority Audit</h1>
+      <p class="text-accent text-lg font-medium mb-4">Powered by Canary</p>
+      <p class="text-secondary-text text-xl leading-relaxed">
+        Topic-level competitive gap analysis. We identify every question your audience
+        is asking, crawl your site and your competitors, and show you exactly where
+        they're answering and you're not.
+      </p>
+    </div>
+  </Section>
+
+  <Section elevated>
+    <h2 class="mb-8">What we examine</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Topic Discovery</h4>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Questions your audience asks across search, forums, and social</li>
+          <li>Topic clustering at the theme level (never keyword-level)</li>
+          <li>Search intent mapping per topic cluster</li>
+          <li>Volume estimation at the cluster level for prioritization</li>
+        </ul>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Competitive Coverage</h4>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Your content mapped against discovered topics</li>
+          <li>Competitor content mapped against the same topics</li>
+          <li>Coverage gaps: topics they answer that you don't</li>
+          <li>Authority gaps: topics you both cover but they do better</li>
+        </ul>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Content Health</h4>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Thin content detection</li>
+          <li>Content decay analysis (aging, outdated information)</li>
+          <li>Internal linking gaps and orphaned pages</li>
+          <li>Duplicate and cannibalization detection</li>
+        </ul>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Strategic Synthesis</h4>
+        <ul class="text-secondary-text space-y-1.5 text-base">
+          <li>Prioritized content roadmap by gap severity</li>
+          <li>Content briefs for top-priority topics</li>
+          <li>Internal linking recommendations</li>
+          <li>Content refresh and retirement priorities</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="max-w-2xl">
+      <h2 class="mb-4">Topics, not keywords</h2>
+      <p class="text-secondary-text text-lg mb-6">
+        We don't track keyword rankings. We don't report on keyword difficulty.
+        We don't care about individual keyword volume.
+      </p>
+      <p class="text-secondary-text text-lg mb-6">
+        Canary operates at the <span class="text-primary-text">topic level</span>.
+        A topic is a cluster of related questions your audience asks. The analysis
+        reveals whether you're answering those questions comprehensively &mdash;
+        and whether your competitors are doing it better.
+      </p>
+      <p class="text-secondary-text text-lg">
+        This is a fundamentally different approach from tools like SEMrush or Ahrefs.
+        Those tools tell you which keywords to target. We tell you which questions
+        your brand needs to answer to build authority.
+      </p>
+    </div>
+  </Section>
+
+  <Section elevated>
+    <div class="max-w-2xl">
+      <h2 class="mb-4">How it connects</h2>
+      <p class="text-secondary-text text-lg mb-6">
+        Content gaps don't exist in isolation. Missing structured data from the
+        Platform Technical Audit means your existing content isn't visible. Measurement
+        gaps from the Revenue Performance Audit mean you can't tell which content
+        is actually driving conversions.
+      </p>
+      <p class="text-secondary-text text-lg">
+        The Content Authority Audit maps the opportunity. The other two pillars
+        ensure you can actually capture it.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="text-center">
+      <h2 class="mb-4">See the full picture</h2>
+      <p class="text-secondary-text text-lg mb-8 max-w-xl mx-auto">
+        Content is one of three pillars. The Get Right runs all three simultaneously
+        and synthesizes them into one execution plan.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button href="/the-get-right">See The Full Get Right</Button>
+        <Button href="/contact" variant="secondary">Talk to a Founder</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

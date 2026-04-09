@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+---
+
+<BaseLayout
+  title="Proof"
+  description="We audit our own site with our own tools. Same standards, full transparency. See the results."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-3xl">
+      <h1 class="mb-6">We prove it.</h1>
+      <p class="text-secondary-text text-xl leading-relaxed">
+        We tell clients their sites have problems. So we run our own tools on ours.
+        Same standards. Full transparency. Below you'll find our own audit results
+        and, as we earn them, client case studies.
+      </p>
+    </div>
+  </Section>
+
+  <Section elevated>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Self-audit card (always first) -->
+      <a
+        href="/proof/our-site"
+        class="group block bg-bg-surface border-2 border-accent/30 rounded-xl p-8 hover:border-accent transition-all"
+      >
+        <div class="text-accent font-mono text-sm mb-2">Self-Audit</div>
+        <h3 class="text-xl mb-3 group-hover:text-accent transition-colors">
+          We audited our own site
+        </h3>
+        <p class="text-secondary-text mb-4">
+          Muttr, Canary, and Delphi results for weknowthewhy.com. What we found,
+          what we fixed, and what we chose to accept.
+        </p>
+        <span class="text-accent text-sm font-medium group-hover:translate-x-1 transition-transform inline-block">
+          See the results &rarr;
+        </span>
+      </a>
+
+      <!-- Placeholder for future case studies -->
+      <div class="bg-bg-surface border border-border-subtle rounded-xl p-8 flex items-center justify-center">
+        <p class="text-secondary-text text-center">
+          Client case studies coming soon.<br />
+          <a href="/contact" class="text-accent text-sm hover:text-accent-hover">Be our first &rarr;</a>
+        </p>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
