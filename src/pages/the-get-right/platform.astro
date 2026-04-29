@@ -6,7 +6,7 @@ import Button from '../../components/Button.astro';
 
 <BaseLayout
   title="Platform Technical Audit"
-  description="130+ structural checks across server, platform, and template tiers. Sprint-ready dev backlog with code fixes, prioritized by revenue impact."
+  description="130+ structural checks across server, platform, and template tiers. Sprint-ready dev backlog with code fixes, every finding tagged with severity, root cause cluster, and confidence tier."
 >
   <Section class="pt-28 pb-16">
     <div class="max-w-3xl">
@@ -15,8 +15,8 @@ import Button from '../../components/Button.astro';
       <p class="text-accent text-lg font-medium mb-4">Powered by Muttr</p>
       <p class="text-secondary-text text-xl leading-relaxed">
         130+ structural checks across three tiers &mdash; server, platform, and template.
-        Every finding tied to business KPI impact. Delivered as sprint-ready tickets
-        with code fixes, not a PDF of suggestions.
+        Every finding tagged with severity, root cause cluster, and confidence tier.
+        Delivered as sprint-ready tickets with code fixes, not a PDF of suggestions.
       </p>
     </div>
   </Section>
@@ -63,8 +63,8 @@ import Button from '../../components/Button.astro';
           <li>Pattern detection across findings</li>
           <li>Systemic vs. one-off issue classification</li>
           <li>Compliance risk flagging (GDPR, CCPA, WCAG)</li>
-          <li>Revenue impact estimation per finding</li>
-          <li>Fix prioritization by impact &times; effort</li>
+          <li>Confidence tier per finding (confirmed / probable / hypothesis)</li>
+          <li>Fix prioritization by severity &times; effort</li>
           <li>Dependency chain mapping</li>
         </ul>
       </div>
@@ -75,22 +75,34 @@ import Button from '../../components/Button.astro';
     <h2 class="mb-8">The deliverable</h2>
     <div class="max-w-2xl">
       <p class="text-secondary-text text-lg mb-6">
-        Not a report. A backlog. Every finding is a ticket your engineering team
-        can pick up and ship.
+        Not a report. A backlog. Every finding ships as a markdown file with a
+        machine-readable YAML masthead and a rendered human-readable body &mdash;
+        ready to drop into your engineering tracker.
       </p>
-      <div class="bg-bg-inset border border-border-subtle rounded-lg p-6 font-mono text-sm">
-        <div class="text-accent mb-2">Finding: Render-blocking CSS on mobile</div>
-        <div class="text-secondary-text mb-1"><span class="text-danger">Severity:</span> High</div>
-        <div class="text-secondary-text mb-1"><span class="text-warning">Revenue impact:</span> ~$4,200/mo in mobile bounce rate</div>
-        <div class="text-secondary-text mb-1"><span class="text-primary-text">Root cause:</span> Unoptimized Google Fonts loading</div>
-        <div class="text-secondary-text mb-1"><span class="text-success">Fix:</span> Preload critical font faces, defer non-critical</div>
-        <div class="text-secondary-text mt-3 border-t border-border-subtle pt-3">
-          <span class="text-primary-text">Code:</span> Add &lt;link rel="preload"&gt; for primary font, move secondary to font-display: swap
-        </div>
+      <div class="bg-bg-inset border border-border-subtle rounded-lg p-6 font-mono text-sm overflow-x-auto">
+        <!-- YAML frontmatter -->
+        <div class="text-secondary-text">---</div>
+        <div><span class="text-secondary-text">finding_id:</span> <span class="text-accent">"perf-014"</span></div>
+        <div><span class="text-secondary-text">title:</span> <span class="text-primary-text">"Render-blocking CSS on mobile"</span></div>
+        <div><span class="text-secondary-text">severity:</span> <span class="text-danger">"high"</span></div>
+        <div><span class="text-secondary-text">root_cause_cluster:</span> <span class="text-warning">"Unoptimized Web Font Loading"</span></div>
+        <div class="break-words"><span class="text-secondary-text">why_this_matters:</span> <span class="text-primary-text">"Mobile LCP exceeds 4s on first visit, failing Core Web Vitals and degrading first-impression experience for half of inbound traffic."</span></div>
+        <div class="break-words"><span class="text-secondary-text">fix_summary:</span> <span class="text-primary-text">"Preload critical font faces; defer non-critical with font-display: swap."</span></div>
+        <div><span class="text-secondary-text">confidence_tier:</span> <span class="text-success">"confirmed"</span></div>
+        <div class="text-secondary-text mb-4">---</div>
+
+        <!-- Rendered body -->
+        <div class="text-primary-text font-heading text-base mb-3">Render-blocking CSS on mobile</div>
+        <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Finding:</span> Render-blocking CSS on mobile</div>
+        <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Severity:</span> High</div>
+        <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Why this matters:</span> Mobile LCP exceeds 4s on first visit, failing Core Web Vitals.</div>
+        <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Root cause:</span> Unoptimized Web Font Loading</div>
+        <div class="text-secondary-text"><span class="text-primary-text font-semibold">Fix:</span> Preload critical font faces; defer non-critical with font-display: swap.</div>
       </div>
       <p class="text-secondary-text text-sm mt-4">
-        Every finding follows this format. Severity, revenue impact, root cause, and
-        the actual fix &mdash; with code when applicable.
+        Every finding follows this format. The YAML masthead is for indexing
+        &mdash; finding ID, severity, root cause cluster, confidence tier. The
+        body is the readable explanation and fix. Both ship in one file.
       </p>
     </div>
   </Section>
