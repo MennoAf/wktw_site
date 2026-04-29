@@ -16,12 +16,20 @@ import Section from '../components/Section.astro';
         revenue impact.
       </p>
 
-      <!-- V1: Static form, will be replaced with Svelte island in Phase 3 -->
+      <!-- V1: Netlify Forms. Submission lands in Netlify dashboard; async scan -->
+      <!-- pipeline (Muttr) is triggered manually from there until Phase 3. -->
       <form
+        name="scan"
         method="POST"
-        action="/api/scan-request"
+        action="/thanks?type=scan"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
         class="space-y-4 text-left max-w-lg mx-auto"
       >
+        <input type="hidden" name="form-name" value="scan" />
+        <p class="hidden">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
         <div>
           <label for="scan-url" class="block text-sm font-medium text-primary-text mb-2">Website URL</label>
           <input

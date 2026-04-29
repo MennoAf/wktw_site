@@ -16,10 +16,17 @@ import Section from '../components/Section.astro';
       </p>
 
       <form
+        name="contact"
         method="POST"
-        action="/api/contact"
+        action="/thanks"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
         class="space-y-6"
       >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
         <div>
           <label for="name" class="block text-sm font-medium text-primary-text mb-2">Name</label>
           <input
@@ -81,11 +88,6 @@ import Section from '../components/Section.astro';
         </button>
       </form>
 
-      <p class="text-secondary-text text-sm mt-6">
-        Prefer to book a time directly?
-        <!-- Replace with actual Calendly/Cal.com link -->
-        <a href="#" class="text-accent hover:text-accent-hover">Schedule a call with a founder &rarr;</a>
-      </p>
     </div>
   </Section>
 </BaseLayout>

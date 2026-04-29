@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+
+const type = Astro.url.searchParams.get('type');
+const isScan = type === 'scan';
+
+const heading = isScan ? 'Scan request received.' : 'Message received.';
+const body = isScan
+  ? "We'll run the structural audit and email your top findings within 24-48 hours. No credit card, no follow-up sales sequence — just the report."
+  : "A founder will reply within 24 hours. No sales team, no account manager — the response comes from the person who'll do the work.";
+---
+
+<BaseLayout
+  title="Thanks"
+  description="We've received your submission and will be in touch shortly."
+>
+  <Section class="pt-28 pb-24">
+    <div class="max-w-2xl mx-auto">
+      <p class="text-accent font-mono text-sm uppercase tracking-wider mb-4">
+        ✓ Submitted
+      </p>
+      <h1 class="mb-6">{heading}</h1>
+      <p class="text-secondary-text text-xl leading-relaxed mb-10">
+        {body}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a
+          href="/"
+          class="bg-accent text-on-primary px-6 py-3 rounded-lg font-semibold hover:bg-accent-hover transition-colors text-center"
+        >
+          Back to homepage &rarr;
+        </a>
+        <a
+          href="/the-get-right"
+          class="border border-border-subtle text-primary-text px-6 py-3 rounded-lg font-semibold hover:border-accent hover:text-accent transition-colors text-center"
+        >
+          Learn about The Get Right &rarr;
+        </a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
