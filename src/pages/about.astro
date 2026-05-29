@@ -12,43 +12,82 @@ import Button from '../components/Button.astro';
     <div class="max-w-3xl">
       <h1 class="mb-6">You always talk to the people who built the system.</h1>
       <p class="text-secondary-text text-xl leading-relaxed">
-        WKTW is three founders with 34 years of combined experience in digital growth,
-        technical infrastructure, and content strategy. No juniors. No account managers.
-        The people who built the diagnostic tools are the people you work with.
+        WKTW is three founders with 45 years of combined experience in digital growth,
+        technical infrastructure, and content strategy &mdash; split across three
+        non-overlapping registers, not three slightly different versions of the same
+        r&eacute;sum&eacute;. No juniors. No account managers. The people who built
+        the diagnostic tools are the people you work with.
       </p>
     </div>
   </Section>
 
   <!-- Team -->
   <Section elevated>
-    <h2 class="mb-10">The team</h2>
+    <h2 class="mb-4">The team</h2>
+    <p class="text-secondary-text text-lg mb-10 max-w-3xl">
+      Each pillar of The Get Right is owned by a founder whose career is built on it.
+      Category authority, function-head operating depth, and engineering rigor &mdash;
+      three credibility surfaces, zero overlap.
+    </p>
     <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-bg-surface border border-border-subtle rounded-xl p-8">
-        <div class="w-20 h-20 rounded-full bg-bg-inset border border-border-subtle mb-6"></div>
-        <!-- Replace with real photo: <img src="/team/founder-1.webp" ... /> -->
-        <h3 class="text-xl mb-1">Founder Name</h3>
-        <p class="text-accent text-sm font-mono mb-3">14 years experience</p>
+      <div id="jon-lister" class="bg-bg-surface border border-border-subtle rounded-xl p-8 scroll-mt-24">
+        <img
+          src="/team/jon-lister.webp"
+          alt="Jon Lister"
+          width="112"
+          height="112"
+          loading="lazy"
+          decoding="async"
+          class="w-28 h-28 rounded-full object-cover border border-border-subtle mb-6"
+        />
+        <h3 class="text-xl mb-1">Jon Lister</h3>
+        <p class="text-accent text-sm font-mono mb-1">Category authority</p>
+        <p class="text-secondary-text text-sm font-mono mb-3">23 years &middot; VP, SEO &middot; Horizon Media</p>
         <p class="text-secondary-text">
-          Pitch lead. Strategy and client engagement. Turns audit findings
-          into business narratives that get executive buy-in.
+          Forbes-featured on Generative Engine Optimization. Public voice for
+          one of the most aggressive AI-search positioning bets in the agency
+          world. Owns the Content Authority Audit &mdash; the "Search Intelligence"
+          framing on which Canary is built is Jon's published worldview.
         </p>
       </div>
-      <div class="bg-bg-surface border border-border-subtle rounded-xl p-8">
-        <div class="w-20 h-20 rounded-full bg-bg-inset border border-border-subtle mb-6"></div>
-        <h3 class="text-xl mb-1">Jason</h3>
-        <p class="text-accent text-sm font-mono mb-3">12 years experience</p>
+      <div id="jason-bauman" class="bg-bg-surface border border-border-subtle rounded-xl p-8 scroll-mt-24">
+        <img
+          src="/team/jason-bauman.webp"
+          alt="Jason Bauman"
+          width="112"
+          height="112"
+          loading="lazy"
+          decoding="async"
+          class="w-28 h-28 rounded-full object-cover border border-border-subtle mb-6"
+        />
+        <h3 class="text-xl mb-1">Jason Bauman</h3>
+        <p class="text-accent text-sm font-mono mb-1">Function-head operating depth</p>
+        <p class="text-secondary-text text-sm font-mono mb-3">12 years &middot; Director, Technical Strategy &middot; Publicis Health Media</p>
         <p class="text-secondary-text">
-          Technical lead. Built Muttr, Canary, and Delphi. Turns structural
-          problems into sprint-ready fixes with code.
+          Director-tier function leadership at Publicis Groupe's market-leading
+          health agency &mdash; the kind of seat that ships strategy under real
+          regulatory and stakeholder pressure. Owns the synthesis: the part where
+          three audits become one prioritized roadmap your team can actually execute.
         </p>
       </div>
-      <div class="bg-bg-surface border border-border-subtle rounded-xl p-8">
-        <div class="w-20 h-20 rounded-full bg-bg-inset border border-border-subtle mb-6"></div>
-        <h3 class="text-xl mb-1">Founder Name</h3>
-        <p class="text-accent text-sm font-mono mb-3">8 years experience</p>
+      <div id="brandon-griner" class="bg-bg-surface border border-border-subtle rounded-xl p-8 scroll-mt-24">
+        <img
+          src="/team/brandon-griner.webp"
+          alt="Brandon Griner"
+          width="112"
+          height="112"
+          loading="lazy"
+          decoding="async"
+          class="w-28 h-28 rounded-full object-cover border border-border-subtle mb-6"
+        />
+        <h3 class="text-xl mb-1">Brandon Griner</h3>
+        <p class="text-accent text-sm font-mono mb-1">Engineering rigor</p>
+        <p class="text-secondary-text text-sm font-mono mb-3">10 years &middot; SEO Technical Supervisor &middot; Publicis Health Media</p>
         <p class="text-secondary-text">
-          Content and analytics. Maps competitive content landscapes and ensures
-          measurement integrity across every engagement.
+          BS in Computer Science, MA in Data Science. Career arc from SEO Specialist
+          through Data Architect before PHM. Not a marketer who learned data &mdash;
+          a data engineer who happens to work in SEO. Built the engineering layer
+          that lets Muttr, Canary, and Delphi do in days what agencies do in weeks.
         </p>
       </div>
     </div>
@@ -109,4 +148,83 @@ import Button from '../components/Button.astro';
       <Button href="/contact">Talk to a Founder</Button>
     </div>
   </Section>
+
+  <!-- Structured Data: Person schemas for the founder triangle -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://weknowthewhy.com/about#jon-lister",
+        "name": "Jon Lister",
+        "givenName": "Jonathan",
+        "familyName": "Lister",
+        "jobTitle": "Cofounder, WKTW",
+        "description": "Cofounder of We Know The Why. VP, SEO at Horizon Media. Forbes-featured on Generative Engine Optimization. Public voice for the 'Search Intelligence' framing of AI-era search. Owns the Content Authority Audit pillar.",
+        "url": "https://weknowthewhy.com/about#jon-lister",
+        "image": "https://weknowthewhy.com/team/jon-lister.webp",
+        "knowsAbout": [
+          "Search Engine Optimization",
+          "Generative Engine Optimization",
+          "Answer Engine Optimization",
+          "Search Intelligence",
+          "Content Strategy",
+        ],
+        "worksFor": { "@id": "https://weknowthewhy.com/#organization" },
+        "sameAs": [
+          "https://www.linkedin.com/in/jonathanlister1/",
+        ],
+      },
+      {
+        "@type": "Person",
+        "@id": "https://weknowthewhy.com/about#jason-bauman",
+        "name": "Jason Bauman",
+        "givenName": "Jason",
+        "familyName": "Bauman",
+        "jobTitle": "Cofounder, WKTW",
+        "description": "Cofounder of We Know The Why. Director, Technical Strategy at Publicis Health Media. 12 years in SEO with deep technical strategy and synthesis expertise across regulated verticals. Owns the unified roadmap synthesis across the three audit pillars.",
+        "url": "https://weknowthewhy.com/about#jason-bauman",
+        "image": "https://weknowthewhy.com/team/jason-bauman.webp",
+        "knowsAbout": [
+          "Technical SEO",
+          "Search Engine Optimization",
+          "Web Performance",
+          "Marketing Automation",
+          "Pharmaceutical Marketing",
+          "Conversion Rate Optimization",
+        ],
+        "worksFor": { "@id": "https://weknowthewhy.com/#organization" },
+        "sameAs": [
+          "https://www.linkedin.com/in/jasonlbauman/",
+          "https://x.com/jasonb_ti",
+          "https://about.me/JasonLeeBauman",
+          "https://medium.com/@JLBauman",
+        ],
+      },
+      {
+        "@type": "Person",
+        "@id": "https://weknowthewhy.com/about#brandon-griner",
+        "name": "Brandon Griner",
+        "givenName": "Brandon",
+        "familyName": "Griner",
+        "jobTitle": "Cofounder, WKTW",
+        "description": "Cofounder of We Know The Why. SEO Technical Supervisor at Publicis Health Media. Data Engineer & AI Marketing Specialist. CS bachelor's and Data Science master's. Built the engineering layer underneath Muttr, Canary, and Delphi.",
+        "url": "https://weknowthewhy.com/about#brandon-griner",
+        "image": "https://weknowthewhy.com/team/brandon-griner.webp",
+        "knowsAbout": [
+          "Data Engineering",
+          "Technical SEO",
+          "Search Engine Optimization",
+          "DevOps",
+          "Business Intelligence",
+          "Marketing Automation",
+        ],
+        "worksFor": { "@id": "https://weknowthewhy.com/#organization" },
+        "sameAs": [
+          "https://www.linkedin.com/in/brandongriner",
+          "https://www.brandon-griner.com/",
+        ],
+      },
+    ],
+  })} />
 </BaseLayout>
