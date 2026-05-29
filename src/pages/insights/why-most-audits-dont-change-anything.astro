@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+
+const publishedDate = '2026-05-24';
+const author = 'Jason Bauman';
+const authorTitle = 'Cofounder, WKTW';
+const readingTime = '6 min read';
+---
+
+<BaseLayout
+  title="Why Most Audits Don't Change Anything"
+  description="There's a structural reason your last six-figure audit ended up in a Google Drive folder nobody opens. It's not your team — it's the shape of the work."
+>
+  <Section class="pt-28 pb-12">
+    <div class="max-w-3xl">
+      <p class="text-accent font-mono text-sm mb-4">
+        <a href="/insights" class="hover:text-accent-hover">Insights</a> &rsaquo; Audit Process
+      </p>
+      <h1 class="mb-6">Why most audits don't change anything.</h1>
+      <p class="text-secondary-text text-xl leading-relaxed mb-8">
+        There's a structural reason your last six-figure audit ended up in
+        a Google Drive folder nobody opens. It's not your team. It's the
+        shape of the work.
+      </p>
+      <div class="flex flex-wrap items-center gap-4 text-secondary-text text-sm border-t border-border-subtle pt-6">
+        <span class="text-primary-text font-medium">{author}</span>
+        <span>&middot;</span>
+        <span>{authorTitle}</span>
+        <span>&middot;</span>
+        <time datetime={publishedDate}>May 24, 2026</time>
+        <span>&middot;</span>
+        <span>{readingTime}</span>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <article class="max-w-3xl prose-invert">
+      <div class="space-y-6 text-secondary-text text-lg leading-relaxed">
+
+        <p>
+          Here's the pattern I've watched play out at three agencies over twelve
+          years. A company decides their site is underperforming. They have a
+          gut feeling, or a board slide, or a quarter where conversions dipped
+          and nobody could explain it. So they hire someone to audit it.
+        </p>
+
+        <p>
+          Six weeks later, a PDF arrives. It's two hundred pages. It has
+          color-coded severity ratings and a beautifully formatted executive
+          summary. It mentions Core Web Vitals. It uses the word
+          &ldquo;opportunities&rdquo; a lot.
+        </p>
+
+        <p>
+          Their dev team opens it once. They can't figure out what to do first.
+          They file it in the shared drive. Nothing ships. Three quarters later,
+          someone in a planning meeting goes &ldquo;wait, didn't we do an audit
+          last year? What happened with that?&rdquo; And the answer is: nothing
+          happened with that. That's the default outcome for most audits in
+          this industry, and the reason isn't laziness on anyone's part. It's
+          the shape of the deliverable.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          The three failure modes
+        </h2>
+
+        <p>
+          Audits fail to produce change for three structural reasons. They're
+          almost always happening together, which is why teams that try to fix
+          one of them in isolation still end up with a binder nobody opens.
+        </p>
+
+        <h3 class="text-primary-text text-xl font-heading font-bold mt-8 mb-3">
+          1. Symptoms instead of root causes.
+        </h3>
+
+        <p>
+          Most audits list two hundred findings. The number itself is the tell.
+          A real site doesn't have two hundred independent problems. It has
+          maybe thirty root causes producing two hundred downstream symptoms.
+          Your render-blocking JavaScript, your unminified CSS, your missing
+          cache headers, and your slow LCP are often the same problem wearing
+          four costumes &mdash; the build pipeline isn't tree-shaking your
+          vendor bundle correctly, and every page inherits the cost.
+        </p>
+
+        <p>
+          When the audit lists the symptoms instead of the cluster, your
+          engineering team has to do the root-cause analysis themselves &mdash;
+          which is exactly the work they were paying you to do. So they don't.
+          And the audit dies.
+        </p>
+
+        <h3 class="text-primary-text text-xl font-heading font-bold mt-8 mb-3">
+          2. Advisory instead of implementation-ready.
+        </h3>
+
+        <p>
+          &ldquo;Consider optimizing your images&rdquo; is not an instruction.
+          It's a writing prompt for the person who actually has to do the work.
+          The same goes for &ldquo;implement structured data,&rdquo; &ldquo;improve
+          your internal linking,&rdquo; and the perennial favorite, &ldquo;ensure
+          your site is mobile-friendly.&rdquo;
+        </p>
+
+        <p>
+          An audit finding that doesn't include the config change, the file
+          path, the specific snippet, and the order to apply it in isn't a
+          finding. It's homework. It transfers the diagnostic work from the
+          auditor (who was supposed to have done it) to the engineer (who now
+          has to redo it from scratch before they can ship anything). Most
+          engineers, very reasonably, look at the homework and find something
+          else to work on.
+        </p>
+
+        <h3 class="text-primary-text text-xl font-heading font-bold mt-8 mb-3">
+          3. Best-practice anchored instead of revenue-anchored.
+        </h3>
+
+        <p>
+          &ldquo;This is a best practice&rdquo; is the four most useless words
+          in this industry. Best practice for whom? Costing you what? Compared
+          to which alternative? A finding that doesn't connect to a dollar
+          number doesn't survive contact with a quarterly planning meeting.
+          The conversation in that meeting is always about revenue, never about
+          best practices &mdash; and a finding that can't enter that conversation
+          gets cut.
+        </p>
+
+        <p>
+          Every real finding in a real audit needs to answer one question:
+          <strong class="text-primary-text">if we fix this, what does it
+          recover, in dollars, per month, conservatively.</strong> If you can't
+          answer that, you don't actually know whether the fix is worth doing.
+          And if you don't know whether it's worth doing, your client can't
+          prioritize it against the other forty things on their roadmap.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          The synthesis problem
+        </h2>
+
+        <p>
+          Even when an audit gets the three things above right, there's a fourth
+          failure mode that quietly kills most engagements. Modern digital
+          properties have three independent failure surfaces: the infrastructure
+          (server, platform, frontend), the content (what questions you answer
+          and how authoritatively), and the measurement (whether your analytics
+          is telling the truth at all). They all leak revenue. They all interact.
+          And almost no audit looks at more than one of them.
+        </p>
+
+        <p>
+          What ends up happening is the technical agency says &ldquo;your LCP
+          is bad,&rdquo; the content agency says &ldquo;you need more
+          topic-cluster pages,&rdquo; and the analytics consultant says
+          &ldquo;your GA4 is undercounting by 14%.&rdquo; All three are right.
+          None of them know about the others. The client gets three roadmaps
+          and now has to decide which one to actually execute &mdash; which
+          becomes a political question instead of a strategic one, because
+          nobody synthesized the findings into one ranked plan.
+        </p>
+
+        <p>
+          The synthesis is the thing. A unified roadmap that says &ldquo;fix
+          this server config first because it unblocks these four content
+          improvements, which won't show up in analytics until you fix this
+          tracking gap, and the total revenue impact across the chain is $X
+          per month over six months&rdquo; is the deliverable that actually
+          ships. Three separate reports is the deliverable that sits in a
+          drive.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          What to demand instead
+        </h2>
+
+        <p>
+          If you're commissioning an audit &mdash; any audit, from anyone &mdash;
+          here's the four-line spec to hand them before you sign:
+        </p>
+
+        <ol class="list-decimal pl-6 space-y-3">
+          <li>
+            Every finding has a <strong class="text-primary-text">root cause</strong>,
+            not a symptom. If you list two hundred items, I'm going to ask you
+            which thirty of them are the actual underlying problems.
+          </li>
+          <li>
+            Every finding is <strong class="text-primary-text">implementation-ready</strong>.
+            Config snippets, file paths, the specific change. If my engineer
+            has to do the diagnostic work to ship the fix, you haven't audited
+            anything &mdash; you've written a reading list.
+          </li>
+          <li>
+            Every finding is <strong class="text-primary-text">revenue-anchored</strong>.
+            Conservative dollar estimate, monthly. Show your math. I'll accept
+            ranges; I won't accept &ldquo;this is a best practice.&rdquo;
+          </li>
+          <li>
+            The output is <strong class="text-primary-text">one ranked plan</strong>,
+            not three separate documents. If you can't synthesize across
+            infrastructure, content, and measurement, you're missing two of the
+            three places revenue actually leaks.
+          </li>
+        </ol>
+
+        <p>
+          That's the audit shape that ships. It's also the audit shape this
+          industry mostly refuses to deliver, because it's significantly harder
+          to produce than a two-hundred-page PDF. The agencies and tools that
+          do produce it are rare, and worth what they charge. Everything else
+          is content for a Google Drive folder.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          Why we care about this
+        </h2>
+
+        <p>
+          We built WKTW because we kept watching audits like the ones above get
+          commissioned and then quietly die. Every cofounder at this company
+          has shipped audits the other way at some point in their career &mdash;
+          the two-hundred-page kind, the &ldquo;consider optimizing&rdquo; kind,
+          the one-of-three-disconnected-roadmaps kind. We're not above the
+          critique. We've contributed to the pile.
+        </p>
+
+        <p>
+          The Get Right is what happens when you build the diagnostic tools
+          yourself, run all three audit lenses in parallel, and refuse to ship
+          anything that doesn't pass the four-line spec above. Root cause,
+          implementation-ready, revenue-anchored, one ranked plan. If a finding
+          can't meet those four bars, it doesn't go in the deliverable.
+        </p>
+
+        <p>
+          That's the whole product. Everything else is marketing.
+        </p>
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-border-subtle">
+        <h3 class="text-primary-text text-xl mb-4">Want to see what we'd find?</h3>
+        <p class="text-secondary-text mb-6">
+          Free scan, no commitment. We'll run our structural audit on your site
+          and surface 5&ndash;10 of the highest-severity findings, each with the
+          root cause and confidence tier. If they're useful, the full Get Right
+          finds 30&ndash;40 more.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <Button href="/scan">Run a Free Scan</Button>
+          <Button href="/the-get-right" variant="secondary">Learn about The Get Right</Button>
+        </div>
+      </div>
+    </article>
+  </Section>
+</BaseLayout>

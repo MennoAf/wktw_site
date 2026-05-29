@@ -51,15 +51,32 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
-    <!-- Structured Data: Organization -->
+    <!-- Structured Data: Organization (sitewide) -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": "https://weknowthewhy.com/#organization",
       "name": "We Know The Why",
       "alternateName": "WKTW",
       "url": "https://weknowthewhy.com",
+      "logo": "https://weknowthewhy.com/og-default.png",
       "description": "Systems-driven growth agency. We built the tools. We run the tools. You talk to us.",
       "numberOfEmployees": { "@type": "QuantitativeValue", "value": 3 },
+      "founder": [
+        { "@type": "Person", "@id": "https://weknowthewhy.com/about#jon-lister" },
+        { "@type": "Person", "@id": "https://weknowthewhy.com/about#jason-bauman" },
+        { "@type": "Person", "@id": "https://weknowthewhy.com/about#brandon-griner" },
+      ],
+      "knowsAbout": [
+        "Search Engine Optimization",
+        "Generative Engine Optimization",
+        "Answer Engine Optimization",
+        "Technical SEO",
+        "Content Strategy",
+        "Web Performance",
+        "Conversion Rate Optimization",
+        "Web Analytics",
+      ],
     })} />
   </head>
   <body class="min-h-screen flex flex-col">

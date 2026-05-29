@@ -1,6 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
+
+const posts = [
+  {
+    href: '/insights/why-most-audits-dont-change-anything',
+    title: "Why most audits don't change anything",
+    description: "There's a structural reason your last six-figure audit ended up in a Google Drive folder nobody opens. It's not your team — it's the shape of the work.",
+    author: 'Jason Bauman',
+    date: '2026-05-24',
+    dateLabel: 'May 24, 2026',
+    readingTime: '6 min read',
+    tag: 'Audit Process',
+  },
+];
 ---
 
 <BaseLayout
@@ -19,14 +32,31 @@ import Section from '../../components/Section.astro';
   </Section>
 
   <Section elevated>
-    <div class="text-center py-12">
-      <p class="text-secondary-text text-lg mb-4">
-        Articles are coming in Phase 2.
-      </p>
-      <p class="text-secondary-text">
-        First up: technical debt &amp; revenue, content gaps, analytics integrity,
-        and why most audits are useless.
-      </p>
+    <div class="space-y-6">
+      {posts.map((post) => (
+        <a
+          href={post.href}
+          class="group block bg-bg-surface border border-border-subtle rounded-xl p-8 hover:border-accent transition-colors"
+        >
+          <div class="flex flex-wrap items-center gap-3 text-secondary-text text-sm mb-3">
+            <span class="text-accent font-mono">{post.tag}</span>
+            <span>&middot;</span>
+            <time datetime={post.date}>{post.dateLabel}</time>
+            <span>&middot;</span>
+            <span>{post.readingTime}</span>
+          </div>
+          <h2 class="text-2xl mb-3 group-hover:text-accent transition-colors">
+            {post.title}
+          </h2>
+          <p class="text-secondary-text mb-4">{post.description}</p>
+          <div class="text-secondary-text text-sm">
+            <span class="text-primary-text font-medium">{post.author}</span>
+            <span class="text-accent ml-4 group-hover:translate-x-1 inline-block transition-transform">
+              Read &rarr;
+            </span>
+          </div>
+        </a>
+      ))}
     </div>
   </Section>
 </BaseLayout>

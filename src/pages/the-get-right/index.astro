@@ -3,6 +3,33 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import Button from '../../components/Button.astro';
 import PillarCard from '../../components/PillarCard.astro';
+
+const faqs = [
+  {
+    question: "How long does The Get Right take?",
+    answer: "Ninety days. Month one runs all three audits in parallel and delivers the unified roadmap plus quick wins. Month two is execution support while your team ships the prioritized fixes. Month three verifies improvements against baseline and produces the growth plan.",
+  },
+  {
+    question: "What does The Get Right include?",
+    answer: "Three simultaneous audits — Platform Technical (Muttr), Content Authority (Canary), and Revenue Performance (Delphi) — synthesized into one ranked execution roadmap. Every finding includes the root cause, an implementation-ready fix, and a revenue impact estimate. Plus a quick-wins brief, a revenue projection model, and a measurement baseline.",
+  },
+  {
+    question: "How much does The Get Right cost?",
+    answer: "Engagements start at $20,000 and are custom-scoped per property. Pricing depends on site complexity, the number of templates and content surfaces in scope, and the depth of measurement work required. Investment includes all three audit pillars, the unified execution plan, and ninety days of founder-level support.",
+  },
+  {
+    question: "Is The Get Right an ongoing retainer?",
+    answer: "No. The Get Right is a fixed-scope ninety-day engagement with a defined finish line. Ongoing support is an optional follow-on — Maintain, Grow, or Command tier — but it is never assumed. We earn continued engagement by proving value in the first ninety days, not by contracting for it on day one.",
+  },
+  {
+    question: "How is The Get Right different from a typical SEO audit?",
+    answer: "Most audits ship two hundred symptoms in a PDF. We ship thirty to forty root causes as implementation-ready tickets, each tied to a revenue impact estimate. The deliverable is a sprint-ready backlog your engineering team starts shipping from immediately — not a document they need to translate into work. We also span infrastructure, content, and measurement in parallel rather than auditing only one of the three.",
+  },
+  {
+    question: "Who runs the audits?",
+    answer: "All three cofounders. Jon Lister (VP, SEO at Horizon Media) leads the Content Authority Audit. Jason Bauman (Director, Technical Strategy at Publicis Health Media) owns the synthesis layer where the three audits become one ranked roadmap. Brandon Griner (SEO Technical Supervisor at PHM, Data Engineer and AI Marketing Specialist) built and runs the diagnostic engineering layer. No account managers, no junior analysts — every call is with a founder.",
+  },
+];
 ---
 
 <BaseLayout
@@ -126,8 +153,28 @@ import PillarCard from '../../components/PillarCard.astro';
         We earn continued engagement by proving value in the first 90 days.
       </p>
       <div class="bg-bg-elevated border border-border-subtle rounded-xl p-10">
-        <div class="text-accent font-heading text-4xl font-bold mb-2">Starting at $12,000</div>
+        <div class="text-accent font-heading text-4xl font-bold mb-2">Starting at $20,000</div>
         <p class="text-secondary-text">Custom scoped per engagement. Includes all three audit pillars, the unified execution plan, and 90 days of founder-level support.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <Section>
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-center mb-12">Common questions</h2>
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group bg-bg-elevated border border-border-subtle rounded-xl p-6 open:border-accent/40 transition-colors">
+            <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
+              <h3 class="text-lg text-primary-text font-heading group-open:text-accent transition-colors">
+                {faq.question}
+              </h3>
+              <span class="text-accent text-2xl leading-none transition-transform group-open:rotate-45 shrink-0">+</span>
+            </summary>
+            <p class="text-secondary-text mt-4 leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
       </div>
     </div>
   </Section>
@@ -146,4 +193,18 @@ import PillarCard from '../../components/PillarCard.astro';
       </div>
     </div>
   </Section>
+
+  <!-- Structured Data: FAQPage schema (matches visible FAQ section above) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  })} />
 </BaseLayout>
