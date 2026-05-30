@@ -8,7 +8,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://weknowthewhy.com',
   output: 'static',
-  integrations: [svelte(), sitemap()],
+  // /scan is unlinked for v1 (free-scan funnel paused) — keep the page on disk
+  // but exclude it from the sitemap so it isn't discoverable.
+  integrations: [svelte(), sitemap({ filter: (page) => !page.endsWith('/scan') })],
   vite: {
     plugins: [tailwindcss()],
   },
