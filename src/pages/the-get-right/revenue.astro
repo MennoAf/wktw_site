@@ -6,7 +6,7 @@ import Button from '../../components/Button.astro';
 
 <BaseLayout
   title="Revenue Performance Audit"
-  description="Analytics integrity, conversion path analysis, and strategic synthesis. Finds where your data is lying and where revenue is leaking."
+  description="Measurement integrity, attribution and revenue-loss analysis, and the strategic synthesis that turns three audits into one plan. Finds where your data is lying and where revenue is leaking."
 >
   <Section class="pt-28 pb-16">
     <div class="max-w-3xl">
@@ -14,50 +14,60 @@ import Button from '../../components/Button.astro';
       <h1 class="mb-6">Revenue Performance Audit</h1>
       <p class="text-accent text-lg font-medium mb-4">Powered by Delphi</p>
       <p class="text-secondary-text text-xl leading-relaxed">
-        Measurement integrity, conversion path analysis, and the strategic synthesis
-        that ties all three audits together. This is where the revenue numbers live
-        &mdash; and where the unified 90-day execution plan is built.
+        Measurement integrity, attribution and revenue-loss analysis, and the
+        strategic synthesis that ties all three audits together. This is where the
+        revenue numbers live &mdash; and where the unified 90-day execution plan is built.
       </p>
     </div>
   </Section>
 
   <Section elevated>
-    <h2 class="mb-8">Three layers of analysis</h2>
-    <div class="grid md:grid-cols-1 gap-6 max-w-3xl">
+    <h2 class="mb-8">Four layers of analysis</h2>
+    <div class="grid md:grid-cols-2 gap-6">
       <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
         <h4 class="text-accent mb-3">Layer 1: Measurement Integrity</h4>
-        <p class="text-secondary-text mb-4">Can you trust your data?</p>
-        <ul class="text-secondary-text space-y-1.5 text-base">
-          <li>Analytics tag firing, duplicates, and missing page coverage</li>
-          <li>Goal and conversion setup validation</li>
-          <li>Attribution model assessment</li>
-          <li>Data hygiene (bot traffic, internal traffic, referral spam)</li>
-          <li>Consent/privacy compliance impact on data collection</li>
-          <li>Tool stack audit (installed, conflicting, redundant, missing)</li>
-        </ul>
+        <p class="text-secondary-text leading-relaxed">
+          Can you trust the numbers you're already looking at? We detect every
+          analytics and ad tag on the page &mdash; GTM, GA4, Meta, TikTok, Pinterest
+          &mdash; and flag duplicates, conflicts, and coverage gaps across your
+          templates. Then we confirm your conversion events actually fire, check how
+          consent tooling is shaping or blocking what you collect, and weigh your whole
+          stack against the ideal for your industry.
+        </p>
       </div>
       <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-        <h4 class="text-accent mb-3">Layer 2: Conversion Path Analysis</h4>
-        <p class="text-secondary-text mb-4">Where is money leaking from your funnel?</p>
-        <ul class="text-secondary-text space-y-1.5 text-base">
-          <li>Funnel mapping with drop-off rates and revenue impact per stage</li>
-          <li>Form friction analysis (fields, error handling, mobile vs desktop)</li>
-          <li>CTA effectiveness (visibility, placement, intent matching)</li>
-          <li>Page-level conversion matrix (traffic &times; conversion)</li>
-          <li>Mobile conversion gap analysis</li>
-          <li>Speed-to-conversion (ties Muttr findings to conversion loss in $)</li>
-        </ul>
+        <h4 class="text-accent mb-3">Layer 2: Attribution &amp; Revenue Loss</h4>
+        <p class="text-secondary-text leading-relaxed">
+          Where is revenue leaking out of your measurement? Delphi estimates how much
+          of your &ldquo;direct&rdquo; traffic is really misattributed organic, paid,
+          and referral &mdash; then traces why: cross-domain checkout breaks,
+          ad-blocker and Safari ITP erosion, fragile client-side cookies, and whether
+          you have the server-side tracking to survive it. Every gap gets a dollar
+          range, and a twelve-month forecast names when your attribution drops below
+          the point you can trust.
+        </p>
       </div>
       <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-        <h4 class="text-accent mb-3">Layer 3: Strategic Synthesis</h4>
-        <p class="text-secondary-text mb-4">The keystone. All findings become one plan.</p>
-        <ul class="text-secondary-text space-y-1.5 text-base">
-          <li>Intake all findings from Muttr + Canary + Rev Ops layers 1-2</li>
-          <li>Unified scoring: revenue impact &times; effort &times; dependency chain</li>
-          <li>Produces the 90-day execution roadmap across all three pillars</li>
-          <li>Revenue projection model (conservative / moderate / aggressive)</li>
-          <li>Measurement plan with KPIs at 30 / 60 / 90 days</li>
-        </ul>
+        <h4 class="text-accent mb-3">Layer 3: Connect Your Data</h4>
+        <p class="text-secondary-text leading-relaxed">
+          Want grounded numbers instead of estimates? The whole audit runs cold
+          &mdash; no logins, no access, nothing to install &mdash; which is what makes
+          it fast to commission. Bring your own data, though, and it sharpens: a GA4,
+          Google Ads, Meta, or Plausible export &mdash; CSV today, a live API on the
+          way &mdash; re-grounds every estimate in your real traffic, spend, and
+          revenue.
+        </p>
+      </div>
+      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
+        <h4 class="text-accent mb-3">Layer 4: Strategic Synthesis</h4>
+        <p class="text-secondary-text leading-relaxed">
+          The keystone &mdash; where every finding becomes one plan. We take the
+          technical findings from the Platform Audit, the content gaps from the Content
+          Audit, and the attribution findings here, and score them together by revenue
+          impact, effort, and dependency. The output: one prioritized 90-day roadmap
+          across all three pillars, with a revenue projection and KPI checkpoints at
+          30, 60, and 90 days.
+        </p>
       </div>
     </div>
   </Section>
@@ -67,7 +77,7 @@ import Button from '../../components/Button.astro';
       <h2 class="mb-4">Where the experience shows</h2>
       <p class="text-secondary-text text-lg mb-6">
         The Revenue Performance Audit is the most founder-intensive piece of The Get Right.
-        Tools can detect tag issues and map conversion paths. But synthesizing findings
+        Tools can detect tag issues and quantify where attribution breaks. But synthesizing findings
         from three different audits into one coherent execution plan &mdash; prioritized
         by business impact, scoped to your team's capacity, and sequenced so fixes
         don't block each other &mdash; that takes 34 years of combined experience.
