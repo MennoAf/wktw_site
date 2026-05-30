@@ -6,18 +6,30 @@ import Button from '../../components/Button.astro';
 
 <BaseLayout
   title="Platform Technical Audit"
-  description="130+ structural checks across server, platform, and template tiers. Sprint-ready dev backlog with code fixes, every finding tagged with severity, root cause cluster, and confidence tier."
+  description="More than 100 structural checks across server, platform, and template tiers. Sprint-ready tickets with code fixes, every finding tied to a root cause, severity, and confidence rating."
 >
   <Section class="pt-28 pb-16">
-    <div class="max-w-3xl">
-      <p class="text-accent font-mono text-sm mb-4">The Get Right &rsaquo; Platform Technical Audit</p>
-      <h1 class="mb-6">Platform Technical Audit</h1>
-      <p class="text-accent text-lg font-medium mb-4">Powered by Muttr</p>
-      <p class="text-secondary-text text-xl leading-relaxed">
-        130+ structural checks across three tiers &mdash; server, platform, and template.
-        Every finding tagged with severity, root cause cluster, and confidence tier.
-        Delivered as sprint-ready tickets with code fixes, not a PDF of suggestions.
-      </p>
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="max-w-2xl">
+        <p class="text-accent font-mono text-sm mb-4">The Get Right &rsaquo; Platform Technical Audit</p>
+        <h1 class="mb-6">Platform Technical Audit</h1>
+        <p class="text-accent text-lg font-medium mb-4">Powered by Muttr</p>
+        <p class="text-secondary-text text-xl leading-relaxed">
+          More than 100 structural checks across three tiers &mdash; server, platform,
+          and template. Every finding tied to a root cause, severity, and a confidence
+          rating. The audit provides sprint-ready tickets with code fixes, not a PDF of
+          best practices.
+        </p>
+      </div>
+      <div class="hidden lg:block">
+        <img
+          src="/platform-hero.svg"
+          alt=""
+          width="520"
+          height="440"
+          class="w-auto max-h-72 mx-auto"
+        />
+      </div>
     </div>
   </Section>
 
@@ -26,47 +38,41 @@ import Button from '../../components/Button.astro';
     <div class="grid md:grid-cols-2 gap-6">
       <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
         <h4 class="text-accent mb-3">Server Tier</h4>
-        <ul class="text-secondary-text space-y-1.5 text-base">
-          <li>TLS configuration and certificate chain</li>
-          <li>HTTP/2+ support and protocol negotiation</li>
-          <li>Security headers (CSP, HSTS, X-Frame-Options)</li>
-          <li>CDN configuration and caching strategy</li>
-          <li>TTFB and server response optimization</li>
-          <li>Redirect chain analysis</li>
-        </ul>
+        <p class="text-secondary-text leading-relaxed">
+          Is your server handing the site to visitors correctly? We look at the
+          security headers that protect your users, your TLS and certificate setup,
+          how your CDN and caching are configured, the redirect chains a request runs
+          through, and how quickly the server responds before a single pixel renders.
+        </p>
       </div>
       <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
         <h4 class="text-accent mb-3">Platform Tier</h4>
-        <ul class="text-secondary-text space-y-1.5 text-base">
-          <li>CMS/framework detection and version analysis</li>
-          <li>Core Web Vitals (LCP, INP, CLS) with root causes</li>
-          <li>Resource loading and render-blocking audit</li>
-          <li>Third-party script impact analysis</li>
-          <li>Consent management and privacy compliance</li>
-          <li>Ad stack conflicts and duplicate tags</li>
-        </ul>
+        <p class="text-secondary-text leading-relaxed">
+          Is the platform your site is built on making it invisible? We look at how
+          your CMS or framework loads, what's blocking the page from rendering, the
+          Core Web Vitals that decide whether it feels fast, the third-party and ad
+          scripts piling up in the background, and whether consent and privacy tooling
+          are quietly breaking your measurement.
+        </p>
       </div>
       <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
         <h4 class="text-accent mb-3">Template Tier</h4>
-        <ul class="text-secondary-text space-y-1.5 text-base">
-          <li>Structured data validation and completeness</li>
-          <li>Image optimization (format, sizing, lazy loading)</li>
-          <li>Accessibility (WCAG 2.1 AA compliance)</li>
-          <li>Mobile responsiveness and viewport issues</li>
-          <li>Internal linking structure</li>
-          <li>Form friction and UX patterns</li>
-        </ul>
+        <p class="text-secondary-text leading-relaxed">
+          Is each page built to be found and easy to use? We look at your structured
+          data, your image formats and sizing, accessibility against WCAG 2.1 AA,
+          how the layout behaves on mobile, the internal linking that ties your pages
+          together, and the friction sitting in your forms and core flows.
+        </p>
       </div>
       <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
         <h4 class="text-accent mb-3">Root Cause Synthesis</h4>
-        <ul class="text-secondary-text space-y-1.5 text-base">
-          <li>Pattern detection across findings</li>
-          <li>Systemic vs. one-off issue classification</li>
-          <li>Compliance risk flagging (GDPR, CCPA, WCAG)</li>
-          <li>Confidence tier per finding (confirmed / probable / hypothesis)</li>
-          <li>Fix prioritization by severity &times; effort</li>
-          <li>Dependency chain mapping</li>
-        </ul>
+        <p class="text-secondary-text leading-relaxed">
+          Where do all these findings actually come from? We cluster them to separate
+          systemic problems from one-offs, flag compliance risk across GDPR, CCPA, and
+          WCAG, give each finding a confidence tier, map the dependencies between fixes,
+          and rank everything by severity against effort &mdash; so you know what to
+          ship first.
+        </p>
       </div>
     </div>
   </Section>
@@ -86,7 +92,7 @@ import Button from '../../components/Button.astro';
         <div><span class="text-secondary-text">title:</span> <span class="text-primary-text">"Render-blocking CSS on mobile"</span></div>
         <div><span class="text-secondary-text">severity:</span> <span class="text-danger">"high"</span></div>
         <div><span class="text-secondary-text">root_cause_cluster:</span> <span class="text-warning">"Unoptimized Web Font Loading"</span></div>
-        <div class="break-words"><span class="text-secondary-text">why_this_matters:</span> <span class="text-primary-text">"Mobile LCP exceeds 4s on first visit, failing Core Web Vitals and degrading first-impression experience for half of inbound traffic."</span></div>
+        <div class="break-words"><span class="text-secondary-text">why_this_matters:</span> <span class="text-primary-text">"Mobile LCP exceeds 4s on first visit. Users who find your site on mobile won't have a good experience and are more likely to go back to search to find a faster competitor's site."</span></div>
         <div class="break-words"><span class="text-secondary-text">fix_summary:</span> <span class="text-primary-text">"Preload critical font faces; defer non-critical with font-display: swap."</span></div>
         <div><span class="text-secondary-text">confidence_tier:</span> <span class="text-success">"confirmed"</span></div>
         <div class="text-secondary-text mb-4">---</div>
@@ -95,7 +101,7 @@ import Button from '../../components/Button.astro';
         <div class="text-primary-text font-heading text-base mb-3">Render-blocking CSS on mobile</div>
         <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Finding:</span> Render-blocking CSS on mobile</div>
         <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Severity:</span> High</div>
-        <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Why this matters:</span> Mobile LCP exceeds 4s on first visit, failing Core Web Vitals.</div>
+        <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Why this matters:</span> Mobile LCP exceeds 4s on first visit. Users who find your site on mobile won't have a good experience and are more likely to go back to search to find a faster competitor's site.</div>
         <div class="text-secondary-text mb-1.5"><span class="text-primary-text font-semibold">Root cause:</span> Unoptimized Web Font Loading</div>
         <div class="text-secondary-text"><span class="text-primary-text font-semibold">Fix:</span> Preload critical font faces; defer non-critical with font-display: swap.</div>
       </div>
@@ -123,6 +129,25 @@ import Button from '../../components/Button.astro';
   </Section>
 
   <Section>
+    <div class="max-w-2xl">
+      <h2 class="mb-4">Why it's called Muttr</h2>
+      <p class="text-secondary-text text-lg mb-6">
+        Good debugging doesn't sound like a fire alarm. It sounds like a senior
+        engineer working a problem out loud &mdash; muttering through the structure,
+        ruling out the obvious, following one thread until it reaches the thing
+        that's actually broken.
+      </p>
+      <p class="text-secondary-text text-lg">
+        That's what Muttr does. It won't flag every surface error and call it a day.
+        It works methodically through your site's architecture and argues with itself
+        as it goes: every finding runs through an adversarial feedback loop built to
+        challenge it before allowing it to ship. What survives isn't a symptom &mdash; it's a root
+        cause. That's why the backlog comes back short, and why every ticket on it is real.
+      </p>
+    </div>
+  </Section>
+
+  <Section elevated>
     <div class="text-center">
       <h2 class="mb-4">See it in action</h2>
       <p class="text-secondary-text text-lg mb-8 max-w-xl mx-auto">
