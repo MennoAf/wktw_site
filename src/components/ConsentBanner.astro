@@ -1,0 +1,77 @@
+---
+// Cookie consent banner — governs Google Consent Mode v2 (analytics/ads tags
+// fired through GTM). Plausible is cookieless and runs regardless; this banner
+// only controls the GTM-fired tags. Choice persists in localStorage under
+// 'wktw-consent'. Re-open programmatically via window.wktwOpenConsent().
+---
+
+<div
+  id="consent-banner"
+  class="fixed bottom-0 inset-x-0 z-50 hidden"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Cookie consent"
+>
+  <div class="max-w-3xl mx-auto m-4 bg-bg-elevated border border-border-subtle rounded-lg shadow-xl p-5 sm:flex sm:items-center sm:gap-5">
+    <p class="text-secondary-text text-sm leading-relaxed mb-4 sm:mb-0 sm:flex-1">
+      We use cookies for analytics (Google Analytics, via Tag Manager) to understand
+      how the site is used. Our primary analytics, Plausible, is cookieless and always
+      on. See our <a href="/legal/privacy" class="text-accent hover:text-accent-hover underline">privacy policy</a>.
+    </p>
+    <div class="flex gap-3 shrink-0">
+      <button
+        id="consent-decline"
+        type="button"
+        class="px-4 py-2 rounded-lg text-sm font-semibold border-2 border-border-subtle text-primary-text hover:border-accent hover:text-accent transition-colors"
+      >
+        Decline
+      </button>
+      <button
+        id="consent-accept"
+        type="button"
+        class="px-4 py-2 rounded-lg text-sm font-semibold bg-accent text-on-primary hover:bg-accent-hover transition-colors"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var KEY = 'wktw-consent';
+    var banner = document.getElementById('consent-banner');
+    if (!banner) return;
+
+    function consentUpdate(state) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('consent', 'update', {
+        ad_storage: state,
+        ad_user_data: state,
+        ad_personalization: state,
+        analytics_storage: state
+      });
+    }
+
+    function save(choice) { try { localStorage.setItem(KEY, choice); } catch (e) {} }
+    function hide() { banner.classList.add('hidden'); }
+    function show() { banner.classList.remove('hidden'); }
+
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+    if (stored !== 'granted' && stored !== 'denied') show();
+
+    var accept = document.getElementById('consent-accept');
+    var decline = document.getElementById('consent-decline');
+    if (accept) accept.addEventListener('click', function () {
+      consentUpdate('granted'); save('granted'); hide();
+    });
+    if (decline) decline.addEventListener('click', function () {
+      consentUpdate('denied'); save('denied'); hide();
+    });
+
+    // Lets a footer "Cookie settings" link reopen the banner: onclick="wktwOpenConsent()"
+    window.wktwOpenConsent = show;
+  })();
+</script>
