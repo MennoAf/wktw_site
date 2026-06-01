@@ -62,8 +62,15 @@ const company = [
       </div>
     </div>
 
-    <div class="mt-12 pt-8 border-t border-border-subtle text-secondary-text text-sm">
-      &copy; {new Date().getFullYear()} We Know The Why. All rights reserved.
+    <div class="mt-12 pt-8 border-t border-border-subtle flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-secondary-text text-sm">
+      <p>&copy; {new Date().getFullYear()} We Know The Why. All rights reserved.</p>
+      <button
+        type="button"
+        onclick="window.wktwOpenConsent && window.wktwOpenConsent()"
+        class="text-secondary-text text-sm hover:text-primary-text transition-colors text-left sm:text-right"
+      >
+        Cookie settings
+      </button>
     </div>
   </div>
 </footer>
