@@ -2,13 +2,20 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 
-const type = Astro.url.searchParams.get('type');
-const isScan = type === 'scan';
-
-const heading = isScan ? 'Scan request received.' : 'Message received.';
-const body = isScan
-  ? "We'll run the structural audit and email your top findings within 24-48 hours. No credit card, no follow-up sales sequence — just the report."
-  : "A founder will reply within 24 hours. No sales team, no account manager — the response comes from the person who'll do the work.";
+// This page is statically prerendered, so Astro.url.searchParams is empty at
+// build time — we can't branch the copy server-side. Render the contact variant
+// by default and let the inline script swap to the scan variant at runtime based
+// on the live ?type= param (contact -> /thanks, scan -> /thanks?type=scan).
+const copy = {
+  contact: {
+    heading: 'Message received.',
+    body: "A founder will reply within 24 hours. No sales team, no account manager — the response comes from the person who'll do the work.",
+  },
+  scan: {
+    heading: 'Scan request received.',
+    body: "We'll run the structural audit and email your top findings within 24-48 hours. No credit card, no follow-up sales sequence — just the report.",
+  },
+};
 ---
 
 <BaseLayout
@@ -20,9 +27,9 @@ const body = isScan
       <p class="text-accent font-mono text-sm uppercase tracking-wider mb-4">
         ✓ Submitted
       </p>
-      <h1 class="mb-6">{heading}</h1>
-      <p class="text-secondary-text text-xl leading-relaxed mb-10">
-        {body}
+      <h1 id="thanks-heading" class="mb-6">{copy.contact.heading}</h1>
+      <p id="thanks-body" class="text-secondary-text text-xl leading-relaxed mb-10">
+        {copy.contact.body}
       </p>
       <div class="flex flex-col sm:flex-row gap-4">
         <a
@@ -41,15 +48,19 @@ const body = isScan
     </div>
   </Section>
 
-  <!-- Conversion signal (WL-23): the thank-you page is the reliable success
-       confirmation, so fire generate_lead here rather than on a form submit that
-       navigates away. form_type is read from the live URL at runtime — this is a
-       static page, so Astro.url.searchParams is empty at build time. Self-gates on
-       consent: a no-op push if GTM isn't loaded; the GA4 tag that consumes it lives
-       in the GTM container (Brandon). -->
-  <script is:inline>
+  <!-- Runtime branch: this static page renders the contact variant by default;
+       one read of ?type= drives both (a) swapping in the scan copy and (b) the
+       WL-23 generate_lead conversion event. The push self-gates on consent — a
+       no-op if GTM isn't loaded; the GA4 tag that consumes it is GTM-side (Brandon). -->
+  <script is:inline define:vars={{ copy }}>
+    var formType = new URLSearchParams(window.location.search).get('type') === 'scan' ? 'scan' : 'contact';
+    if (formType === 'scan') {
+      var h = document.getElementById('thanks-heading');
+      var b = document.getElementById('thanks-body');
+      if (h) h.textContent = copy.scan.heading;
+      if (b) b.textContent = copy.scan.body;
+    }
     window.dataLayer = window.dataLayer || [];
-    var t = new URLSearchParams(window.location.search).get('type');
-    window.dataLayer.push({ event: 'generate_lead', form_type: t === 'scan' ? 'scan' : 'contact' });
+    window.dataLayer.push({ event: 'generate_lead', form_type: formType });
   </script>
 </BaseLayout>
