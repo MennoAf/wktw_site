@@ -11,7 +11,15 @@
 > Muttr agent completes when the fix ships. Evidence is grounded in the actual repo
 > (`weknowthewhy.com`, Astro static + Tailwind v4 + Svelte).
 
-**Severity scale:** `high` (undermines trust in the report) · `medium` (costs reviewer time) · `low` (polish).
+**Severity scale:** `high` (undermines trust in the report) · `medium` (costs reviewer time) · `low` (polish) · `enhancement` (new capability, not a defect).
+
+> **Why grounding matters — and when it's critical.** With repo access (as on this site) these
+> defects are *friction*: we catch wrong-stack code, stale findings, and mismeasurements by checking
+> source before acting. Without repo access — a locked-down CMS (e.g. a large Sitecore install) where
+> neither the auditor (no pre-submission access) nor the client's team can grep — the same defects
+> become *critical*, because the ticket is the only spec and nobody can verify it. Errors are errors
+> either way; but the grounding-class defects (MUTTR-03/04/05/07) scale from annoying to load-bearing
+> exactly as repo access disappears. That asymmetry motivates MUTTR-11.
 
 ---
 
@@ -231,6 +239,53 @@ card; a no-repo reviewer needs the full narrative. Today only the second is serv
 
 ---
 
+## MUTTR-11 — Ship an optional "Repo-Grounding Guide" output (enhancement)
+
+**Severity:** enhancement · **Category:** New deliverable / verification method
+**Status:** ☐ Open ☐ Designing ☐ Shipped
+
+**The idea:** When a client *does* have repo access, the single highest-value step is grounding each
+finding against source before acting — the step that caught, on this audit alone: a phantom standalone
+`gtag.js` (~10 tickets pointed at code that doesn't exist), a fabricated 2.5MB JS bundle, an
+already-installed sitemap flagged as missing, and a 1:1 contrast "failure" that was a detector
+artifact. Today that step is **tacit** — the executor has to invent the greps. Muttr should ship it as
+an explicit, **platform-aware "Repo-Grounding Guide"**: an optional output that tells a repo-holding
+team exactly how to verify the report against their own source, finding-type by finding-type.
+
+**Why it's worth building:**
+- Turns the audit from "leads" into "leads + a verification method" — a real differentiator.
+- Costs the auditor nothing at scan time (it's instructions, not analysis) and degrades gracefully:
+  emit it only when repo access is declared; locked-down clients simply don't get it.
+- It's the natural home for the grounding discipline that several other defects (MUTTR-03/04/05/07)
+  would otherwise rely on the reader to supply.
+
+**Shape:** detect (or ask for) the stack, then emit a recipe that maps **finding category → grounding
+command → decision rule** (real / stale / false / wrong-layer). Worked example from *this* engagement
+(Astro + Tailwind + Svelte), which can serve as the template platform pack:
+
+| Finding category | Grounding command (run in repo) | Decision rule |
+| --- | --- | --- |
+| Standalone gtag / dual analytics | `grep -rn "gtag/js\|gtag('config'" src/` | No hit → not in code; it's tag-manager-side (re-route, don't "remove a script") |
+| Google Fonts / external CDN | `grep -rn "fonts.googleapis\|fonts.gstatic" src/` | Hit → real; confirm it's pre-consent in the `<head>` |
+| Heading hierarchy skip | `grep -oE "<h[1-6]" <page> \| tr -d '<'` per template | Sequence shows h2→h4 → real; fix every template, not one URL |
+| "X MB unused JS bundle" | `find dist -name '*.js' -exec du -h {} +` | Total ≪ claim → mismeasurement; close as false |
+| Missing security / cache headers | `curl -sI <live-url> \| grep -i <header>` | Absent → real (config surface, not src/) |
+| Sitemap / OG / meta "missing" | `grep -rn "sitemap\|og:\|twitter:" astro.config.* src/layouts/` | Present → stale; downgrade to "verify" |
+| Contrast failure | compute WCAG ratio on the real token pair | fg==bg or passes AA → artifact; close no-op |
+
+**WKTW offer:** we can author the first platform pack (Astro/Tailwind) from the exact commands used on
+this engagement, as a reference contribution — and the structure generalizes to per-platform packs
+(Sitecore, WordPress, Next.js, Shopify, etc.), each mapping the same finding categories to that
+platform's grounding idioms.
+
+### Verify (Muttr to complete)
+- [ ] Audit can emit an optional Repo-Grounding Guide gated on declared repo access
+- [ ] Guide is platform-aware (detected or selected stack), not generic
+- [ ] Each finding category maps to a concrete grounding command + a real/stale/false/wrong-layer rule
+- [ ] At least one reference platform pack exists (Astro/Tailwind is offered as the seed)
+
+---
+
 ## Summary
 
 | ID | Defect | Severity |
@@ -245,6 +300,7 @@ card; a no-repo reviewer needs the full narrative. Today only the second is serv
 | MUTTR-08 | Passing checks framed as findings | low |
 | MUTTR-09 | Verification tests target broken/placeholder URLs | high |
 | MUTTR-10 | Single-altitude tickets — add executor card, keep reviewer essay | medium |
+| MUTTR-11 | Ship an optional platform-aware Repo-Grounding Guide | enhancement |
 
 **Theme:** The ticket *structure* is strong (impact, risks, verification rigor). The gaps are
 all **grounding** — the tool reasons from generic templates and prior detections instead of
@@ -254,3 +310,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-06-25 — Filed 8 defects from the first triage pass of the Get Right audit.
 - 2026-06-25 — Added MUTTR-09 after dissecting `verification/tests.json` (broken/placeholder test targets).
 - 2026-06-25 — Added MUTTR-10 (ticket altitude) after working several tickets end-to-end. Note: verbosity is load-bearing for no-repo / locked-down-CMS clients — the fix is an additive executor card, not cutting detail.
+- 2026-06-25 — Added top-of-doc framing note (repo-access asymmetry) + MUTTR-11 (enhancement): ship an optional platform-aware Repo-Grounding Guide; WKTW offers to author the Astro/Tailwind seed pack.
