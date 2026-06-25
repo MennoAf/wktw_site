@@ -50,6 +50,7 @@ row below.
 | `444cde9` | 2026-06-25 | WL-12 | Add `mailto:` contact paths to footer + contact page (no `tel:` — no number) |
 | `fb0a84d` | 2026-06-25 | WL-19, WL-20 | Netlify headers: immutable cache for `/_astro/*` + `/fonts/*`; site-wide security headers + report-only CSP (enforcing nonce-CSP left as follow-up) |
 | `60b32b2` | 2026-06-25 | WL-23 (repo half) | `generate_lead` conversion event on `/thanks` (runtime `form_type`); GA4 tag still GTM-side |
+| `a920fea` | 2026-06-25 | WL-16, WL-17 | Breadcrumb component (visible nav + BreadcrumbList JSON-LD, sitewide via BaseLayout); CollectionPage/WebPage structured data on the two `/proof` pages |
 
 ---
 
@@ -167,20 +168,20 @@ row below.
 
 ## D · SEO / structured data — additive (P2)
 
-### ➕ WL-15 — Person schema on /about
-- **Status:** ☐ Open · **Closed by:** —
+### ✅ WL-15 — Person schema on /about
+- **Status:** ☑ Done (already implemented — premise was stale) · **Closed by:** — (documentation; no commit needed) — verified `about.astro:255-333` already defines a `@graph` of all three Person nodes (`#jon-lister`, `#jason-bauman`, `#brandon-griner`) with `@id`s that match BaseLayout's `founder` references, each with `worksFor` → `#organization`, `knowsAbout`, and `sameAs`. The "referenced but undefined" premise no longer holds (the nodes were added during the positioning work on this branch). No code change.
 - **Folds:** `schema-person-about-page-missing`, `ux-revenue-2` (partial)
-- **Repo truth:** BaseLayout already emits Organization JSON-LD referencing `#jon-lister`, `#jason-bauman`, `#brandon-griner` (`BaseLayout.astro:103-107`), and the insights article already has BlogPosting schema with author→Person `@id` (`why-most-audits…astro:370`). The referenced Person `@id`s are **not yet defined** on `/about`. So the work is: define the Person nodes on `/about`. `ux-revenue-2` byline already exists (`:36-38`) — only the schema node is missing.
+- **Repo truth:** BaseLayout emits Organization JSON-LD referencing `#jon-lister`, `#jason-bauman`, `#brandon-griner` (`BaseLayout.astro:116-118`); the matching Person nodes now exist on `/about` (`about.astro:255-333`). Byline already present (`:36-38`).
 - **Files:** `src/pages/about.astro`
 
-### ➕ WL-16 — Breadcrumbs (UI + BreadcrumbList JSON-LD)
-- **Status:** ☐ Open · **Closed by:** —
+### ✅ WL-16 — Breadcrumbs (UI + BreadcrumbList JSON-LD)
+- **Status:** ☑ Done · **Closed by:** `a920fea` (2026-06-25) — `Breadcrumb.astro` auto-derives the trail from `Astro.url.pathname`, rendering a visible `<nav>` + `BreadcrumbList` JSON-LD. Wired into BaseLayout via a `breadcrumb` prop (default true); home + 404 opt out. Section-index segments link to their index; the current page + index-less segments (`/legal`) render as text. Outer `<nav>` is full-width with an inner `max-w-7xl mx-auto` container — needed because BaseLayout's `<body>` is `flex flex-col`, so a bare `mx-auto` nav shrink-wraps and centers. Verified left-aligned + spaced on desktop/mobile across nested, top-level, and legal pages; JSON-LD validated on all routes.
 - **Folds:** `ux-nav-no-breadcrumbs`
 - **Repo truth:** Additive. Genuinely absent. Reasonable Astro component using `Astro.url.pathname`.
-- **Files:** new `src/components/Breadcrumb.astro`, `src/layouts/BaseLayout.astro`
+- **Files:** new `src/components/Breadcrumb.astro`, `src/layouts/BaseLayout.astro`, `src/pages/index.astro` + `src/pages/404.astro` (opt out)
 
-### ➕ WL-17 — Proof page structured data
-- **Status:** ☐ Open · **Closed by:** —
+### ✅ WL-17 — Proof page structured data
+- **Status:** ☑ Done · **Closed by:** `a920fea` (2026-06-25) — `/proof` now emits a `CollectionPage`, `/proof/our-site` a `WebPage`, both tied to the sitewide Organization `@id` (`about`/`publisher`). `BreadcrumbList` auto-emits via the WL-16 component and Organization is sitewide, so the audit's "add BreadcrumbList/Organization" ask is covered. **No Review/Rating nodes** — per the audit's own caveat, we don't fabricate testimonials we haven't earned; add them when real, attributable client results are published. All ld+json on both pages validated as parsing.
 - **Folds:** `gap-structured-data-proof-page-001`, `escalation-unknown-schema-type` (validation harness)
 - **Repo truth:** Additive. Add BreadcrumbList/Organization (and Review only if real testimonial content exists — do not fabricate).
 - **Files:** `src/pages/proof/our-site.astro`, `src/pages/proof/index.astro`
@@ -308,3 +309,4 @@ unless a specific guardrail earns its keep later.
 - 2026-06-25 — Worklog created; all 60 tickets triaged & repo-verified. Nothing started yet.
 - 2026-06-25 — **All repo-actionable items closed** (WL-01–12 + WL-19/20 + WL-23 repo half). Consent gate live-validated in a real browser (14/14 behaviors: GTM never loads pre-consent / after Decline; fires on Accept; fonts fully self-hosted — no gstatic/googleapis). Remaining work is GTM-console (Brandon: WL-22, WL-23 GA4 tag), additive design passes (WL-13–18), and the enforcing nonce-CSP follow-up (WL-20).
 - 2026-06-25 — **Adjacent fix (not an audit item)** `ecf9dcd`: `/thanks` scan/contact copy branched on `Astro.url.searchParams` but the page is static, so scan submitters saw the contact copy. Found while wiring WL-23; fixed via runtime `?type=` read (same script as the conversion event). Latent today (scan funnel paused) but correct now for relaunch.
+- 2026-06-25 — **Additive SEO pass** `a920fea` (WL-16, WL-17): sitewide breadcrumbs (visible nav + `BreadcrumbList` JSON-LD) and page-level structured data on the `/proof` pages. **WL-15 closed as stale** — the `/about` Person `@graph` already exists (`about.astro:255-333`), so its "undefined `@id`" premise no longer held. Remaining additive items: WL-13 (trust signals — needs testimonials), WL-14 (engagement framing — copy decision), WL-18 (internal linking/search — needs content-model decision). Remaining config: WL-20 enforcing nonce-CSP follow-up, WL-21 (optional link-checking). GTM-console (Brandon): WL-22, WL-23 GA4 tag.
