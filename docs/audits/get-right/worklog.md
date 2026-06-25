@@ -46,6 +46,7 @@ row below.
 | `412c4c7` | 2026-06-25 | WL-05, WL-07, WL-08, WL-09 | A11y pass: content-link underlines, reduced-motion guard, site-wide heading hierarchy (7 files); WL-09 verified no-op |
 | `6e3ead2` | 2026-06-25 | WL-01 | Self-host Google Fonts (latin + latin-ext woff2); remove gstatic preconnect + render-blocking stylesheet |
 | `f6b2a7e` | 2026-06-25 | WL-02, WL-03 | Defer GTM load until consent (one-shot loader, drop noscript iframe); consent banner ≥48px buttons + legal-route suppression |
+| `705377d` | 2026-06-25 | WL-04, WL-06 | A11y: 48px tap targets (hamburger/nav/footer); mobile menu `inert` when closed; honeypot hardening |
 
 ---
 
@@ -77,7 +78,7 @@ row below.
 ## B · Accessibility — repo-actionable (P1)
 
 ### ✅ WL-04 — Global 48×48 minimum touch targets
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `705377d` (2026-06-25) — hamburger → 48×48; mobile menu links + mobile CTA → `min-h-[48px]`; desktop nav CTA + footer links + Cookie-settings button → `min-h-[44px]`. Footer list gap tightened to `space-y-0.5` since links now self-space. Scoped to nav/CTA/hamburger/footer chrome — inline body links untouched.
 - **Folds:** `accessibility-touch-targets-undersized`, `mobile-nav-touch-targets-ux`, `ux-mobile-hamburger-discoverability` (size part), `ux-mobile-nav-cta-undersized`, `det-wcag-missing-name-role-value` (touch-target part) (5 → 1)
 - **Repo truth:** Nav CTA `px-4 py-2` and hamburger `p-2` on a 24px icon both render ≈40px (`Header.astro:34-39, 43-48`); footer links are inline text. All under WCAG 2.5.8 48px.
 - **Action:** Add a minimum-tap-target utility in `global.css` (or per-component min-h/min-w) scoped to nav/CTA/hamburger/footer — not inline body links.
@@ -91,7 +92,7 @@ row below.
 - **Files:** `src/styles/global.css`
 
 ### ✅ WL-06 — Hamburger / mobile-menu a11y (dual-DOM + hidden-in-tree)
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `705377d` (2026-06-25) — `#mobile-menu` now starts `inert aria-hidden="true"` and the toggle handler flips both with open/close, so closed-menu links leave the a11y/focus tree. Honeypot input hardened (`tabindex="-1" autocomplete="off"` + wrapper `aria-hidden`). Hamburger `aria-label`/`aria-expanded` were already present (skipped, as planned).
 - **Folds:** `ghost-markup-mobile-menu-hidden-links`, `a11y-5-mobile-menu-duplicate-nav-no-aria-label`, `a11y-mobile-menu-nav-no-aria-label`, `a11y-3-form-missing-label` (honeypot part), `det-wcag-missing-name-role-value` (honeypot part) (5 → 1)
 - **Repo truth — partially stale, read carefully:**
   - Hamburger button **already has** `aria-label="Toggle menu"` + `aria-expanded` toggling (`Header.astro:43-48, 87-93`). The "add accessible name" demand is **already done**.
