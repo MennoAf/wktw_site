@@ -191,6 +191,46 @@
 
 ---
 
+## MUTTR-10 — Single-altitude tickets: add an executor layer without losing the reviewer essay
+
+**Severity:** medium · **Category:** Ticket format / progressive disclosure
+**Status:** ☐ Open ☐ Fixed ☐ Verified
+
+**Observed:** Every ticket is written at one altitude — a long, reviewer-facing essay (Impact,
+Risks, multi-step "How", code samples; often ~200 lines). Two consequences when *doing the work*:
+- The real fix is frequently one line (remove the URL field, rename a button), so an executor
+  skims a lot of prose to find a small ask. The prose-to-change ratio is large.
+- Ticket boundaries follow the **detector's** taxonomy (per-finding, per-selector, per-page), not
+  the **fixer's** unit of work. So one fix is fragmented across many tickets (48px touch targets →
+  5 tickets), while one ticket is really a whole project (`ux-content-sparse-above-fold`: "rebuild
+  the contact page with a four-component persuasion scaffold"). Neither maps to a commit.
+
+**Why it matters — and the constraint that shapes the fix:** The verbosity is **load-bearing in the
+common case**, and must not simply be cut. Many clients run locked-down stacks (e.g. a large
+Sitecore install) where the auditor has **no repo access before submission**, and the client's own
+team may not be able to ground in source either, given their layers of abstraction. There, the
+essay *is* the spec — there is nothing else to verify against. The problem is not "too much detail";
+it is "**only one altitude**." A repo-access executor (like WKTW on its own site) wants a terse
+card; a no-repo reviewer needs the full narrative. Today only the second is served.
+
+**Fix — progressive disclosure, additive not subtractive:**
+1. **Add a terse fix-card** at the top of each ticket: the ask in 1–2 sentences, the remediation
+   surface (`source` / `tag-manager` / `cdn-config`), and a concrete done-condition — with the full
+   essay retained directly below it. The card serves executors; the essay serves no-repo reviewers.
+2. **Keep the reviewer essay first-class.** Do not strip detail to make the card — the locked-down /
+   no-repo client depends on it. Collapse or anchor it, don't delete it.
+3. **Group by the fixer's unit of work.** Fold fragmented detections into one ticket with sub-items
+   (one "48px touch targets" ticket listing the 5 elements), and split project-scale tickets out,
+   labelling them as design/effort rather than a single fix.
+
+### Verify (Muttr to complete)
+- [ ] Each ticket leads with a terse fix-card (ask + surface + done-condition)
+- [ ] The full reviewer narrative is retained, not removed (no-repo clients still covered)
+- [ ] Fragmented detections are grouped into one ticket per unit-of-work with sub-items
+- [ ] Project-scale tickets are labelled as design/effort, not as a single fix
+
+---
+
 ## Summary
 
 | ID | Defect | Severity |
@@ -204,6 +244,7 @@
 | MUTTR-07 | Stale findings reported as open | medium |
 | MUTTR-08 | Passing checks framed as findings | low |
 | MUTTR-09 | Verification tests target broken/placeholder URLs | high |
+| MUTTR-10 | Single-altitude tickets — add executor card, keep reviewer essay | medium |
 
 **Theme:** The ticket *structure* is strong (impact, risks, verification rigor). The gaps are
 all **grounding** — the tool reasons from generic templates and prior detections instead of
@@ -212,3 +253,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 ## Progress log
 - 2026-06-25 — Filed 8 defects from the first triage pass of the Get Right audit.
 - 2026-06-25 — Added MUTTR-09 after dissecting `verification/tests.json` (broken/placeholder test targets).
+- 2026-06-25 — Added MUTTR-10 (ticket altitude) after working several tickets end-to-end. Note: verbosity is load-bearing for no-repo / locked-down-CMS clients — the fix is an additive executor card, not cutting detail.
