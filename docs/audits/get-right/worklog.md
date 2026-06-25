@@ -43,6 +43,7 @@ row below.
 | Commit | Date | WL items closed | Summary |
 | --- | --- | --- | --- |
 | `edd0218` | 2026-06-25 | WL-10, WL-11 | Contact form: action CTA copy + remove URL field |
+| `412c4c7` | 2026-06-25 | WL-05, WL-07, WL-08, WL-09 | A11y pass: content-link underlines, reduced-motion guard, site-wide heading hierarchy (7 files); WL-09 verified no-op |
 
 ---
 
@@ -81,7 +82,7 @@ row below.
 - **Files:** `src/styles/global.css`, `src/components/Header.astro`, `src/components/Footer.astro`
 
 ### ✅ WL-05 — Inline links: restore non-color indicator (underline)
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `412c4c7` (2026-06-25)
 - **Folds:** `det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about`
 - **Repo truth:** `global.css:71-75` — `a { color: accent; text-decoration: none }`. Inline content links are distinguished by color alone → WCAG 1.4.1 fail. (Nav/footer/CTA links are exempt — they're UI chrome with other affordances.)
 - **Action:** Underline links inside prose/content contexts (scoped class or `main p a`, `.prose a`), leave nav/footer/buttons alone.
@@ -98,21 +99,21 @@ row below.
 - **Files:** `src/components/Header.astro`, `src/pages/contact.astro`
 
 ### ✅ WL-07 — Heading hierarchy (orphaned h4)
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `412c4c7` (2026-06-25) — expanded to 7 files (footer + about + scan + 4 the-get-right pages) once grep showed the h2→h4 skip was repo-wide.
 - **Folds:** `a11y-heading-hierarchy-skip`, `ux-heading-hierarchy-skip`, `det-wcag-improper-content-structure` (3 → 1)
 - **Repo truth:** Footer uses `<h4>` for "Services"/"Company" with no h2/h3 ancestor (`Footer.astro:34, 50`). Audit measured an h2→h4 jump on /about.
 - **Action:** Demote footer column headings to `<h3>` (or style-only) and fix the /about jump. The audit's "build a polymorphic heading component" is over-engineered for two footer labels — do the direct fix unless a real pattern emerges.
 - **Files:** `src/components/Footer.astro`, `src/pages/about.astro`
 
 ### ✅ WL-08 — prefers-reduced-motion guard
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `412c4c7` (2026-06-25)
 - **Folds:** `a11y-6-prefers-reduced-motion-unverified`
 - **Repo truth:** Confirmed real — `grep prefers-reduced-motion src/` returns nothing, yet `global.css:27` has `scroll-behavior: smooth` and there are `transition` declarations throughout.
 - **Action:** Add a `@media (prefers-reduced-motion: reduce)` block in `global.css` neutralizing transitions/animations/smooth-scroll. Skip the proposed CI lint rule (gold-plating).
 - **Files:** `src/styles/global.css`
 
 ### 🟡 WL-09 — Contrast ratio fix (VERIFY FIRST — likely artifact)
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done (no-op — verified) · **Closed by:** `412c4c7` (2026-06-25) — computed all real brand pairs; lowest is `primary-brand` 4.73:1, links 8.72:1, body 13:1. All pass AA. Audit's 1:1 reading was a detector artifact (fg==bg). No code change.
 - **Folds:** `det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about`
 - **Repo truth:** Suspicious. Audit reports `#2C211D` foreground on `#2C211D` background = 1.00:1 (foreground == background) — that's a detector artifact, not a real readable element. Brand text is `#EFEBE9`/`#BCAAA4` on `#2C211D`, which passes.
 - **Action:** Reproduce on live `/about` with axe DevTools before changing any color. Do **not** blind-apply the audit's computed `#8B8A89` values — they may de-brand passing text. Likely closes as no-op.
