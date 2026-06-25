@@ -242,7 +242,7 @@ card; a no-repo reviewer needs the full narrative. Today only the second is serv
 ## MUTTR-11 — Ship an optional "Repo-Grounding Guide" output (enhancement)
 
 **Severity:** enhancement · **Category:** New deliverable / verification method
-**Status:** ☐ Open ☐ Designing ☐ Shipped
+**Status:** ☐ Open ☑ Designing ☐ Shipped — **WKTW seed pack authored:** [`docs/grounding-packs/astro.md`](../../grounding-packs/astro.md) (+ [README](../../grounding-packs/README.md)).
 
 **The idea:** When a client *does* have repo access, the single highest-value step is grounding each
 finding against source before acting — the step that caught, on this audit alone: a phantom standalone
@@ -311,3 +311,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-06-25 — Added MUTTR-09 after dissecting `verification/tests.json` (broken/placeholder test targets).
 - 2026-06-25 — Added MUTTR-10 (ticket altitude) after working several tickets end-to-end. Note: verbosity is load-bearing for no-repo / locked-down-CMS clients — the fix is an additive executor card, not cutting detail.
 - 2026-06-25 — Added top-of-doc framing note (repo-access asymmetry) + MUTTR-11 (enhancement): ship an optional platform-aware Repo-Grounding Guide; WKTW offers to author the Astro/Tailwind seed pack.
+- 2026-06-25 — Authored the seed pack: `docs/grounding-packs/astro.md` (16 finding-category recipes) + `README.md` (method + decision rules + per-platform index). MUTTR-11 → Designing.
