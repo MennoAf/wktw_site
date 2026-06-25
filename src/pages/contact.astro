@@ -24,8 +24,8 @@ import Section from '../components/Section.astro';
         class="space-y-6"
       >
         <input type="hidden" name="form-name" value="contact" />
-        <p class="hidden">
-          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        <p class="hidden" aria-hidden="true">
+          <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
         </p>
         <div>
           <label for="name" class="block text-sm font-medium text-primary-text mb-2">Name</label>

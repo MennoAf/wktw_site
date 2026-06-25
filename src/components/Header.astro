@@ -33,16 +33,16 @@ const currentPath = Astro.url.pathname;
       ))}
       <a
         href="/contact"
-        class="bg-accent text-on-primary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-accent-hover transition-colors"
+        class="bg-accent text-on-primary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-accent-hover transition-colors inline-flex items-center min-h-[44px]"
       >
         Talk to a Founder
       </a>
     </div>
 
-    <!-- Mobile Menu Button -->
+    <!-- Mobile Menu Button — 48×48 tap target (WCAG 2.5.8) -->
     <button
       id="mobile-menu-btn"
-      class="md:hidden text-primary-text p-2"
+      class="md:hidden text-primary-text inline-flex items-center justify-center min-h-[48px] min-w-[48px]"
       aria-label="Toggle menu"
       aria-expanded="false"
     >
@@ -53,14 +53,15 @@ const currentPath = Astro.url.pathname;
     </button>
   </nav>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-bg-surface">
-    <div class="px-6 py-4 flex flex-col gap-4">
+  <!-- Mobile Menu — starts hidden + inert so its links leave the a11y/focus tree
+       until opened (WL-06). Links are 48px tap targets (WL-04). -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-bg-surface" inert aria-hidden="true">
+    <div class="px-6 py-4 flex flex-col gap-2">
       {navItems.map((item) => (
         <a
           href={item.href}
           class:list={[
-            'text-base font-medium transition-colors',
+            'text-base font-medium transition-colors flex items-center min-h-[48px]',
             currentPath.startsWith(item.href)
               ? 'text-accent'
               : 'text-secondary-text hover:text-primary-text',
@@ -71,7 +72,7 @@ const currentPath = Astro.url.pathname;
       ))}
       <a
         href="/contact"
-        class="bg-accent text-on-primary px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-accent-hover transition-colors text-center"
+        class="bg-accent text-on-primary px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-accent-hover transition-colors inline-flex items-center justify-center min-h-[48px]"
       >
         Talk to a Founder
       </a>
@@ -85,10 +86,15 @@ const currentPath = Astro.url.pathname;
   const iconOpen = document.getElementById('menu-icon-open');
   const iconClose = document.getElementById('menu-icon-close');
   btn?.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!expanded));
-    menu?.classList.toggle('hidden');
-    iconOpen?.classList.toggle('hidden');
-    iconClose?.classList.toggle('hidden');
+    const willOpen = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', String(willOpen));
+    menu?.classList.toggle('hidden', !willOpen);
+    iconOpen?.classList.toggle('hidden', willOpen);
+    iconClose?.classList.toggle('hidden', !willOpen);
+    if (menu) {
+      // When closed, take the menu out of the a11y/focus tree (WL-06).
+      menu.toggleAttribute('inert', !willOpen);
+      menu.setAttribute('aria-hidden', String(!willOpen));
+    }
   });
 </script>
