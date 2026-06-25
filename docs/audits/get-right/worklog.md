@@ -47,6 +47,7 @@ row below.
 | `6e3ead2` | 2026-06-25 | WL-01 | Self-host Google Fonts (latin + latin-ext woff2); remove gstatic preconnect + render-blocking stylesheet |
 | `f6b2a7e` | 2026-06-25 | WL-02, WL-03 | Defer GTM load until consent (one-shot loader, drop noscript iframe); consent banner ≥48px buttons + legal-route suppression |
 | `705377d` | 2026-06-25 | WL-04, WL-06 | A11y: 48px tap targets (hamburger/nav/footer); mobile menu `inert` when closed; honeypot hardening |
+| `444cde9` | 2026-06-25 | WL-12 | Add `mailto:` contact paths to footer + contact page (no `tel:` — no number) |
 
 ---
 
@@ -141,7 +142,7 @@ row below.
 - **Files:** `src/pages/contact.astro`
 
 ### ✅ WL-12 — Add tel:/mailto: contact paths
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `444cde9` (2026-06-25) — `mailto:jon@weknowthewhy.com` added to footer brand column + contact page (email alternative to the form). No `tel:` link — no business number to expose (Jason's call, 2026-06-25). Reused the address already public on `/about`.
 - **Folds:** `ux-no-phone-tel-link`
 - **Repo truth:** Footer + contact page have no tappable phone/email (`Footer.astro`, `contact.astro`).
 - **Action:** Add `mailto:` (and `tel:` if a number exists) to footer + contact page. Confirm with Jason what address/number to expose.
