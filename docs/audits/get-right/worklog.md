@@ -48,6 +48,7 @@ row below.
 | `f6b2a7e` | 2026-06-25 | WL-02, WL-03 | Defer GTM load until consent (one-shot loader, drop noscript iframe); consent banner ≥48px buttons + legal-route suppression |
 | `705377d` | 2026-06-25 | WL-04, WL-06 | A11y: 48px tap targets (hamburger/nav/footer); mobile menu `inert` when closed; honeypot hardening |
 | `444cde9` | 2026-06-25 | WL-12 | Add `mailto:` contact paths to footer + contact page (no `tel:` — no number) |
+| `fb0a84d` | 2026-06-25 | WL-19, WL-20 | Netlify headers: immutable cache for `/_astro/*` + `/fonts/*`; site-wide security headers + report-only CSP (enforcing nonce-CSP left as follow-up) |
 
 ---
 
@@ -194,14 +195,14 @@ row below.
 ## E · Netlify config — real, not in `src/` (P1–P2)
 
 ### 🔧 WL-19 — Cache headers for hashed assets
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `fb0a84d` (2026-06-25) — `netlify.toml` `[[headers]]` for `/_astro/*` and `/fonts/*` → `public, max-age=31536000, immutable`. HTML left on Netlify defaults. Verify post-deploy via the curl checks in `audit.md`.
 - **Folds:** `cache-control-no-caching-static-assets`, `st-6-cache-control-no-immutable-on-hashed-assets`, `server-transport-no-cdn-cache-headers` (3 → 1)
 - **Repo truth:** `netlify.toml` has no `[[headers]]` — real gap. `/_astro/*` is content-hashed and safe to cache immutably.
 - **Action:** Add `[[headers]]` for `/_astro/*` → `public, max-age=31536000, immutable`; leave HTML on must-revalidate.
 - **Files:** `netlify.toml`
 
 ### 🔧 WL-20 — Security headers + CSP
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** 🟢 Mostly done (static headers shipped; enforcing CSP is a follow-up) · **Closed by:** `fb0a84d` (2026-06-25) — shipped `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, HSTS (`max-age=31536000; includeSubDomains`, no preload), `Permissions-Policy`, and a **report-only** CSP (blocks nothing; allowlists GTM/Plausible/GA4, keeps `'unsafe-inline'`). **Follow-up:** enforcing nonce-based CSP needs a Netlify Edge Function to inject per-request nonces into the ~6 inline scripts — left open. Confirm no plain-HTTP subdomain before trusting HSTS `includeSubDomains`.
 - **Folds:** `det-security-headers-https-weknowthewhy-com-about`, `escalation-1-sri-gtm-ga-mitigation`, `prescan-escalation-sri-gtm-incompatibility` (3 → 1)
 - **Repo truth:** No security headers served — real. Static directives (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, HSTS) go in `netlify.toml`. Nonce-based CSP needs a Netlify Edge Function (the audit's recommendation is sound; SRI is genuinely incompatible with GTM's rotating scripts). CSP is the bigger lift — sequence static headers first, CSP report-only second.
 - **Files:** `netlify.toml`, optional `netlify/edge-functions/csp.ts`
