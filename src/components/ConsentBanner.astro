@@ -22,14 +22,14 @@
       <button
         id="consent-decline"
         type="button"
-        class="px-4 py-2 rounded-lg text-sm font-semibold border-2 border-border-subtle text-primary-text hover:border-accent hover:text-accent transition-colors"
+        class="min-h-[48px] px-5 py-3 rounded-lg text-sm font-semibold border-2 border-border-subtle text-primary-text hover:border-accent hover:text-accent transition-colors"
       >
         Decline
       </button>
       <button
         id="consent-accept"
         type="button"
-        class="px-4 py-2 rounded-lg text-sm font-semibold bg-accent text-on-primary hover:bg-accent-hover transition-colors"
+        class="min-h-[48px] px-5 py-3 rounded-lg text-sm font-semibold bg-accent text-on-primary hover:bg-accent-hover transition-colors"
       >
         Accept
       </button>
@@ -58,14 +58,20 @@
     function hide() { banner.classList.add('hidden'); }
     function show() { banner.classList.remove('hidden'); }
 
+    // Don't auto-open the floating dialog on the legal pages — they cover cookies
+    // inline and expose the footer "Cookie settings" control (WL-03). wktwOpenConsent
+    // still works there for manual re-opening.
+    var onLegal = /^\/legal\/(privacy|terms)\/?$/.test(location.pathname);
+
     var stored = null;
     try { stored = localStorage.getItem(KEY); } catch (e) {}
-    if (stored !== 'granted' && stored !== 'denied') show();
+    if (stored !== 'granted' && stored !== 'denied' && !onLegal) show();
 
     var accept = document.getElementById('consent-accept');
     var decline = document.getElementById('consent-decline');
     if (accept) accept.addEventListener('click', function () {
       consentUpdate('granted'); save('granted'); hide();
+      if (window.wktwLoadGTM) window.wktwLoadGTM();
     });
     if (decline) decline.addEventListener('click', function () {
       consentUpdate('denied'); save('denied'); hide();
