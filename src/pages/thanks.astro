@@ -40,4 +40,16 @@ const body = isScan
       </div>
     </div>
   </Section>
+
+  <!-- Conversion signal (WL-23): the thank-you page is the reliable success
+       confirmation, so fire generate_lead here rather than on a form submit that
+       navigates away. form_type is read from the live URL at runtime — this is a
+       static page, so Astro.url.searchParams is empty at build time. Self-gates on
+       consent: a no-op push if GTM isn't loaded; the GA4 tag that consumes it lives
+       in the GTM container (Brandon). -->
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    var t = new URLSearchParams(window.location.search).get('type');
+    window.dataLayer.push({ event: 'generate_lead', form_type: t === 'scan' ? 'scan' : 'contact' });
+  </script>
 </BaseLayout>
