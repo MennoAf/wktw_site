@@ -28,14 +28,11 @@
     # — that's an irreversible commitment; add it deliberately later if wanted.
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), browsing-topics=()"
-    # CSP staged REPORT-ONLY: it logs violations to the browser console but blocks
-    # nothing, so production can't break while we watch it. 'unsafe-inline' is kept
-    # because the ~6 inline scripts (Consent Mode, GTM loader, Plausible init,
-    # banner, menu toggle) aren't nonced yet. Tightening to a nonce-based enforcing
-    # CSP needs a Netlify Edge Function to inject per-request nonces — tracked as
-    # the WL-20 follow-up. Allowlist covers GTM + Plausible + GA4 (loaded via GTM
-    # only after consent).
-    Content-Security-Policy-Report-Only = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://plausible.io https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self'; connect-src 'self' https://plausible.io https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; frame-src https://www.googletagmanager.com"
+    # CSP is NOT set here — it's owned by the nonce-based edge function
+    # (netlify/edge-functions/csp.ts, WL-20), which mints a per-request nonce that
+    # a static header can't. The function defaults to report-only and flips to
+    # enforcing via the CSP_MODE=enforce env var. A static CSP here would only
+    # conflict with it.
 
 # Content-hashed build assets — safe to cache forever (WL-19).
 [[headers]]
