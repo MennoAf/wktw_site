@@ -44,13 +44,14 @@ row below.
 | --- | --- | --- | --- |
 | `edd0218` | 2026-06-25 | WL-10, WL-11 | Contact form: action CTA copy + remove URL field |
 | `412c4c7` | 2026-06-25 | WL-05, WL-07, WL-08, WL-09 | A11y pass: content-link underlines, reduced-motion guard, site-wide heading hierarchy (7 files); WL-09 verified no-op |
+| `6e3ead2` | 2026-06-25 | WL-01 | Self-host Google Fonts (latin + latin-ext woff2); remove gstatic preconnect + render-blocking stylesheet |
 
 ---
 
 ## A · Privacy / compliance — repo-actionable (P0)
 
 ### ✅ WL-01 — Self-host Google Fonts
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `6e3ead2` (2026-06-25) — self-hosted Inter/Lora/JetBrains Mono (latin + latin-ext woff2) in `public/fonts/`, `@font-face` in `global.css`, removed both Google `<link>`s + preconnects, preloaded the two above-fold latin cuts. Build clean: 16 pages, zero googleapis/gstatic refs in dist.
 - **Folds:** `fonts-google-fonts-privacy-performance`, `resource-3-google-fonts-external-render-blocking-risk`, `resource-loading-font-subsetting-opportunity`, `gdpr-google-fonts-ip-transfer-third-country`, `gdpr-google-fonts-pre-consent-ip-transmission` (5 tickets → 1)
 - **Repo truth:** `src/layouts/BaseLayout.astro:66-71` — `preconnect` + `css2?family=Inter…Lora…JetBrains+Mono` link. Real: visitor IPs go to `fonts.gstatic.com` pre-consent, and it's render-blocking.
 - **Action:** Download Inter (variable, Latin) + Lora 700 + JetBrains Mono 400/500 as WOFF2 into `public/fonts/`, add `@font-face` to `src/styles/global.css`, remove the three `<link>`s from BaseLayout.
