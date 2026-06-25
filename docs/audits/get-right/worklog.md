@@ -49,6 +49,7 @@ row below.
 | `705377d` | 2026-06-25 | WL-04, WL-06 | A11y: 48px tap targets (hamburger/nav/footer); mobile menu `inert` when closed; honeypot hardening |
 | `444cde9` | 2026-06-25 | WL-12 | Add `mailto:` contact paths to footer + contact page (no `tel:` — no number) |
 | `fb0a84d` | 2026-06-25 | WL-19, WL-20 | Netlify headers: immutable cache for `/_astro/*` + `/fonts/*`; site-wide security headers + report-only CSP (enforcing nonce-CSP left as follow-up) |
+| `60b32b2` | 2026-06-25 | WL-23 (repo half) | `generate_lead` conversion event on `/thanks` (runtime `form_type`); GA4 tag still GTM-side |
 
 ---
 
@@ -231,7 +232,7 @@ row below.
 - **Action:** Handed to **Brandon** (manages the container) via **[`gtm-investigation.md`](./gtm-investigation.md)** — a standalone, console-facing checklist. Confirm whether a standalone GA4 config tag AND a separate gtag fire; if the dual-beacon exists, fix it **in GTM**, not the repo. Findings get logged in that doc; closes here once Brandon reports back.
 
 ### 🎛️➕ WL-23 — Conversion event instrumentation
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** 🟢 Repo half done (GTM tag still Brandon's) · **Closed by:** `60b32b2` (2026-06-25) — `/thanks` fires a `generate_lead` dataLayer push (`form_type` read from live URL at runtime: `contact` | `scan`). Self-gates on consent. Validated in-browser. **Remaining (GTM-side):** create the GA4 tag/trigger that consumes `generate_lead` in container GTM-5VQTG6TH — added to `gtm-investigation.md` for Brandon.
 - **Folds:** `ux-analytics-form-submit-untracked`, `analytics-cta-conversion-tracking-gap`
 - **Repo truth:** Mixed. Firing a `generate_lead` dataLayer push on contact submit is a **small repo edit** (`contact.astro` form `submit` listener → `dataLayer.push`), but the GA4 tag that consumes it is **GTM-side**. Both halves needed.
 - **Files:** `src/pages/contact.astro` (+ GTM tag config)
