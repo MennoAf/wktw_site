@@ -1,0 +1,187 @@
+[
+  {
+    "type": "title",
+    "title": "Website Audit Report",
+    "content": [
+      "We Know the Why",
+      "w.k.t.w.",
+      "KPIs: revenue, conversion_rate, bounce_rate"
+    ],
+    "notes": ""
+  },
+  {
+    "type": "content",
+    "title": "What We Audited",
+    "content": [
+      "80 findings identified",
+      "10 systemic root cause patterns detected",
+      "19 findings with legal/compliance exposure",
+      "Technical infrastructure analysis (server, platform, template)",
+      "UX and accessibility audit",
+      "Privacy and consent compliance verification",
+      "Performance profiling (lab + CrUX field data)"
+    ],
+    "notes": "This slide covers the scope and methodology of the audit."
+  },
+  {
+    "type": "content",
+    "title": "Executive Summary",
+    "content": [
+      "## Executive Summary: We Know the Why Audit Report\n\nThe audit of \"We Know the Why\" identified 80 findings, revealing a site with a solid technical foundation in areas like visual stability and minimal network waterfall, yet facing significant challenges in legal compliance, user experience, and data integrity. A substantial 53 findings are systemic, indicating that many individual issues stem from broader architectural or design patterns rather than isolated errors. Addressing these systemic root causes will yield the most impactful improvements across the site.\n\n### Critical Legal & Compliance Issues\n\nA total of 19 findings expose \"We Know the Why\" to significant legal and compliance risks, primarily under GDPR, CCPA, and WCAG (ADA)."
+    ],
+    "notes": "Full executive summary available in deliverables."
+  },
+  {
+    "type": "issue",
+    "title": "Triple Analytics Stack \u2014 Redundant GA4 + GTM + Plausible Architecture",
+    "content": [
+      "A single GA4 measurement ID (G-91BP6NPTSM) is loaded twice \u2014 once via GTM container (GTM-5VQTG6TH, 131KB) and once via standalone gtag.js (159KB) \u2014 alongside Plausible. This architectural redundancy is the root cause of 73% of total page transfer weight being analytics scripts, double-counted pageviews corrupting every KPI, inflated session counts suppressing reported bounce rate, and the ERR_ABORTED collect beacon (duplicate request cancellation or ad-blocker). The 290KB analytics payload on a 7KB content page (41:1 ratio) dominates main thread parsing on low-end devices despite async loading. Zero custom conversion events are configured across any analytics platform, meaning the entire stack collects data but produces no actionable conversion intelligence.",
+      "Affects 11 finding(s)",
+      "Triple analytics stack (GA4 via GTM + direct GA4 + Plausible) makes KPIs unreliable with no conversion events configured (critical)",
+      "Contact form submission has no client-side event tracking \u2014 lead attribution is blind (critical)",
+      "Redundant dual analytics stack (Plausible + GA4/GTM) \u2014 excessive overhead and attribution confusion (high)",
+      "Triple analytics stack (GTM + standalone GA4 gtag.js + Plausible) constitutes 73%+ of total page transfer weight (high)",
+      "Fix opportunity: Single architectural decision resolves 11 findings: Choose ONE analytics platform. Option A (recommended for simplicity): Remove GTM and standalone gtag.js entirely, retain Plausible as primary analytics (~5KB), implement server-side GA4 via Measurement Protocol + Netlify Edge Functions only if Google Ads conversion tracking is required. Option B: Remove standalone gtag.js, fire GA4 exclusively through GTM, remove Plausible. Either option eliminates 159-290KB of redundant script transfer, fixes double-counted pageviews, resolves the ERR_ABORTED duplicate beacon, and makes SRI/CSP mitigation simpler (fewer script origins to allowlist). Then configure conversion events: generate_lead on form submission, CTA click tracking on 'Talk to a Founder', scroll depth on content pages. This transforms the analytics stack from a performance liability into an actionable attribution system."
+    ],
+    "notes": "Cluster findings: ux-analytics-triple-redundancy-kpi-corruption, ux-analytics-form-submit-untracked, resource-loading-dual-analytics-redundancy, an-2-duplicate-analytics-gtm-ga4-plausible, js-4-ga4-collect-aborted-data-loss, js-unused-bytes-low-but-present, escalation-5-ga4-err-aborted-root-cause, attribution-split-pixel-not-applicable, ux-analytics-cross-domain-unknown, escalation-1-sri-gtm-ga-mitigation, prescan-escalation-sri-gtm-incompatibility"
+  },
+  {
+    "type": "issue",
+    "title": "Pre-Consent Tracking and Consent Mechanism Failures",
+    "content": [
+      "The custom consent implementation has multiple architectural failures sharing a single root cause: the consent banner's rendering and enforcement are decoupled from the tracking script loading sequence. GTM, GA4, and Plausible all load and execute before any consent interaction occurs. The consent banner exists in the DOM (#consent-accept, #consent-decline) but was not visible to automated detection \u2014 suggesting either geo-conditional rendering (acceptable if working correctly) or a CSS/JS rendering bug (critical failure). Google Consent Mode v2 defaults are configured to deny storage, which mitigates cookie-based tracking, but network requests still transmit personal data (IP addresses) to Google servers pre-consent. The consent buttons share identical CSS classes (px-4 py-2), making visual parity unverifiable without computed styles \u2014 a potential dark pattern concern. The banner appears on the privacy policy page, creating a circular UX where users are asked to consent before reading the policy that informs their consent decision. No recognized CMP is deployed \u2014 this is a custom implementation without the compliance guarantees of established platforms.",
+      "Affects 6 finding(s)",
+      "Pre-consent tracking scripts load without visible consent banner \u2014 GDPR/consent compliance failure (critical)",
+      "Pre-consent tracking [GDPR] (high)",
+      "Cookie consent banner \u2014 Accept/Decline button visual parity requires verification for dark pattern compliance (high)",
+      "Consent banner buttons may lack clear visual hierarchy \u2014 accept vs decline distinction unclear (medium)",
+      "Fix opportunity: Implement a consent-gated script loading architecture: (1) Load ZERO third-party scripts by default \u2014 no GTM, no GA4, no Plausible in the initial HTML. (2) On consent acceptance, dynamically inject the chosen analytics script (per cluster_001 consolidation). (3) On consent denial, load nothing or load only Plausible with cookieless mode if legitimate interest basis is documented. (4) Self-host Google Fonts to eliminate the pre-consent IP transmission to Google's font CDN (also resolves the German court precedent risk from LG M\u00fcnchen I). (5) Exclude the consent banner from /legal/privacy/ and /legal/terms/ pages \u2014 let users read the policy first, then present consent on navigation away. (6) Replace the custom consent implementation with a lightweight, auditable CMP or at minimum add behavioral verification: pre-consent cookie snapshot, post-reject tracking verification, consent state persistence across sessions. This single architectural change (consent-gated loading) resolves 6 findings and eliminates the most severe legal liability on the site."
+    ],
+    "notes": "Cluster findings: privacy-1-no-consent-mechanism, det-gdpr-pre-consent-tracking-https-weknowthewhy-com, privacy-cookies-consent-banner-dark-pattern, ux-interactive-consent-banner-button-clarity, consent-banner-ux-on-privacy-page, fonts-google-fonts-privacy-performance"
+  },
+  {
+    "type": "issue",
+    "title": "Global Touch Target and Interactive Element Sizing Deficit",
+    "content": [
+      "20 interactive elements across the site fall below the WCAG 2.5.8 minimum of 48x48 CSS pixels. This is not a per-page issue \u2014 it is a systemic design system failure where the base component sizing for buttons, links, and navigation elements was established below accessibility minimums. The hamburger menu button (40x40px), primary CTA 'Talk to a Founder' (345x40px), navigation links (345x24px), footer links (~90x17px), and logo links (66x25-28px) all share the same root cause: the design system's spacing and sizing tokens do not enforce a 48px minimum interactive height. The hamburger button additionally has an empty accessible name, compounding the touch target issue with an accessibility failure \u2014 the gateway to all mobile navigation is both physically difficult to tap and invisible to assistive technology.",
+      "Affects 4 finding(s)",
+      "20 touch targets below 48\u00d748px minimum \u2014 mobile navigation, CTA, and footer elements affected (high)",
+      "Hamburger menu button has empty accessible name and 40x40px touch target \u2014 below WCAG minimum (high)",
+      "Primary conversion CTA 'Talk to a Founder' is 40px tall \u2014 below 48px touch target minimum (high)",
+      "Mobile navigation links render at 24px height \u2014 repeated tap failures likely on primary navigation (high)",
+      "Fix opportunity: Design system intervention at the Tailwind/CSS layer: (1) Add a global minimum interactive element rule scoped to buttons, links within nav, and form controls \u2014 enforce min-height: 48px (3rem) via a utility class or Tailwind plugin. (2) For the hamburger button specifically: increase to min-width: 48px; min-height: 48px and add aria-label='Open navigation menu'. (3) For navigation links: increase padding-y to achieve 48px tap target height without changing visual text size. (4) For the primary CTA: increase to min-height: 56px (3.5rem) \u2014 primary conversion actions benefit from exceeding the minimum. (5) For footer links: wrap in padding containers that expand the tap target without changing visual layout. This single design system change (minimum interactive element height) resolves 4 findings covering 20 individual element failures across every page."
+    ],
+    "notes": "Cluster findings: accessibility-touch-targets-undersized, ux-mobile-hamburger-discoverability, ux-mobile-nav-cta-undersized, mobile-nav-touch-targets-ux"
+  },
+  {
+    "type": "issue",
+    "title": "Site-Wide WCAG Accessibility Failures \u2014 Contrast, Color Indicators, Landmarks, and Form Labels",
+    "content": [
+      "Multiple WCAG violations share a common root cause: the design system and component library were built without accessibility as a constraint. Contrast ratios as low as 1.00:1 (foreground and background identical \u2014 likely a hidden or transitional state element) appear on every page tested, concentrated in navigation links and the consent banner accept button. Inline links are distinguished from surrounding text by color alone (no underline, border, or background) across all pages \u2014 a Level A violation. Multiple <nav> elements lack distinguishing aria-label attributes, making screen reader landmark navigation useless. The contact form has inputs without programmatic labels (likely a honeypot field without aria-hidden='true' and tabindex='-1'). Heading hierarchy skips levels (h2\u2192h4) on multiple pages. These are not isolated oversights \u2014 they represent a systematic absence of accessibility testing in the development workflow.",
+      "Affects 10 finding(s)",
+      "Insufficient contrast ratio [WCAG] (medium)",
+      "Color as sole indicator [WCAG] (medium)",
+      "Improper content structure [WCAG] (low)",
+      "Missing name/role/value [WCAG] (medium)",
+      "Fix opportunity: Three-layer fix: (1) DESIGN SYSTEM: Audit and update the color palette to ensure all foreground/background combinations meet 4.5:1 minimum. Add text-decoration: underline to all inline links within body content (not navigation). Define heading hierarchy rules in the content model \u2014 h1 per page, sequential h2\u2192h3\u2192h4 with no skips. (2) COMPONENT LIBRARY: Add aria-label='Primary navigation' to desktop <nav>, aria-label='Mobile navigation' to mobile menu <nav>. Add aria-hidden='true' and tabindex='-1' to the honeypot form input. Add aria-label='Open navigation menu' to the hamburger button. Ensure mobile menu sets aria-hidden='true' when collapsed and removes it when expanded. (3) CI/CD: Add axe-core or similar automated accessibility testing to the build pipeline \u2014 Astro supports this via integration testing. This prevents regression and catches new violations before deployment. These three interventions resolve 10 findings and establish a sustainable accessibility baseline."
+    ],
+    "notes": "Cluster findings: det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about, det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about, det-wcag-improper-content-structure-https-weknowthewhy-com-about, det-wcag-missing-name-role-value-https-weknowthewhy-com-contact, a11y-heading-hierarchy-skip, a11y-5-mobile-menu-duplicate-nav-no-aria-label, a11y-3-form-missing-label, a11y-mobile-menu-nav-no-aria-label, ghost-markup-mobile-menu-hidden-links, ux-heading-hierarchy-skip"
+  },
+  {
+    "type": "issue",
+    "title": "Google Fonts External Dependency \u2014 Privacy, Performance, and Render-Blocking",
+    "content": [
+      "Google Fonts loaded from fonts.googleapis.com/fonts.gstatic.com creates a three-way liability: (1) PRIVACY: Every page load transmits visitor IP addresses to Google servers, which German courts have ruled a GDPR violation without consent. (2) PERFORMANCE: The font CSS stylesheet is render-blocking, 3 separate font files total 98KB, and Inter is loaded as 3 static weight files when a single variable font file (~25-35KB) would suffice. (3) RESILIENCE: If Google's font CDN is unavailable or blocked by ad-blockers/corporate firewalls, text rendering falls back unpredictably. Preconnect hints are configured (good), but they mitigate latency without eliminating the dependency. The site uses only Latin characters, meaning full Unicode character sets are loaded unnecessarily.",
+      "Affects 3 finding(s)",
+      "Google Fonts loaded from external CDN \u2014 privacy implications and variable font optimization opportunity (medium)",
+      "Google Fonts stylesheet is render-blocking \u2014 external CSS without async/preload strategy introduces FOIT/FOUT risk (medium)",
+      "Three font files totaling 98KB \u2014 variable font consolidation and subsetting could reduce to ~30KB (medium)",
+      "Fix opportunity: Self-host all fonts \u2014 single architectural change resolves 3 findings: (1) Download Inter as a variable font (single WOFF2 file, wght axis, ~25-35KB) and Lora as WOFF2. (2) Subset both to Latin character range using tools like glyphhanger or fonttools (potential reduction from 98KB to ~30-40KB). (3) Add @font-face declarations with font-display: swap directly in the site's CSS. (4) Preload the primary font (Inter variable) with <link rel='preload' as='font' type='font/woff2' crossorigin>. (5) Remove the Google Fonts <link> tag and the preconnect hints to fonts.googleapis.com/fonts.gstatic.com. This eliminates the GDPR liability, removes the render-blocking external stylesheet, reduces font payload by ~60%, eliminates 2 third-party domain connections, and makes fonts cacheable under the site's own cache policy (ties to cluster_006)."
+    ],
+    "notes": "Cluster findings: fonts-google-fonts-privacy-performance, resource-3-google-fonts-external-render-blocking-risk, resource-loading-font-subsetting-opportunity"
+  },
+  {
+    "type": "issue",
+    "title": "Missing Security Headers and Supply-Chain Protection",
+    "content": [
+      "The site serves no Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, or Referrer-Policy headers. This absence is compounded by the inability to use Subresource Integrity (SRI) on the primary third-party scripts (GTM and GA4 are dynamically versioned by Google, making SRI hashes break on every update). The correct mitigation \u2014 nonce-based CSP via Netlify Edge Functions \u2014 addresses both the missing headers and the supply-chain protection gap simultaneously. Without CSP, a compromised GTM container could inject arbitrary scripts that exfiltrate form data (name, email, company) submitted on the contact page.",
+      "Affects 3 finding(s)",
+      "Missing recommended security headers (medium)",
+      "SRI infeasible for GTM/GA4 scripts \u2014 nonce-based CSP is the appropriate mitigation (high)",
+      "SRI is technically incompatible with GTM/gtag.js \u2014 alternative mitigations required (medium)",
+      "Fix opportunity: Implement security headers via Netlify configuration \u2014 resolves 3 findings with a single deployment: (1) Add to netlify.toml or _headers file: X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: strict-origin-when-cross-origin, Permissions-Policy: camera=(), microphone=(), geolocation=(). (2) For CSP: If analytics are consolidated to Plausible only (per cluster_001), a simple static CSP suffices: script-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self' (after self-hosting fonts per cluster_005). If GTM is retained, implement nonce-based CSP via Netlify Edge Functions that inject a unique nonce per request into both the script tags and the CSP header. (3) Add Strict-Transport-Security: max-age=31536000; includeSubDomains; preload. Note: Consolidating analytics (cluster_001) and self-hosting fonts (cluster_005) dramatically simplifies the CSP policy by reducing the number of allowed external origins."
+    ],
+    "notes": "Cluster findings: det-security-headers-https-weknowthewhy-com-about, escalation-1-sri-gtm-ga-mitigation, prescan-escalation-sri-gtm-incompatibility"
+  },
+  {
+    "type": "compliance",
+    "title": "GDPR Compliance",
+    "content": [
+      "8 high-exposure violation(s)",
+      "8 total violation(s)",
+      "GDPR Art. 6(1)(a) + ePrivacy Art. 5(3): pre-consent tracking",
+      "GDPR Art. 6(1)(a) + Art. 13: missing consent mechanism"
+    ],
+    "notes": "Domain: gdpr, violations: 8"
+  },
+  {
+    "type": "compliance",
+    "title": "CCPA Compliance",
+    "content": [
+      "2 total violation(s)",
+      "CCPA 1798.120 + 1798.135: opt-out mechanism deficiency",
+      "CCPA 1798.135(e) + Cal. AG Regulations 999.315: GPC signal non-compliance"
+    ],
+    "notes": "Domain: ccpa, violations: 2"
+  },
+  {
+    "type": "compliance",
+    "title": "Accessibility (WCAG/ADA)",
+    "content": [
+      "13 total violation(s)",
+      "WCAG 2.1 SC 1.4.3 (AA): insufficient contrast ratio",
+      "WCAG 2.1 SC 1.3.1 (A): improper content structure",
+      "WCAG 2.1 SC 1.4.1 (A): color as sole indicator",
+      "WCAG 2.1 SC 4.1.2 (A): missing name/role/value"
+    ],
+    "notes": "Domain: wcag, violations: 13"
+  },
+  {
+    "type": "quickwins",
+    "title": "Quick Wins",
+    "content": [
+      "Highest impact for lowest effort \u2014 start here.",
+      "Triple analytics stack (GTM + standalone GA4 gtag.js + Plausible) constitutes 73%+ of total page transfer weight (quick win)",
+      "No heavy advertising pixels detected \u2014 split-pixel strategy not required (quick win)",
+      "No tel: or mailto: links detected \u2014 mobile users cannot tap-to-call or tap-to-email (quick win)",
+      "cache-control: public, max-age=0, must-revalidate \u2014 no browser caching of page content (quick win)",
+      "20 touch targets below 48\u00d748px minimum \u2014 mobile navigation, CTA, and footer elements affected (quick win)"
+    ],
+    "notes": "Top 5 quick wins from prioritized roadmap."
+  },
+  {
+    "type": "roadmap",
+    "title": "Remediation Roadmap",
+    "content": [
+      "30 Days: 34 item(s)",
+      "60 Days: 28 item(s)",
+      "90 Days: 14 item(s)",
+      "Backlog: 5 item(s)"
+    ],
+    "notes": "Detailed roadmap available in deliverables."
+  },
+  {
+    "type": "thankyou",
+    "title": "Thank You",
+    "content": [
+      "w.k.t.w.",
+      "We Know The Why",
+      "",
+      "Next Steps:",
+      "Review deliverables and ticket backlog",
+      "Schedule implementation kickoff",
+      "Questions? Let's discuss."
+    ],
+    "notes": ""
+  }
+]
