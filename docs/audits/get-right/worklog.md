@@ -306,3 +306,5 @@ unless a specific guardrail earns its keep later.
 
 ## Progress log
 - 2026-06-25 — Worklog created; all 60 tickets triaged & repo-verified. Nothing started yet.
+- 2026-06-25 — **All repo-actionable items closed** (WL-01–12 + WL-19/20 + WL-23 repo half). Consent gate live-validated in a real browser (14/14 behaviors: GTM never loads pre-consent / after Decline; fires on Accept; fonts fully self-hosted — no gstatic/googleapis). Remaining work is GTM-console (Brandon: WL-22, WL-23 GA4 tag), additive design passes (WL-13–18), and the enforcing nonce-CSP follow-up (WL-20).
+- 2026-06-25 — **Adjacent fix (not an audit item)** `ecf9dcd`: `/thanks` scan/contact copy branched on `Astro.url.searchParams` but the page is static, so scan submitters saw the contact copy. Found while wiring WL-23; fixed via runtime `?type=` read (same script as the conversion event). Latent today (scan funnel paused) but correct now for relaunch.
