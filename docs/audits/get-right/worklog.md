@@ -42,7 +42,7 @@ row below.
 
 | Commit | Date | WL items closed | Summary |
 | --- | --- | --- | --- |
-| _pending_ | — | — | No fixes committed yet. |
+| `edd0218` | 2026-06-25 | WL-10, WL-11 | Contact form: action CTA copy + remove URL field |
 
 ---
 
@@ -123,14 +123,14 @@ row below.
 ## C · Conversion / UX — repo-actionable (P1)
 
 ### ✅ WL-10 — Contact CTA button copy
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `edd0218` (2026-06-25)
 - **Folds:** `ux-conversion-cta-text-generic`
 - **Repo truth:** Confirmed — submit button reads "Send Message" (`contact.astro:83-88`).
 - **Action:** Replace with action copy mirroring the h1 ("Talk to a founder" → e.g. "Send it to a founder" / "Start the conversation").
 - **Files:** `src/pages/contact.astro`
 
 ### ✅ WL-11 — Remove URL field from contact form
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `edd0218` (2026-06-25)
 - **Folds:** `ux-form-url-field-mobile-friction`
 - **Repo truth:** Confirmed — optional `type="url"` Website URL field exists (`contact.astro:63-69`). Real mobile friction.
 - **Action:** Remove the field (enrich company from email domain post-submit if needed). Quick win.
