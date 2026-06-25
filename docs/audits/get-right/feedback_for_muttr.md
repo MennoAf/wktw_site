@@ -167,6 +167,30 @@
 
 ---
 
+## MUTTR-09 — Verification tests target broken / placeholder URLs
+
+**Severity:** high · **Category:** Verification grounding
+**Status:** ☐ Open ☐ Fixed ☐ Verified
+
+**Observed:** Of 1,221 tests in `verification/tests.json`, roughly half cannot run as authored:
+- **645 tests** have an **empty `target_url`**.
+- Many target placeholder or nonexistent URLs: `https://example.com/contact`, `https://yourdomain.com`, `${AUDIT_BASE_URL}`, `https://your-site.netlify.app`, `/blog/*`, `/services/ecommerce-audit`, `/services/[service-slug]`, `/articles/audits-change-nothing`. The site has no `/blog`, `/services`, or `/articles` routes — they are `/insights` and `/the-get-right` here (same wrong-stack root as MUTTR-03/05).
+- One target has a **typo'd domain**: `https://weknowthewify.com/proof/our-site` ("wify", not "why").
+- Inconsistent trailing slashes for the same page (`/about`, `/about/`, `https://weknowthewhy.com/about`, `.../about/`) fragment results.
+- 54 `visual_regression` tests have `baseline_screenshot_ref: null` — no baseline exists, so none can run.
+
+**Why it matters:** A verification suite where ~half the tests point at empty or fictional URLs can't gate a launch. It also can't be trusted to "pass" — green may just mean "skipped, no target."
+
+**Fix:** Resolve every test's `target_url` to a real, crawled URL on the audited origin before emit; drop or quarantine tests whose target can't be resolved. Normalize trailing slashes to the site's canonical form. Never emit a test against `example.com` / `yourdomain.com` / a templated slug. Generate visual-regression baselines (or omit the test) rather than shipping null-baseline tests.
+
+### Verify (Muttr to complete)
+- [ ] No test ships with an empty or placeholder `target_url`
+- [ ] All targets resolve to real URLs on the audited origin (no `example.com`, `/blog/*`, typo'd domains)
+- [ ] Trailing-slash form is normalized to the site's canonical
+- [ ] `visual_regression` tests either carry a real baseline or are not emitted
+
+---
+
 ## Summary
 
 | ID | Defect | Severity |
@@ -179,6 +203,7 @@
 | MUTTR-06 | "Confirmed" tier includes unverified | medium |
 | MUTTR-07 | Stale findings reported as open | medium |
 | MUTTR-08 | Passing checks framed as findings | low |
+| MUTTR-09 | Verification tests target broken/placeholder URLs | high |
 
 **Theme:** The ticket *structure* is strong (impact, risks, verification rigor). The gaps are
 all **grounding** — the tool reasons from generic templates and prior detections instead of
@@ -186,3 +211,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 
 ## Progress log
 - 2026-06-25 — Filed 8 defects from the first triage pass of the Get Right audit.
+- 2026-06-25 — Added MUTTR-09 after dissecting `verification/tests.json` (broken/placeholder test targets).
