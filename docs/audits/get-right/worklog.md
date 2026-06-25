@@ -45,6 +45,7 @@ row below.
 | `edd0218` | 2026-06-25 | WL-10, WL-11 | Contact form: action CTA copy + remove URL field |
 | `412c4c7` | 2026-06-25 | WL-05, WL-07, WL-08, WL-09 | A11y pass: content-link underlines, reduced-motion guard, site-wide heading hierarchy (7 files); WL-09 verified no-op |
 | `6e3ead2` | 2026-06-25 | WL-01 | Self-host Google Fonts (latin + latin-ext woff2); remove gstatic preconnect + render-blocking stylesheet |
+| `f6b2a7e` | 2026-06-25 | WL-02, WL-03 | Defer GTM load until consent (one-shot loader, drop noscript iframe); consent banner ≥48px buttons + legal-route suppression |
 
 ---
 
@@ -58,14 +59,14 @@ row below.
 - **Files:** `src/layouts/BaseLayout.astro`, `src/styles/global.css`, `public/fonts/`
 
 ### ✅ WL-02 — Gate analytics/font loading behind consent (not just storage)
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `f6b2a7e` (2026-06-25) — GTM loader is now a one-shot `window.wktwLoadGTM()`; fires immediately only if a prior `granted` choice is stored, otherwise only from the banner Accept handler (which pushes the consent update first). Removed the `<noscript>` GTM iframe (no-JS visitors can't consent). Fonts already self-hosted (WL-01) and Plausible stays always-on per Jason's decision, so GTM was the only remaining pre-consent load.
 - **Folds:** `privacy-1-no-consent-mechanism`, `det-gdpr-pre-consent-tracking-https-weknowthewhy-com`, `privacy-cookies-consent-banner-dark-pattern`, `privacy-cookies-compound-consent-dark-pattern` (4 → 1)
 - **Repo truth:** Consent Mode v2 default-denied is present (`BaseLayout.astro:26-50`) but GTM (`:52-57`) and Plausible (`:121-125`) **scripts still load** pre-consent; Consent Mode only denies *storage*, not script loading. The privacy link IS in the banner (`ConsentBanner.astro:19`) and buttons already have primary/ghost hierarchy (`:22-35`) — so the "dark pattern / no privacy link" half of these tickets is **already addressed** (see WL-22). The live gap is: Plausible + Google Fonts fire before any consent decision.
 - **Decision (Jason, 2026-06-25):** **Keep Plausible always-on** — it's GDPR/PECR-compliant by design (cookieless, no PII stored, EU-processed) and needs no consent. Once WL-01 self-hosts the fonts, **GTM is the only thing left to consent-gate.** So this item narrows to: defer the GTM loader until the user accepts (Consent Mode v2 already denies storage pre-consent, but the GTM *script* still loads today — gate the load itself). The GA4/GTM-side questions go to Brandon via [`gtm-investigation.md`](./gtm-investigation.md).
 - **Files:** `src/layouts/BaseLayout.astro`, `src/components/ConsentBanner.astro`
 
 ### ✅ WL-03 — Consent banner: route-aware + larger touch targets
-- **Status:** ☐ Open · **Closed by:** —
+- **Status:** ☑ Done · **Closed by:** `f6b2a7e` (2026-06-25) — buttons bumped to `min-h-[48px] px-5 py-3` (WCAG 2.5.8); floating dialog auto-suppressed on `/legal/privacy` + `/legal/terms` (those pages cover cookies inline and expose the footer Cookie-settings control; `wktwOpenConsent` still works there). Button hierarchy was already fine.
 - **Folds:** `consent-banner-ux-on-privacy-page`, `ux-interactive-consent-banner-button-clarity` (touch-target portion)
 - **Repo truth:** Banner buttons are `px-4 py-2` ≈ 36px tall (`ConsentBanner.astro:22-35`) — below 48px. No route suppression on `/legal/*`.
 - **Action:** Bump buttons to ≥48px; auto-suppress banner on `/legal/privacy` + `/legal/terms` (render inline notice instead). Button hierarchy is already fine.
