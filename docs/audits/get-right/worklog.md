@@ -52,6 +52,7 @@ row below.
 | `60b32b2` | 2026-06-25 | WL-23 (repo half) | `generate_lead` conversion event on `/thanks` (runtime `form_type`); GA4 tag still GTM-side |
 | `a920fea` | 2026-06-25 | WL-16, WL-17 | Breadcrumb component (visible nav + BreadcrumbList JSON-LD, sitewide via BaseLayout); CollectionPage/WebPage structured data on the two `/proof` pages |
 | `6053c1c` | 2026-06-25 | WL-20 (CSP follow-up) | Nonce-based CSP via Netlify Edge Function (`strict-dynamic`); replaces static report-only; CSP_MODE env flips report-only→enforce |
+| `06fc4f6` | 2026-06-25 | WL-14 | Engagement-model expectation-setter under homepage CTAs + `/the-get-right` CTA ("founder replies in 24h") |
 
 ---
 
@@ -159,11 +160,12 @@ row below.
 - **Action:** Scope as a follow-on design pass (own branch). Build a `TrustBlock.astro` + slot it. Not a quick fix; needs copy/testimonials from Jason.
 - **Files:** new `src/components/TrustBlock.astro`, `src/pages/contact.astro`, `src/pages/about.astro`, service pages, insights article
 
-### ➕ WL-14 — Engagement-model framing (pre-qualification)
-- **Status:** ☐ Open · **Closed by:** —
+### ✅ WL-14 — Engagement-model framing (pre-qualification)
+- **Status:** ☑ Done · **Closed by:** `06fc4f6` (2026-06-25) — added a one-line expectation-setter under both homepage CTAs (hero + footer) and folded the same first-step promise into the `/the-get-right` CTA: *"A founder replies within 24 hours — no sales team, no account managers. We establish fit before either side commits."* Lowers the perceived commitment of the "Talk to a Founder" ask by making the next step legible before contact. Verified desktop + mobile, both CTAs.
+- **Decision (Jason, 2026-06-25):** **One offering, no tiers.** The audit's sample code proposed a 3-tier grid (Diagnostic / Sprint / Advisory) with duration+fee badges — **rejected as inaccurate**: WKTW sells one productized engagement (The Get Right, fixed 90-day sprint). Building fake tiers would describe a business that doesn't exist (the ticket's own #1 risk). The promised first step is the **async founder reply within 24h** already stated on `/thanks` — **not** the audit's assumed "20-minute scoping call." Built in Tailwind/Astro, not the audit's BEM/separate-CSS scaffold.
+- **Repo truth:** The audit's "Engagement Model Described: False" was **largely stale for `/the-get-right`** — that page already had an Investment section (project-based, no upfront retainer, custom-scoped), a 90-day timeline, "What you get," and FAQs on cost/duration/retainer. The **genuine** gap was the homepage CTA zone, which had zero expectation-setting. Fixed there; reinforced lightly on `/the-get-right`. No redundant "engagement model" section added.
 - **Folds:** `ux-revenue-no-pricing-signals`
-- **Repo truth:** Additive content. Overlaps your in-flight positioning work on this branch — coordinate, don't double-edit.
-- **Files:** `src/pages/the-get-right/index.astro`, `src/pages/index.astro`
+- **Files:** `src/pages/index.astro`, `src/pages/the-get-right/index.astro`
 
 ---
 
@@ -313,4 +315,5 @@ unless a specific guardrail earns its keep later.
 - 2026-06-25 — **All repo-actionable items closed** (WL-01–12 + WL-19/20 + WL-23 repo half). Consent gate live-validated in a real browser (14/14 behaviors: GTM never loads pre-consent / after Decline; fires on Accept; fonts fully self-hosted — no gstatic/googleapis). Remaining work is GTM-console (Brandon: WL-22, WL-23 GA4 tag), additive design passes (WL-13–18), and the enforcing nonce-CSP follow-up (WL-20).
 - 2026-06-25 — **Adjacent fix (not an audit item)** `ecf9dcd`: `/thanks` scan/contact copy branched on `Astro.url.searchParams` but the page is static, so scan submitters saw the contact copy. Found while wiring WL-23; fixed via runtime `?type=` read (same script as the conversion event). Latent today (scan funnel paused) but correct now for relaunch.
 - 2026-06-25 — **Additive SEO pass** `a920fea` (WL-16, WL-17): sitewide breadcrumbs (visible nav + `BreadcrumbList` JSON-LD) and page-level structured data on the `/proof` pages. **WL-15 closed as stale** — the `/about` Person `@graph` already exists (`about.astro:255-333`), so its "undefined `@id`" premise no longer held.
-- 2026-06-25 — **WL-20 CSP follow-up closed (repo)** `6053c1c`: nonce-based CSP via Netlify Edge Function with `strict-dynamic`, replacing the static report-only. Defaults to report-only; flips to enforce via `CSP_MODE=enforce`. Repo work done; **live deploy-preview validation + the enforce flip remain an ops step** (checklist in the WL-20 entry above). With this, **every repo + Netlify-config item is closed.** Remaining: additive WL-13 (trust signals — needs testimonials), WL-14 (engagement framing — copy), WL-18 (internal linking/search — needs content-model decision); optional WL-21 (build-time link-checking); GTM-console WL-22 + WL-23 GA4 tag (Brandon).
+- 2026-06-25 — **WL-20 CSP follow-up closed (repo)** `6053c1c`: nonce-based CSP via Netlify Edge Function with `strict-dynamic`, replacing the static report-only. Defaults to report-only; flips to enforce via `CSP_MODE=enforce`. Repo work done; **live deploy-preview validation + the enforce flip remain an ops step** (checklist in the WL-20 entry above). With this, every repo + Netlify-config item is closed.
+- 2026-06-25 — **WL-14 closed** `06fc4f6`: engagement-model expectation-setter under the homepage CTAs + `/the-get-right` CTA. Decided one-offering (rejected the audit's fake 3-tier grid); first-step promise is the async 24h founder reply already on `/thanks`. Remaining: **WL-13 deferred** (trust signals — no testimonials yet); WL-18 (internal linking/search — needs content-model decision); optional WL-21 (build-time link-checking); ops-only WL-20 enforce flip; GTM-console WL-22 + WL-23 GA4 tag (Brandon).
