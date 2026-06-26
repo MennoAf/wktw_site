@@ -53,6 +53,7 @@ row below.
 | `a920fea` | 2026-06-25 | WL-16, WL-17 | Breadcrumb component (visible nav + BreadcrumbList JSON-LD, sitewide via BaseLayout); CollectionPage/WebPage structured data on the two `/proof` pages |
 | `6053c1c` | 2026-06-25 | WL-20 (CSP follow-up) | Nonce-based CSP via Netlify Edge Function (`strict-dynamic`); replaces static report-only; CSP_MODE env flips report-only→enforce |
 | `06fc4f6` | 2026-06-25 | WL-14 | Engagement-model expectation-setter under homepage CTAs + `/the-get-right` CTA ("founder replies in 24h") |
+| `e198ec7` | 2026-06-25 | WL-18 (content-model foundation) | Typed `src/data/insights.ts` manifest as single source of truth; index + article de-duplicated. Content-model decided: manifest, not collections. |
 
 ---
 
@@ -189,11 +190,13 @@ row below.
 - **Repo truth:** Additive. Add BreadcrumbList/Organization (and Review only if real testimonial content exists — do not fabricate).
 - **Files:** `src/pages/proof/our-site.astro`, `src/pages/proof/index.astro`
 
-### ➕ WL-18 — Internal linking / related-content
-- **Status:** ☐ Open · **Closed by:** —
+### 🟢 WL-18 — Internal linking / related-content
+- **Status:** 🟢 Foundation done; visible features deferred (content-volume-gated) · **Closed by:** `e198ec7` (content-model foundation)
+- **Content-model decision (Jason, 2026-06-25):** **typed manifest, NOT Astro content collections.** There's one richly-designed, bespoke 385-line `.astro` article today, so collections (MDX migration of that article) would be abstraction ahead of real friction. The actual friction was metadata *duplication* between the listing and the article — `e198ec7` fixes exactly that with `src/data/insights.ts` (single source of truth, typed `InsightPost`; index uses `insightsByDate()`, article uses `getPost()`). Behavior-preserving (built pages byte-identical to baseline). The manifest is the seam to graduate into a content collection later if publishing volume grows.
 - **Folds:** `navigation-no-search`, `ux-nav-internal-linking-sparse`, `conversion-ux-social-share-1` (3 → 1)
-- **Repo truth:** Additive. The Pagefind search + RelatedContent component are reasonable but sizeable. The audit's "Astro content frontmatter schema" assumes content collections — the site currently uses per-page `.astro` files, not a collection, so this needs a content-model decision first.
-- **Files:** TBD — needs architecture decision (content collections?)
+- **Repo truth:** Additive. The Pagefind search + RelatedContent component are reasonable but sizeable. With **one** article, related-content has nothing to relate to and search indexes a handful of pages — so these are **deferred until content volume justifies them**. The manifest makes related-content a small add once article #2 lands; Pagefind search and social share are independent of the content model and can ship anytime.
+- **Remaining (deferred, not blocked):** RelatedContent component (reads the manifest, filters by tag/excludes current) · Pagefind search over built HTML · social-share buttons on articles.
+- **Files:** `src/data/insights.ts`, `src/pages/insights/index.astro`, `src/pages/insights/why-most-audits-dont-change-anything.astro`
 
 ---
 
@@ -316,4 +319,5 @@ unless a specific guardrail earns its keep later.
 - 2026-06-25 — **Adjacent fix (not an audit item)** `ecf9dcd`: `/thanks` scan/contact copy branched on `Astro.url.searchParams` but the page is static, so scan submitters saw the contact copy. Found while wiring WL-23; fixed via runtime `?type=` read (same script as the conversion event). Latent today (scan funnel paused) but correct now for relaunch.
 - 2026-06-25 — **Additive SEO pass** `a920fea` (WL-16, WL-17): sitewide breadcrumbs (visible nav + `BreadcrumbList` JSON-LD) and page-level structured data on the `/proof` pages. **WL-15 closed as stale** — the `/about` Person `@graph` already exists (`about.astro:255-333`), so its "undefined `@id`" premise no longer held.
 - 2026-06-25 — **WL-20 CSP follow-up closed (repo)** `6053c1c`: nonce-based CSP via Netlify Edge Function with `strict-dynamic`, replacing the static report-only. Defaults to report-only; flips to enforce via `CSP_MODE=enforce`. Repo work done; **live deploy-preview validation + the enforce flip remain an ops step** (checklist in the WL-20 entry above). With this, every repo + Netlify-config item is closed.
-- 2026-06-25 — **WL-14 closed** `06fc4f6`: engagement-model expectation-setter under the homepage CTAs + `/the-get-right` CTA. Decided one-offering (rejected the audit's fake 3-tier grid); first-step promise is the async 24h founder reply already on `/thanks`. Remaining: **WL-13 deferred** (trust signals — no testimonials yet); WL-18 (internal linking/search — needs content-model decision); optional WL-21 (build-time link-checking); ops-only WL-20 enforce flip; GTM-console WL-22 + WL-23 GA4 tag (Brandon).
+- 2026-06-25 — **WL-14 closed** `06fc4f6`: engagement-model expectation-setter under the homepage CTAs + `/the-get-right` CTA. Decided one-offering (rejected the audit's fake 3-tier grid); first-step promise is the async 24h founder reply already on `/thanks`.
+- 2026-06-25 — **WL-18 content-model decided + foundation built** `e198ec7`: chose a typed metadata manifest (`src/data/insights.ts`) over Astro content collections — one bespoke article today, so collections would be premature abstraction; the real friction (listing↔article metadata duplication) is now fixed, behavior-preserving. Visible WL-18 features (related-content, Pagefind search, social share) **deferred until content volume justifies them**. Remaining across the audit: **WL-13 deferred** (trust signals — no testimonials yet); WL-18 visible features (content-gated); optional WL-21 (build-time link-checking); ops-only WL-20 enforce flip; GTM-console WL-22 + WL-23 GA4 tag (Brandon).
