@@ -2,23 +2,20 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import Button from '../../components/Button.astro';
+import { getPost } from '../../data/insights';
 
-const publishedDate = '2026-05-24';
-const author = 'Jason Bauman';
-const authorTitle = 'Chief Product Officer';
-const readingTime = '6 min read';
-const tag = 'Audit Process';
-const headline = "Why most audits don't change anything";
-const description = "There's a structural reason your last six-figure audit ended up in a Google Drive folder nobody opens. It's not your team — it's the shape of the work.";
-
-// Author links to the Person @id defined on /about; publisher to the site Organization.
-const authorId = 'https://weknowthewhy.com/about#jason-bauman';
+// Metadata is the single source of truth in src/data/insights.ts (shared with the
+// /insights listing). The article body below stays bespoke.
+const post = getPost('why-most-audits-dont-change-anything');
+const { title, pageTitle, description, author, authorId, authorTitle, readingTime, tag, dateLabel } = post;
+const publishedDate = post.date;
+const headline = title;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/og-default.png', Astro.site).href;
 ---
 
 <BaseLayout
-  title="Why Most Audits Don't Change Anything"
+  title={pageTitle ?? title}
   description={description}
 >
   <Section class="pt-28 pb-12">
@@ -37,7 +34,7 @@ const ogImage = new URL('/og-default.png', Astro.site).href;
         <span>&middot;</span>
         <span>{authorTitle}</span>
         <span>&middot;</span>
-        <time datetime={publishedDate}>May 24, 2026</time>
+        <time datetime={publishedDate}>{dateLabel}</time>
         <span>&middot;</span>
         <span>{readingTime}</span>
       </div>
