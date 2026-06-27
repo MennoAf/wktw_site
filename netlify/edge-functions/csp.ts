@@ -57,7 +57,11 @@ export default async function handler(
     "object-src 'none'",
     "frame-ancestors 'none'",
     "form-action 'self'",
-    `script-src 'nonce-${nonce}' 'strict-dynamic' https: 'unsafe-inline'`,
+    // 'wasm-unsafe-eval' lets the Pagefind site-search module (WL-18) compile
+    // its WebAssembly. It permits WASM compilation only — NOT JS eval()/Function()
+    // — and is ignored by browsers that don't support it. Drop it if search is
+    // ever removed (see src/data/features.ts).
+    `script-src 'nonce-${nonce}' 'strict-dynamic' 'wasm-unsafe-eval' https: 'unsafe-inline'`,
     // Styles stay permissive: Astro/Tailwind emit un-nonced <style> + inline
     // style attributes; nonce-ing those is a separate, lower-value lift.
     "style-src 'self' 'unsafe-inline'",

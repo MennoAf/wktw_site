@@ -143,7 +143,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
          consent banner, so firing GTM for them would be pre-consent tracking (WL-02). -->
     <Header />
     {breadcrumb && <Breadcrumb />}
-    <main class="flex-1">
+    <!-- data-pagefind-body scopes the search index (WL-18) to page content, so
+         the repeated header/footer chrome isn't indexed as result text. -->
+    <main class="flex-1" data-pagefind-body>
       <slot />
     </main>
     <Footer />

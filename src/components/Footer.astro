@@ -1,4 +1,6 @@
 ---
+import { features } from '../data/features';
+
 const services = [
   { label: 'The Get Right', href: '/the-get-right' },
   { label: 'Platform Audit', href: '/the-get-right/platform' },
@@ -11,6 +13,7 @@ const company = [
   { label: 'Contact', href: '/contact' },
   { label: 'Proof', href: '/proof' },
   { label: 'Insights', href: '/insights' },
+  ...(features.search ? [{ label: 'Search', href: '/search' }] : []),
   { label: 'Privacy', href: '/legal/privacy' },
   { label: 'Terms', href: '/legal/terms' },
 ];

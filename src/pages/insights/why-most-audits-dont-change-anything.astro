@@ -2,7 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import Button from '../../components/Button.astro';
+import SocialShare from '../../components/SocialShare.astro';
 import { getPost } from '../../data/insights';
+import { features } from '../../data/features';
 
 // Metadata is the single source of truth in src/data/insights.ts (shared with the
 // /insights listing). The article body below stays bespoke.
@@ -361,6 +363,8 @@ const ogImage = new URL('/og-default.png', Astro.site).href;
           <Button href="/the-get-right" variant="secondary">Learn about The Get Right</Button>
         </div>
       </div>
+
+      {features.socialShare && <SocialShare url={canonical} title={headline} />}
     </article>
   </Section>
 

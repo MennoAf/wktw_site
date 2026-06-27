@@ -1,4 +1,6 @@
 ---
+import { features } from '../data/features';
+
 const navItems = [
   { label: 'The Get Right', href: '/the-get-right' },
   { label: 'Insights', href: '/insights' },
@@ -31,6 +33,20 @@ const currentPath = Astro.url.pathname;
           {item.label}
         </a>
       ))}
+      {features.search && (
+        <a
+          href="/search"
+          aria-label="Search"
+          class:list={[
+            'inline-flex items-center min-h-[44px] text-sm font-medium transition-colors',
+            currentPath.startsWith('/search')
+              ? 'text-accent'
+              : 'text-secondary-text hover:text-primary-text',
+          ]}
+        >
+          Search
+        </a>
+      )}
       <a
         href="/contact"
         class="bg-accent text-on-primary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-accent-hover transition-colors inline-flex items-center min-h-[44px]"
@@ -70,6 +86,19 @@ const currentPath = Astro.url.pathname;
           {item.label}
         </a>
       ))}
+      {features.search && (
+        <a
+          href="/search"
+          class:list={[
+            'text-base font-medium transition-colors flex items-center min-h-[48px]',
+            currentPath.startsWith('/search')
+              ? 'text-accent'
+              : 'text-secondary-text hover:text-primary-text',
+          ]}
+        >
+          Search
+        </a>
+      )}
       <a
         href="/contact"
         class="bg-accent text-on-primary px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-accent-hover transition-colors inline-flex items-center justify-center min-h-[48px]"
