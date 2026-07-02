@@ -306,7 +306,7 @@
 ## MUTTR-10 — Single-altitude tickets: add an executor layer without losing the reviewer essay
 
 **Severity:** medium · **Category:** Ticket format / progressive disclosure
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-07-01**
 
 **Observed:** Every ticket is written at one altitude — a long, reviewer-facing essay (Impact,
 Risks, multi-step "How", code samples; often ~200 lines). Two consequences when *doing the work*:
@@ -336,10 +336,12 @@ card; a no-repo reviewer needs the full narrative. Today only the second is serv
    labelling them as design/effort rather than a single fix.
 
 ### Verify (Muttr to complete)
-- [ ] Each ticket leads with a terse fix-card (ask + surface + done-condition)
-- [ ] The full reviewer narrative is retained, not removed (no-repo clients still covered)
-- [ ] Fragmented detections are grouped into one ticket per unit-of-work with sub-items
-- [ ] Project-scale tickets are labelled as design/effort, not as a single fix
+- [x] Each ticket leads with a terse fix-card (ask + surface + done-condition)
+- [x] The full reviewer narrative is retained, not removed (no-repo clients still covered)
+- [x] Fragmented detections are grouped into one ticket per unit-of-work with sub-items
+- [x] Project-scale tickets are labelled as design/effort, not as a single fix
+
+> **Muttr (2026-07-01):** Satisfied additively across this session's work — the essay is never cut, so no-repo/locked-down clients keep the full spec. The ticket masthead is now a terse fix-card: **Finding · Severity · Why · Root cause · Surface · Effort · Fix · Done when** (ask + surface from MUTTR-04 + a one-line done-condition sourced from real acceptance criteria, omitted for the generic no-tests fallback so it never shows boilerplate). **Effort** in the card labels a project-scale ticket as effort rather than a one-line fix. Fragmented detections are folded into one ticket per remediation with an "Also resolves" sub-list (MUTTR-01 semantic fold — 48px-touch-targets 5→1 etc.). The full reviewer narrative (Impact, How, Code, Risks, Things To Watch For) is retained verbatim below the card. Tests: `tests/test_ticket_fixcard.py` (3).
 
 ---
 
@@ -423,3 +425,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-07-01 — **Muttr** fixed MUTTR-07 (partial) with head-meta staleness grounding. Findings framed as missing OG/Twitter tags that the crawl shows present now get an "appears already resolved — verify" advisory (3 flagged on the real audit, all true positives; precision-first proximity match). Sitemap (not crawled) and hamburger-aria/consent-banner (need a11y-tree parsing) remain open. Remaining: MUTTR-03 (stack) + design MUTTR-10/11 + the MUTTR-08 emitter one-liner + MUTTR-07 aria/consent/sitemap follow-up.
 - 2026-07-01 — **Muttr** completed MUTTR-08 (✓ verified) — closed the recall gap deterministically: `is_healthy_check` now routes low-severity "build a guardrail for a passing metric" openers (excluding real fix-verb openings), so all 6 passing checks route out (was 4). Also extracted a shared `_crawl_read` helper behind the MUTTR-04/05/07 grounding modules. Remaining: MUTTR-03 (stack) + design MUTTR-10/11 + MUTTR-07 aria/consent/sitemap follow-up.
 - 2026-07-01 — **Muttr** fixed MUTTR-03 (partial) with detected-stack grounding. `detect_site_stack` (Astro/Netlify here) is recorded per run, and `check_wrong_stack_code` flags tickets whose Code uses idioms foreign to the detected framework (19 wrong-stack tickets flagged on the real audit; family-aware so WordPress/Shopify sites are unaffected). Detection/advisory backstop — generation-side code rewrite (emit Astro idioms up front) is the remaining prevention piece. Remaining: design MUTTR-10/11 + MUTTR-03 generation-side + MUTTR-07 aria/consent/sitemap follow-ups.
+- 2026-07-01 — **Muttr** fixed MUTTR-10 (✓ verified) — the ticket masthead is now a terse fix-card (ask · surface · effort · done-when) with the full reviewer essay retained below; fragmented detections fold into one ticket per remediation (MUTTR-01) and project-scale work is labelled by effort. Remaining: MUTTR-11 (repo-grounding guide) + MUTTR-03 generation-side + MUTTR-07 aria/consent/sitemap follow-ups.
