@@ -87,7 +87,7 @@
 ## MUTTR-03 — Wrong tech-stack assumed in fix code
 
 **Severity:** high · **Category:** Stack detection
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed (partial) ☐ Verified — **Muttr: 2026-07-01**
 
 **Observed:** ~26 tickets contain generic-CMS code — Liquid (`{% if %}`, `page.form_html`), WordPress/Shopify ("child theme `style.css`", "Customizer", "Additional CSS panel", `.php`/`.liquid` templates). The site is **Astro static + Tailwind v4 + Svelte**. None of the code examples are drop-in; every one must be hand-ported.
 
@@ -96,9 +96,13 @@
 **Fix:** Detect the framework (package.json / config / file extensions) up front and template the Code section to it. For Astro: components/layouts, scoped styles or Tailwind, `astro.config`, `public/` — not child themes or Liquid.
 
 ### Verify (Muttr to complete)
-- [ ] Stack is detected and recorded in the run (e.g. "Astro/Tailwind/Svelte")
-- [ ] Code examples use the detected stack's idioms, not generic CMS
-- [ ] No `{% … %}` / "child theme" / "Customizer" language in an Astro run
+- [x] Stack is detected and recorded in the run (e.g. "Astro/Tailwind/Svelte")
+- [~] Code examples use the detected stack's idioms, not generic CMS _(flagged, not rewritten — see note)_
+- [~] No `{% … %}` / "child theme" / "Customizer" language in an Astro run _(flagged with an advisory; generation-side rewrite is the follow-up)_
+
+> **Muttr (2026-07-01):** Stack detection already existed (`grounding.detect_site_stack` → **Astro 6.3.6 / Netlify**, agreement 1.0 on this site) and is now **recorded in the run** (ticket `detected_stack` telemetry). New `check_wrong_stack_code` (`phases/documentation/_stack.py`) grounds each fix's Code/How against it: when a proposal uses idioms native to a *different* framework than the one detected, the ticket gets a "**Fix code targets the wrong stack**" advisory naming the mismatch and the target stack's idioms (for Astro: components/layouts, scoped styles/Tailwind, `astro.config`, `public/`). Family-aware: WordPress/PHP idioms (`child theme`, `functions.php`, `<?php`, `wp_enqueue`, Customizer) and Liquid/Shopify idioms (`{% … %}`, `.liquid`, `theme.liquid`, `{{ product … }}`) are only flagged when they are foreign to the detected framework — so the same check correctly stays silent on a real WordPress or Shopify site. Re-run on this audit: **19 wrong-stack tickets flagged** (all high-precision token matches — `.liquid`, `child theme`, `<?php`, `{%`, `wp-content`), matching the ~26 the review noted. New `wrong_stack_count` telemetry; non-destructive (no detected stack → no flag). Tests: `tests/test_wrong_stack.py` (10).
+>
+> **PARTIAL:** this is a detection/advisory backstop at emission — it *flags* wrong-stack code and reframes it as "must be hand-ported", but does not rewrite the snippet into Astro idioms. Making the generator emit stack-correct code up front is the complementary prevention piece (inject the detected stack into the proposal prompt), a follow-up alongside the numeric-grounding injection work.
 
 ---
 
@@ -418,3 +422,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-07-01 — **Muttr** fixed MUTTR-05 (✓ verified) with payload grounding. Root cause: the 2.56MB was a real Chrome Coverage `js_total_bytes` (mostly third-party), not the site bundle; measured transfer was 7–52KB. Byte claims exceeding measured transfer ≥5× now get a corrective advisory naming the gap; invented e-commerce features are flagged (gated to byte-misattribution to dodge negation false-positives). Remaining: grounding MUTTR-03/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
 - 2026-07-01 — **Muttr** fixed MUTTR-07 (partial) with head-meta staleness grounding. Findings framed as missing OG/Twitter tags that the crawl shows present now get an "appears already resolved — verify" advisory (3 flagged on the real audit, all true positives; precision-first proximity match). Sitemap (not crawled) and hamburger-aria/consent-banner (need a11y-tree parsing) remain open. Remaining: MUTTR-03 (stack) + design MUTTR-10/11 + the MUTTR-08 emitter one-liner + MUTTR-07 aria/consent/sitemap follow-up.
 - 2026-07-01 — **Muttr** completed MUTTR-08 (✓ verified) — closed the recall gap deterministically: `is_healthy_check` now routes low-severity "build a guardrail for a passing metric" openers (excluding real fix-verb openings), so all 6 passing checks route out (was 4). Also extracted a shared `_crawl_read` helper behind the MUTTR-04/05/07 grounding modules. Remaining: MUTTR-03 (stack) + design MUTTR-10/11 + MUTTR-07 aria/consent/sitemap follow-up.
+- 2026-07-01 — **Muttr** fixed MUTTR-03 (partial) with detected-stack grounding. `detect_site_stack` (Astro/Netlify here) is recorded per run, and `check_wrong_stack_code` flags tickets whose Code uses idioms foreign to the detected framework (19 wrong-stack tickets flagged on the real audit; family-aware so WordPress/Shopify sites are unaffected). Detection/advisory backstop — generation-side code rewrite (emit Astro idioms up front) is the remaining prevention piece. Remaining: design MUTTR-10/11 + MUTTR-03 generation-side + MUTTR-07 aria/consent/sitemap follow-ups.
