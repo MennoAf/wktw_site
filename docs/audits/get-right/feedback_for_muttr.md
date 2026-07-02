@@ -87,7 +87,7 @@
 ## MUTTR-03 — Wrong tech-stack assumed in fix code
 
 **Severity:** high · **Category:** Stack detection
-**Status:** ☐ Open ☑ Fixed (partial) ☐ Verified — **Muttr: 2026-07-01**
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-07-01 (detection) + 2026-07-02 (generation-side)**
 
 **Observed:** ~26 tickets contain generic-CMS code — Liquid (`{% if %}`, `page.form_html`), WordPress/Shopify ("child theme `style.css`", "Customizer", "Additional CSS panel", `.php`/`.liquid` templates). The site is **Astro static + Tailwind v4 + Svelte**. None of the code examples are drop-in; every one must be hand-ported.
 
@@ -97,12 +97,14 @@
 
 ### Verify (Muttr to complete)
 - [x] Stack is detected and recorded in the run (e.g. "Astro/Tailwind/Svelte")
-- [~] Code examples use the detected stack's idioms, not generic CMS _(flagged, not rewritten — see note)_
-- [~] No `{% … %}` / "child theme" / "Customizer" language in an Astro run _(flagged with an advisory; generation-side rewrite is the follow-up)_
+- [x] Code examples use the detected stack's idioms, not generic CMS
+- [x] No `{% … %}` / "child theme" / "Customizer" language in an Astro run
 
 > **Muttr (2026-07-01):** Stack detection already existed (`grounding.detect_site_stack` → **Astro 6.3.6 / Netlify**, agreement 1.0 on this site) and is now **recorded in the run** (ticket `detected_stack` telemetry). New `check_wrong_stack_code` (`phases/documentation/_stack.py`) grounds each fix's Code/How against it: when a proposal uses idioms native to a *different* framework than the one detected, the ticket gets a "**Fix code targets the wrong stack**" advisory naming the mismatch and the target stack's idioms (for Astro: components/layouts, scoped styles/Tailwind, `astro.config`, `public/`). Family-aware: WordPress/PHP idioms (`child theme`, `functions.php`, `<?php`, `wp_enqueue`, Customizer) and Liquid/Shopify idioms (`{% … %}`, `.liquid`, `theme.liquid`, `{{ product … }}`) are only flagged when they are foreign to the detected framework — so the same check correctly stays silent on a real WordPress or Shopify site. Re-run on this audit: **19 wrong-stack tickets flagged** (all high-precision token matches — `.liquid`, `child theme`, `<?php`, `{%`, `wp-content`), matching the ~26 the review noted. New `wrong_stack_count` telemetry; non-destructive (no detected stack → no flag). Tests: `tests/test_wrong_stack.py` (10).
 >
-> **PARTIAL:** this is a detection/advisory backstop at emission — it *flags* wrong-stack code and reframes it as "must be hand-ported", but does not rewrite the snippet into Astro idioms. Making the generator emit stack-correct code up front is the complementary prevention piece (inject the detected stack into the proposal prompt), a follow-up alongside the numeric-grounding injection work.
+> The above was the emission-side detection backstop (it *flags* wrong-stack code and reframes it as "must be hand-ported"). Now paired with the generation-side prevention below, so the code comes out right in the first place.
+>
+> **Muttr (2026-07-02, generation-side):** The proposal author is now told the target stack up front. `grounding.stack_guidance_block` builds a **TARGET STACK** block from the run's `detect_site_stack` (cached per workspace) and injects it into all three proposal prompts (`get_fix_proposal_prompt` / `get_chunked_proposal_prompt` / `get_gap_proposal_prompt`) — "This site runs **Astro 6.3.6 on Netlify**. Every code example MUST be drop-in for this stack. Write Astro idioms (`.astro` components/layouts, scoped `<style>`/Tailwind, `astro.config.*`, `public/`); do NOT emit Liquid / WordPress / Shopify." Unknown framework → a generic "write idiomatic X, not a CMS" line; undetected → omitted. **Live-validated:** re-proposing `ux-conversion-cta-text-generic` (which previously emitted Liquid `{%`) now returns an Astro component (`src/components/ContactForm.astro`, `---` frontmatter, `interface Props`, `Astro.props`) with **zero** Liquid/WP/PHP idioms. So MUTTR-03 is now closed at both altitudes — prevention (correct code emitted) + the detection backstop (any residual wrong-stack code still flagged). Tests: `tests/test_stack_guidance.py` (7).
 
 ---
 
@@ -429,3 +431,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-07-01 — **Muttr** fixed MUTTR-03 (partial) with detected-stack grounding. `detect_site_stack` (Astro/Netlify here) is recorded per run, and `check_wrong_stack_code` flags tickets whose Code uses idioms foreign to the detected framework (19 wrong-stack tickets flagged on the real audit; family-aware so WordPress/Shopify sites are unaffected). Detection/advisory backstop — generation-side code rewrite (emit Astro idioms up front) is the remaining prevention piece. Remaining: design MUTTR-10/11 + MUTTR-03 generation-side + MUTTR-07 aria/consent/sitemap follow-ups.
 - 2026-07-01 — **Muttr** fixed MUTTR-10 (✓ verified) — the ticket masthead is now a terse fix-card (ask · surface · effort · done-when) with the full reviewer essay retained below; fragmented detections fold into one ticket per remediation (MUTTR-01) and project-scale work is labelled by effort. Remaining: MUTTR-11 (repo-grounding guide) + MUTTR-03 generation-side + MUTTR-07 aria/consent/sitemap follow-ups.
 - 2026-07-01 — **Muttr** shipped MUTTR-11 (✓) — opt-in `--repo-grounding` emits a platform-aware `deliverables/repo-grounding-guide.md` (keyed off the detected stack; WKTW's Astro pack vendored into `muttr/grounding_packs/` as the reference). **All 11 defects now Fixed** (MUTTR-03 detection-side + MUTTR-07 head-meta are partial; noted follow-ups: MUTTR-03 generation-side codegen, MUTTR-07 aria/consent/sitemap).
+- 2026-07-02 — **Muttr** closed MUTTR-03 generation-side (✓ verified): the detected stack is now injected into all proposal prompts, so the author emits drop-in code for the real framework. Live-validated — a finding that previously produced Liquid now returns an Astro component with zero CMS idioms. MUTTR-03 fully fixed (prevention + detection). Remaining follow-ups: MUTTR-07 aria/consent/sitemap staleness (needs a11y-tree parsing / sitemap not crawled); MUTTR-05 numeric-grounding prevention lives in the muttr-frontier epic.
