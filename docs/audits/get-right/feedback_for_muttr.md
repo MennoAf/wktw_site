@@ -254,7 +254,7 @@
 ## MUTTR-08 — Passing checks framed as findings
 
 **Severity:** low · **Category:** Signal-to-noise
-**Status:** ☐ Open ☑ Fixed ☐ Verified (partial recall) — **Muttr: 2026-06-26**
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-06-26, completed 2026-07-01**
 
 **Observed:** Passing results are emitted as tickets proposing CI guardrails: `inp-excellent-no-issues`, `visual-stability-cls-excellent`, `server-transport-ttfb-excellent`, `api-…-waterfall-minimal`, `a11y-lang-attribute-correct`, `backwards-compat-astro-modern-css`. Each says "no remediation required" then proposes building lint/CI infrastructure.
 
@@ -264,10 +264,12 @@
 
 ### Verify (Muttr to complete)
 - [x] Passing checks appear in a separate section, not as tickets
-- [~] Findings count excludes passing checks _(partial — see note)_
+- [x] Findings count excludes passing checks
 - [x] Guardrail/CI proposals are clearly optional, not "remediation required"
 
 > **Muttr (2026-06-26):** New `Finding.remediation_required` flag + `is_healthy_check()` route passing checks to `deliverables/healthy-checks.md`, out of the tickets folder and count. On this audit, 4 of ~6 passing checks are caught by a high-precision heuristic (an explicit "no remediation required" opening), with **zero false positives** (verified against the real findings — a genuine fix whose `how` contained a conditional "if present, no action required" clause is correctly retained). The remaining ~2 (proposals phrased "Codify/Document the baseline…") need the emitter to set `remediation_required=false` — a one-line prompt change deferred to the prompt-tuning pass. The structured flag + router are already in place to receive it.
+>
+> **Muttr (2026-07-01, completed):** Closed the recall gap deterministically instead of waiting on the prompt change. `is_healthy_check` now also routes a low-severity proposal whose opening proposes a *guardrail* for an already-passing metric ("Codify … CLS 0.000 into … guardrails", "Establish a … guardrail system"), excluding any opening that carries a real fix verb (eliminate/remove/replace/consolidate/…) so a genuine fix that merely mentions a guardrail isn't misrouted. Re-run on this audit: **all 6 passing checks now route out** (was 4) — `visual-stability-cls-excellent` and `backwards-compat-astro-modern-css` join the list — with the real low finding `ux-analytics-cross-domain-unknown` (opens "Eliminate the dual GA4 … then add a CI guardrail") correctly retained. Tests: `tests/test_healthy_check_routing.py` (+4).
 
 ---
 
@@ -415,3 +417,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-07-01 — **Muttr** fixed MUTTR-04 (✓ verified) with DOM-grounded remediation-surface tagging. Every ticket now carries a `remediation_surface`; "remove the standalone gtag.js" claims are re-labeled `tag_manager` (with a corrective advisory) when the crawled DOM proves gtag is GTM-injected (13 re-labeled on the real audit). Remaining: grounding batch MUTTR-03/05/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
 - 2026-07-01 — **Muttr** fixed MUTTR-05 (✓ verified) with payload grounding. Root cause: the 2.56MB was a real Chrome Coverage `js_total_bytes` (mostly third-party), not the site bundle; measured transfer was 7–52KB. Byte claims exceeding measured transfer ≥5× now get a corrective advisory naming the gap; invented e-commerce features are flagged (gated to byte-misattribution to dodge negation false-positives). Remaining: grounding MUTTR-03/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
 - 2026-07-01 — **Muttr** fixed MUTTR-07 (partial) with head-meta staleness grounding. Findings framed as missing OG/Twitter tags that the crawl shows present now get an "appears already resolved — verify" advisory (3 flagged on the real audit, all true positives; precision-first proximity match). Sitemap (not crawled) and hamburger-aria/consent-banner (need a11y-tree parsing) remain open. Remaining: MUTTR-03 (stack) + design MUTTR-10/11 + the MUTTR-08 emitter one-liner + MUTTR-07 aria/consent/sitemap follow-up.
+- 2026-07-01 — **Muttr** completed MUTTR-08 (✓ verified) — closed the recall gap deterministically: `is_healthy_check` now routes low-severity "build a guardrail for a passing metric" openers (excluding real fix-verb openings), so all 6 passing checks route out (was 4). Also extracted a shared `_crawl_read` helper behind the MUTTR-04/05/07 grounding modules. Remaining: MUTTR-03 (stack) + design MUTTR-10/11 + MUTTR-07 aria/consent/sitemap follow-up.
