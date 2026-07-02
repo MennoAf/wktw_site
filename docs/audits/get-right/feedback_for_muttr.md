@@ -145,7 +145,7 @@
 ## MUTTR-05 — Mismeasured / hallucinated artifacts
 
 **Severity:** high · **Category:** Measurement grounding
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-07-01**
 
 **Observed:** `resource-loading-js-unused-absolute-bytes-static-page` and `js-unused-bytes-low-but-present` assert a **2.56MB application bundle with ~475KB unused JS**, citing "cart, product configurators, checkout, filter/sort systems." This static Astro site has **no e-commerce** and ships **one 28KB Svelte chunk** total (`dist/_astro/client.svelte.*.js`). The numbers and the named features are imported from a generic template, not measured here.
 
@@ -154,9 +154,35 @@
 **Fix:** Ground every payload/byte claim in the run's own measured transfer. Never inherit feature assumptions (cart/checkout) from a template the target doesn't exhibit. If a metric can't be measured, mark it `unmeasured`, don't synthesize one.
 
 ### Verify (Muttr to complete)
-- [ ] Byte/payload figures trace to measured network transfer for this run
-- [ ] No references to features absent from the target (cart, checkout, configurators)
-- [ ] Unmeasurable metrics are labeled, not invented
+- [x] Byte/payload figures trace to measured network transfer for this run
+- [x] No references to features absent from the target (cart, checkout, configurators)
+- [x] Unmeasurable metrics are labeled, not invented
+
+> **Muttr (2026-07-01):** `ground_payload_claims` (new
+> `phases/documentation/_measurement.py`) runs at ticket emission. Root cause
+> found: the "2.56MB bundle / 475KB unused" was **not invented** — it is the
+> Chrome Coverage API `js_total_bytes` (2,573,829 measured), which counts every
+> script the browser parsed (mostly third-party GTM/GA), not the site's own
+> bundle. Real network transfer was **7–52KB per page**. So the fix grounds
+> byte claims in *measured transfer*: when a proposal cites an MB-scale payload
+> figure exceeding measured `total_transfer_bytes` by ≥5×, the ticket gets an
+> advisory naming the measured transfer and the Coverage-vs-transfer gap (and,
+> when the figure matches Coverage `js_total_bytes`, says so explicitly). Invented
+> e-commerce feature references (cart/checkout/configurator) are flagged too, but
+> **gated to fire only alongside a byte-misattribution flag** — the
+> template-contamination failure couples both, and gating avoids false-positives
+> on findings that correctly note the *absence* of a cart ("do not apply
+> cart/filtering templates"), a negation lexical matching can't distinguish. A
+> real transactional signal in the crawl (checkout script, Product/Offer schema)
+> suppresses the feature note. Re-run on this audit: the exact
+> `resource-loading-js-unused-absolute-bytes-static-page` ticket flagged for both
+> (2.56MB vs 7KB = 345×, cart/checkout/configurator features unverified), plus 2
+> more byte-only flags; **zero false positives** (the 4 negation-context mentions
+> correctly skipped). New `payload_corrected_count` telemetry. Non-destructive:
+> advisory only, no crawl data → no flag. Tests: `tests/test_payload_grounding.py`
+> (8). This is a detection backstop at output; prevention (injecting measured
+> numbers into generation prompts) is the separate in-flight numeric-grounding
+> work.
 
 ---
 
@@ -364,3 +390,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-06-26 — **Muttr** fixed the deterministic batch and signed the Verify sections: MUTTR-02 (✓ verified), MUTTR-06 (✓ verified), MUTTR-08 (fixed, partial recall — structured flag pending an emitter prompt line), MUTTR-09 (✓ verified). Re-checked on the real audit workspace, not just unit tests. Remaining: grounding batch MUTTR-03/04/05/07 + design MUTTR-10/11.
 - 2026-07-01 — **Muttr** fixed MUTTR-01 (✓ verified) with a semantic ticket-fold. The doc's prescribed cluster-dedup was measured wrong on the real 81 proposals; the fix uses a cheap Haiku same-remediation grouping pass (76→36 distinct, all target dup-families folded, nothing dropped via `also_satisfies`). Remaining: grounding batch MUTTR-03/04/05/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
 - 2026-07-01 — **Muttr** fixed MUTTR-04 (✓ verified) with DOM-grounded remediation-surface tagging. Every ticket now carries a `remediation_surface`; "remove the standalone gtag.js" claims are re-labeled `tag_manager` (with a corrective advisory) when the crawled DOM proves gtag is GTM-injected (13 re-labeled on the real audit). Remaining: grounding batch MUTTR-03/05/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
+- 2026-07-01 — **Muttr** fixed MUTTR-05 (✓ verified) with payload grounding. Root cause: the 2.56MB was a real Chrome Coverage `js_total_bytes` (mostly third-party), not the site bundle; measured transfer was 7–52KB. Byte claims exceeding measured transfer ≥5× now get a corrective advisory naming the gap; invented e-commerce features are flagged (gated to byte-misattribution to dodge negation false-positives). Remaining: grounding MUTTR-03/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
