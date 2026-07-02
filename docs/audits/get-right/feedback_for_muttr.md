@@ -348,7 +348,7 @@ card; a no-repo reviewer needs the full narrative. Today only the second is serv
 ## MUTTR-11 — Ship an optional "Repo-Grounding Guide" output (enhancement)
 
 **Severity:** enhancement · **Category:** New deliverable / verification method
-**Status:** ☐ Open ☑ Designing ☐ Shipped — **WKTW seed pack authored:** [`docs/grounding-packs/astro.md`](../../grounding-packs/astro.md) (+ [README](../../grounding-packs/README.md)).
+**Status:** ☐ Open ☐ Designing ☑ Shipped — **Muttr: 2026-07-01** · seed pack: [`docs/grounding-packs/astro.md`](../../grounding-packs/astro.md) (+ [README](../../grounding-packs/README.md)).
 
 **The idea:** When a client *does* have repo access, the single highest-value step is grounding each
 finding against source before acting — the step that caught, on this audit alone: a phantom standalone
@@ -385,10 +385,12 @@ this engagement, as a reference contribution — and the structure generalizes t
 platform's grounding idioms.
 
 ### Verify (Muttr to complete)
-- [ ] Audit can emit an optional Repo-Grounding Guide gated on declared repo access
-- [ ] Guide is platform-aware (detected or selected stack), not generic
-- [ ] Each finding category maps to a concrete grounding command + a real/stale/false/wrong-layer rule
-- [ ] At least one reference platform pack exists (Astro/Tailwind is offered as the seed)
+- [x] Audit can emit an optional Repo-Grounding Guide gated on declared repo access
+- [x] Guide is platform-aware (detected or selected stack), not generic
+- [x] Each finding category maps to a concrete grounding command + a real/stale/false/wrong-layer rule
+- [x] At least one reference platform pack exists (Astro/Tailwind is offered as the seed)
+
+> **Muttr (2026-07-01):** Shipped as an opt-in deliverable. `--repo-grounding` (or `MuttrSettings.emit_repo_grounding_guide`, default **off** — locked-down/no-repo clients never get greps they can't run) makes the audit write `deliverables/repo-grounding-guide.md`. It's platform-aware: `phases/documentation/repo_grounding.py` keys off the run's `detect_site_stack` (Astro here) to include the bundled pack for that framework and always appends the generic method + decision rules, so the real/stale/false/wrong-layer rules travel with it. WKTW's seed packs are now vendored into Muttr (`muttr/grounding_packs/astro.md` + `README.md`, shipped via `package-data`) as the reference platform pack; an unknown framework degrades gracefully to the generic method with a note. New `repo_grounding_guide_emitted` telemetry. Tests: `tests/test_repo_grounding.py` (6). The WKTW-authored Astro pack (16 finding-category recipes → grounding command → verdict) is the concrete category→command→rule mapping.
 
 ---
 
@@ -426,3 +428,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-07-01 — **Muttr** completed MUTTR-08 (✓ verified) — closed the recall gap deterministically: `is_healthy_check` now routes low-severity "build a guardrail for a passing metric" openers (excluding real fix-verb openings), so all 6 passing checks route out (was 4). Also extracted a shared `_crawl_read` helper behind the MUTTR-04/05/07 grounding modules. Remaining: MUTTR-03 (stack) + design MUTTR-10/11 + MUTTR-07 aria/consent/sitemap follow-up.
 - 2026-07-01 — **Muttr** fixed MUTTR-03 (partial) with detected-stack grounding. `detect_site_stack` (Astro/Netlify here) is recorded per run, and `check_wrong_stack_code` flags tickets whose Code uses idioms foreign to the detected framework (19 wrong-stack tickets flagged on the real audit; family-aware so WordPress/Shopify sites are unaffected). Detection/advisory backstop — generation-side code rewrite (emit Astro idioms up front) is the remaining prevention piece. Remaining: design MUTTR-10/11 + MUTTR-03 generation-side + MUTTR-07 aria/consent/sitemap follow-ups.
 - 2026-07-01 — **Muttr** fixed MUTTR-10 (✓ verified) — the ticket masthead is now a terse fix-card (ask · surface · effort · done-when) with the full reviewer essay retained below; fragmented detections fold into one ticket per remediation (MUTTR-01) and project-scale work is labelled by effort. Remaining: MUTTR-11 (repo-grounding guide) + MUTTR-03 generation-side + MUTTR-07 aria/consent/sitemap follow-ups.
+- 2026-07-01 — **Muttr** shipped MUTTR-11 (✓) — opt-in `--repo-grounding` emits a platform-aware `deliverables/repo-grounding-guide.md` (keyed off the detected stack; WKTW's Astro pack vendored into `muttr/grounding_packs/` as the reference). **All 11 defects now Fixed** (MUTTR-03 detection-side + MUTTR-07 head-meta are partial; noted follow-ups: MUTTR-03 generation-side codegen, MUTTR-07 aria/consent/sitemap).
