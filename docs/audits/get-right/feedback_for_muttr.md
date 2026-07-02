@@ -209,7 +209,7 @@
 ## MUTTR-07 — Stale findings reported as open
 
 **Severity:** medium · **Category:** Current-state re-check
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed (partial) ☐ Verified — **Muttr: 2026-07-01**
 
 **Observed:** Several findings flag things already remediated in the current build:
 - `ux-sitemap-unverifiable` — `@astrojs/sitemap` is already installed (`astro.config.mjs`).
@@ -222,9 +222,32 @@
 **Fix:** Re-check current page source/state for each finding immediately before emission; suppress or downgrade to "already addressed — verify" when the remediation is present.
 
 ### Verify (Muttr to complete)
-- [ ] Each finding is re-validated against current source before emission
-- [ ] Already-remediated items are suppressed or clearly marked "verify — appears resolved"
-- [ ] Spot-check: sitemap, OG/Twitter, hamburger aria, consent banner no longer flagged as missing
+- [~] Each finding is re-validated against current source before emission _(head-meta only — see note)_
+- [x] Already-remediated items are suppressed or clearly marked "verify — appears resolved"
+- [~] Spot-check: sitemap, OG/Twitter, hamburger aria, consent banner no longer flagged as missing _(OG/Twitter done; others below)_
+
+> **Muttr (2026-07-01):** `check_stale_head_meta` (new
+> `phases/documentation/_staleness.py`) runs at ticket emission. When a finding
+> is framed as a *missing/unverifiable* Open Graph or Twitter Card tag but the
+> crawled DOM's captured `meta_tags` show it present, the ticket gets an
+> "**Appears already resolved — verify**" advisory naming the coverage (e.g. "OG
+> tags on 9/9 pages"). Precision-first: the absence word must sit within ~60
+> chars of the element phrase (so incidental "reads og:title…" mentions and
+> present-but-quality fixes don't trip), and the scope is deliberately just
+> OG/Twitter — broadening to viewport/canonical/description fired on 25 findings
+> (co-mentioned incidentally); OG/Twitter alone fires on **3, all true
+> positives**: `escalation-2-og-twitter-meta-unknown`,
+> `escalation-og-twitter-meta-unverifiable`, and `conversion-ux-social-share-1`
+> (which referenced an "og:image absence" that the crawl shows present on all 9
+> pages). New `stale_flagged_count` telemetry; advisory only, never suppresses.
+> Tests: `tests/test_staleness.py` (8).
+>
+> **PARTIAL — not yet grounded:** the **sitemap** case (Astro's `@astrojs/sitemap`
+> is a build-time output the crawl doesn't fetch, so presence can't be confirmed
+> from crawl data), and the **hamburger-aria** and **consent-banner** cases (they
+> need element-level ARIA / a11y-tree parsing, not the head-meta signal captured
+> today). These remain open — a follow-up if fuller current-state re-check is
+> wanted.
 
 ---
 
@@ -391,3 +414,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-07-01 — **Muttr** fixed MUTTR-01 (✓ verified) with a semantic ticket-fold. The doc's prescribed cluster-dedup was measured wrong on the real 81 proposals; the fix uses a cheap Haiku same-remediation grouping pass (76→36 distinct, all target dup-families folded, nothing dropped via `also_satisfies`). Remaining: grounding batch MUTTR-03/04/05/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
 - 2026-07-01 — **Muttr** fixed MUTTR-04 (✓ verified) with DOM-grounded remediation-surface tagging. Every ticket now carries a `remediation_surface`; "remove the standalone gtag.js" claims are re-labeled `tag_manager` (with a corrective advisory) when the crawled DOM proves gtag is GTM-injected (13 re-labeled on the real audit). Remaining: grounding batch MUTTR-03/05/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
 - 2026-07-01 — **Muttr** fixed MUTTR-05 (✓ verified) with payload grounding. Root cause: the 2.56MB was a real Chrome Coverage `js_total_bytes` (mostly third-party), not the site bundle; measured transfer was 7–52KB. Byte claims exceeding measured transfer ≥5× now get a corrective advisory naming the gap; invented e-commerce features are flagged (gated to byte-misattribution to dodge negation false-positives). Remaining: grounding MUTTR-03/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
+- 2026-07-01 — **Muttr** fixed MUTTR-07 (partial) with head-meta staleness grounding. Findings framed as missing OG/Twitter tags that the crawl shows present now get an "appears already resolved — verify" advisory (3 flagged on the real audit, all true positives; precision-first proximity match). Sitemap (not crawled) and hamburger-aria/consent-banner (need a11y-tree parsing) remain open. Remaining: MUTTR-03 (stack) + design MUTTR-10/11 + the MUTTR-08 emitter one-liner + MUTTR-07 aria/consent/sitemap follow-up.
