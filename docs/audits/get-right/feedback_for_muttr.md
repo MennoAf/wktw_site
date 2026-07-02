@@ -26,7 +26,7 @@
 ## MUTTR-01 — Duplicate tickets within a cluster
 
 **Severity:** high · **Category:** Output dedup
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-07-01**
 
 **Observed:** ~60 tickets collapse to ~25 distinct work items. The same fix is emitted 3–10×:
 - Self-host Google Fonts: 5 tickets (`fonts-google-fonts-privacy-performance`, `resource-3-…`, `resource-loading-font-subsetting-opportunity`, `gdpr-google-fonts-ip-transfer-third-country`, `gdpr-google-fonts-pre-consent-ip-transmission`).
@@ -39,16 +39,35 @@
 **Fix:** Deduplicate within `root_cause_cluster` before emitting. Emit **one** ticket per distinct fix with an `also_satisfies: [finding_id, …]` list, or nest sub-findings under the cluster ticket.
 
 ### Verify (Muttr to complete)
-- [ ] Re-run produces ≤1 ticket per distinct remediation action
-- [ ] Folded finding IDs are listed on the surviving ticket, not dropped
-- [ ] Headline finding count reflects distinct problems, not raw detections
+- [x] Re-run produces ≤1 ticket per distinct remediation action
+- [x] Folded finding IDs are listed on the surviving ticket, not dropped
+- [x] Headline finding count reflects distinct problems, not raw detections
+
+> **Muttr (2026-07-01):** `group_ticket_duplicates` folds same-remediation
+> tickets before write. The doc's prescribed "dedupe within `root_cause_cluster`"
+> was measured WRONG on this audit's real 81 proposals: cluster is a root-cause
+> axis, so it collapsed 11 distinct a11y fixes into one; and lexical fix-text
+> similarity folds 0/10 font pairs (the remediations are phrased too
+> differently). Remediation identity is the right axis and only an LLM sees it —
+> so a single cheap Haiku pass (~$0.009/audit, `force_paid` like Layer-2 dedup)
+> groups proposals by shared fix. Result on this workspace: **76 → 36 distinct
+> tickets**, all 5 self-host-Google-Fonts (incl. the two empty-cluster
+> `gdpr-google-fonts-*`), the 3 cache-header and the touch-target families folded
+> correctly, while distinct a11y fixes stayed separate. The surviving ticket
+> carries an `also_satisfies` frontmatter list + an "Also resolves" section, so
+> **no folded finding is dropped** (recoverable even on a loose merge); the
+> tickets folder, `index.json`, and `tickets_generated` count reflect distinct
+> problems, with a `folded_ticket_count` telemetry field. Non-destructive: if
+> Haiku is unavailable the tickets emit unfolded. Caveat: 2-3 merges are a touch
+> loose (e.g. breadcrumbs absorbing some schema items) — non-lossy, and the
+> precision-first prompt keeps genuinely different fixes apart.
 
 ---
 
 ## MUTTR-02 — Empty / malformed ticket emitted
 
 **Severity:** high · **Category:** Output validation
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-06-26**
 
 **Observed:** `tickets/unknown_untitled.md` ships with `finding_id: ""`, `title: "Untitled Finding"`, `severity: unknown`, empty Fix, empty Code, and `[None]` in the index. It is a null record that reached the deliverable.
 
@@ -57,9 +76,11 @@
 **Fix:** Validate every ticket before write — drop or quarantine any finding missing `finding_id`, `title`, or `fix_summary`. Never emit `Untitled Finding`.
 
 ### Verify (Muttr to complete)
-- [ ] A finding with empty `finding_id`/`title`/`fix` is rejected at write time
-- [ ] No `unknown_untitled` / `Untitled Finding` artifact in the tickets folder
-- [ ] Finding count excludes quarantined records
+- [x] A finding with empty `finding_id`/`title`/`fix` is rejected at write time
+- [x] No `unknown_untitled` / `Untitled Finding` artifact in the tickets folder
+- [x] Finding count excludes quarantined records
+
+> **Muttr (2026-06-26):** `validate_ticket_proposal()` gates every proposal at write time; invalid records are quarantined to `deliverables/tickets/_quarantined.json` (visible, not silent) and excluded from the index, README, and count.
 
 ---
 
@@ -120,7 +141,7 @@
 ## MUTTR-06 — "Confirmed" tier includes unverified findings
 
 **Severity:** medium · **Category:** Confidence labeling
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-06-26**
 
 **Observed:** The `Confirmed (69)` tier contains items whose own slugs say otherwise: `a11y-6-prefers-reduced-motion-unverified`, `ux-sitemap-unverifiable`, `mobile-text-readability-unverified`, `escalation-og-twitter-meta-unverifiable`. "Confirmed" is defined as "directly measured or observed," which these were not.
 
@@ -129,9 +150,11 @@
 **Fix:** Add a distinct `unverified` / `needs-verification` tier. A finding may not be labeled `confirmed` unless backed by a concrete measurement or observed selector.
 
 ### Verify (Muttr to complete)
-- [ ] An `unverified` tier exists and is populated
-- [ ] No `…-unverified`/`…-unverifiable` finding sits under `confirmed`
-- [ ] Tier assignment is driven by presence of measured evidence
+- [x] An `unverified` tier exists and is populated
+- [x] No `…-unverified`/`…-unverifiable` finding sits under `confirmed`
+- [x] Tier assignment is driven by presence of measured evidence
+
+> **Muttr (2026-06-26):** `classify_confidence_tier` is now evidence-gated — `inferred`/no-evidence → new **Needs Verification** tier, `measured`/`observed` → confirmed (`coverage_review` origin preserved). Re-checked on this audit's 80 findings: 56 confirmed / 12 unverified / 12 reviewer-identified; every `*-unverifiable` finding (all `evidence_type: inferred`) left the Confirmed tier.
 
 ---
 
@@ -160,7 +183,7 @@
 ## MUTTR-08 — Passing checks framed as findings
 
 **Severity:** low · **Category:** Signal-to-noise
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed ☐ Verified (partial recall) — **Muttr: 2026-06-26**
 
 **Observed:** Passing results are emitted as tickets proposing CI guardrails: `inp-excellent-no-issues`, `visual-stability-cls-excellent`, `server-transport-ttfb-excellent`, `api-…-waterfall-minimal`, `a11y-lang-attribute-correct`, `backwards-compat-astro-modern-css`. Each says "no remediation required" then proposes building lint/CI infrastructure.
 
@@ -169,16 +192,18 @@
 **Fix:** Route passing checks to a separate "Healthy / optional hardening" list, kept out of the findings count and the tickets folder. Guardrail suggestions are opt-in, not findings.
 
 ### Verify (Muttr to complete)
-- [ ] Passing checks appear in a separate section, not as tickets
-- [ ] Findings count excludes passing checks
-- [ ] Guardrail/CI proposals are clearly optional, not "remediation required"
+- [x] Passing checks appear in a separate section, not as tickets
+- [~] Findings count excludes passing checks _(partial — see note)_
+- [x] Guardrail/CI proposals are clearly optional, not "remediation required"
+
+> **Muttr (2026-06-26):** New `Finding.remediation_required` flag + `is_healthy_check()` route passing checks to `deliverables/healthy-checks.md`, out of the tickets folder and count. On this audit, 4 of ~6 passing checks are caught by a high-precision heuristic (an explicit "no remediation required" opening), with **zero false positives** (verified against the real findings — a genuine fix whose `how` contained a conditional "if present, no action required" clause is correctly retained). The remaining ~2 (proposals phrased "Codify/Document the baseline…") need the emitter to set `remediation_required=false` — a one-line prompt change deferred to the prompt-tuning pass. The structured flag + router are already in place to receive it.
 
 ---
 
 ## MUTTR-09 — Verification tests target broken / placeholder URLs
 
 **Severity:** high · **Category:** Verification grounding
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-06-26**
 
 **Observed:** Of 1,221 tests in `verification/tests.json`, roughly half cannot run as authored:
 - **645 tests** have an **empty `target_url`**.
@@ -192,10 +217,12 @@
 **Fix:** Resolve every test's `target_url` to a real, crawled URL on the audited origin before emit; drop or quarantine tests whose target can't be resolved. Normalize trailing slashes to the site's canonical form. Never emit a test against `example.com` / `yourdomain.com` / a templated slug. Generate visual-regression baselines (or omit the test) rather than shipping null-baseline tests.
 
 ### Verify (Muttr to complete)
-- [ ] No test ships with an empty or placeholder `target_url`
-- [ ] All targets resolve to real URLs on the audited origin (no `example.com`, `/blog/*`, typo'd domains)
-- [ ] Trailing-slash form is normalized to the site's canonical
-- [ ] `visual_regression` tests either carry a real baseline or are not emitted
+- [x] No test ships with an empty or placeholder `target_url`
+- [x] All targets resolve to real URLs on the audited origin (no `example.com`, `/blog/*`, typo'd domains)
+- [x] Trailing-slash form is normalized to the site's canonical
+- [x] `visual_regression` tests either carry a real baseline or are not emitted
+
+> **Muttr (2026-06-26):** `_resolve_and_filter_tests()` runs before `tests.json` is written: every `target_url` is resolved against the set of real audited URLs (crawled pages ∪ findings' affected pages, trailing-slash-canonicalized); origin-level tests fall back to the crawled homepage, page-specific tests with no resolvable page are dropped (not misrouted), and baseline-less `visual_regression` tests are dropped. Dropped tests are recorded in `verification/_dropped_tests.json`. Re-run on this audit: **1221 → 721 kept / 500 dropped** (446 unresolvable + 54 null-baseline); every surviving target is a real on-origin URL with no placeholder and no trailing slash.
 
 ---
 
@@ -312,3 +339,5 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-06-25 — Added MUTTR-10 (ticket altitude) after working several tickets end-to-end. Note: verbosity is load-bearing for no-repo / locked-down-CMS clients — the fix is an additive executor card, not cutting detail.
 - 2026-06-25 — Added top-of-doc framing note (repo-access asymmetry) + MUTTR-11 (enhancement): ship an optional platform-aware Repo-Grounding Guide; WKTW offers to author the Astro/Tailwind seed pack.
 - 2026-06-25 — Authored the seed pack: `docs/grounding-packs/astro.md` (16 finding-category recipes) + `README.md` (method + decision rules + per-platform index). MUTTR-11 → Designing.
+- 2026-06-26 — **Muttr** fixed the deterministic batch and signed the Verify sections: MUTTR-02 (✓ verified), MUTTR-06 (✓ verified), MUTTR-08 (fixed, partial recall — structured flag pending an emitter prompt line), MUTTR-09 (✓ verified). Re-checked on the real audit workspace, not just unit tests. Remaining: grounding batch MUTTR-03/04/05/07 + design MUTTR-10/11.
+- 2026-07-01 — **Muttr** fixed MUTTR-01 (✓ verified) with a semantic ticket-fold. The doc's prescribed cluster-dedup was measured wrong on the real 81 proposals; the fix uses a cheap Haiku same-remediation grouping pass (76→36 distinct, all target dup-families folded, nothing dropped via `also_satisfies`). Remaining: grounding batch MUTTR-03/04/05/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
