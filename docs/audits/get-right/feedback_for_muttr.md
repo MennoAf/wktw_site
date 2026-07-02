@@ -105,7 +105,7 @@
 ## MUTTR-04 — Findings auditing the wrong layer (code vs. tag-manager vs. deployed)
 
 **Severity:** high · **Category:** Finding provenance
-**Status:** ☐ Open ☐ Fixed ☐ Verified
+**Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-07-01**
 
 **Observed:** ~10 tickets are built on a **standalone `gtag.js`** in the page source ("remove the standalone gtag.js script tag from the global header"). The repo has **no** standalone gtag — only a Consent Mode v2 `gtag('consent', …)` helper, one GTM container, and Plausible. If a second GA4 beacon exists, it's configured **inside the GTM container** (Google's console), which the audit conflates with page source.
 
@@ -114,9 +114,31 @@
 **Fix:** Tag each finding with its `remediation_surface` (`source_code` | `tag_manager` | `cdn_config` | `runtime_only`). Verify source-code claims against the actual repo before asserting a specific script exists.
 
 ### Verify (Muttr to complete)
-- [ ] Every finding carries a `remediation_surface`
-- [ ] "Remove `<script>` X" claims are grep-verified against source before emission
-- [ ] Tag-manager-config findings are not phrased as code edits
+- [x] Every finding carries a `remediation_surface`
+- [x] "Remove `<script>` X" claims are grep-verified against source before emission
+- [x] Tag-manager-config findings are not phrased as code edits
+
+> **Muttr (2026-07-01):** `ground_remediation_surface` (new
+> `phases/documentation/_surface.py`) runs at ticket emission. Every ticket now
+> carries a `remediation_surface` (frontmatter + a **Surface:** masthead line +
+> `index.json`), defaulting to `source_code`. The wrong-layer claim is caught by
+> GROUNDING against the crawled DOM, not by re-guessing: a fix that asks to
+> "remove the standalone gtag.js `<script>`" is re-labeled `tag_manager` (with a
+> corrective advisory that reframes it as a GTM change, never a code edit) when
+> the DOM shows `gtag/js` loaded only via the GTM container — the tell is the
+> `gtm=` query param Google appends to GTM-injected gtag, absent on a
+> hand-authored snippet. Origin-wide fallback: site-wide analytics findings
+> (empty `pages_affected`) are grounded against every crawled page. Re-run on
+> this audit's real proposals: **13 gtag/GA4 script-removal claims correctly
+> re-labeled `tag_manager`** (incl. `js-4-ga4-collect-aborted-data-loss`, the
+> literal "remove the standalone gtag.js" ticket) — matching the ~10 the review
+> flagged — while genuine source edits stayed `source_code`. New
+> `surface_corrected_count` telemetry. Non-destructive (no crawl data → stays
+> `source_code`, never a false relabel). Tests: `tests/test_remediation_surface.py`
+> (9). SCOPE: grounding covers the demonstrated analytics/script-removal failure;
+> a broader multi-surface classifier (`cdn_config` / `runtime_only` + richer
+> `tag_manager` detection beyond gtag) is a possible follow-up, not attempted
+> here to avoid a brittle keyword taxonomy.
 
 ---
 
@@ -341,3 +363,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-06-25 — Authored the seed pack: `docs/grounding-packs/astro.md` (16 finding-category recipes) + `README.md` (method + decision rules + per-platform index). MUTTR-11 → Designing.
 - 2026-06-26 — **Muttr** fixed the deterministic batch and signed the Verify sections: MUTTR-02 (✓ verified), MUTTR-06 (✓ verified), MUTTR-08 (fixed, partial recall — structured flag pending an emitter prompt line), MUTTR-09 (✓ verified). Re-checked on the real audit workspace, not just unit tests. Remaining: grounding batch MUTTR-03/04/05/07 + design MUTTR-10/11.
 - 2026-07-01 — **Muttr** fixed MUTTR-01 (✓ verified) with a semantic ticket-fold. The doc's prescribed cluster-dedup was measured wrong on the real 81 proposals; the fix uses a cheap Haiku same-remediation grouping pass (76→36 distinct, all target dup-families folded, nothing dropped via `also_satisfies`). Remaining: grounding batch MUTTR-03/04/05/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
+- 2026-07-01 — **Muttr** fixed MUTTR-04 (✓ verified) with DOM-grounded remediation-surface tagging. Every ticket now carries a `remediation_surface`; "remove the standalone gtag.js" claims are re-labeled `tag_manager` (with a corrective advisory) when the crawled DOM proves gtag is GTM-injected (13 re-labeled on the real audit). Remaining: grounding batch MUTTR-03/05/07 + design MUTTR-10/11 + the MUTTR-08 emitter one-liner.
