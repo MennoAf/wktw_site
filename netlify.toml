@@ -7,3 +7,41 @@
 
 # Netlify defaults to Pretty URLs (strips trailing slashes) — matches Astro's
 # trailingSlash: 'never' setting. No redirect rules needed.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Headers (WL-19 caching, WL-20 security). Netlify applies every matching block;
+# more specific paths win per-key, so the global security headers below also
+# cover /_astro/* and /fonts/*, which add their own Cache-Control on top.
+# These only take effect on a Netlify deploy — verify post-deploy with the
+# curl checks in docs/audits/get-right/audit.md.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Security headers — apply site-wide (WL-20).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # HSTS: 1 year + subdomains. Confirm no plain-HTTP subdomain of
+    # weknowthewhy.com exists before relying on includeSubDomains. No `preload`
+    # — that's an irreversible commitment; add it deliberately later if wanted.
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), browsing-topics=()"
+    # CSP is NOT set here — it's owned by the nonce-based edge function
+    # (netlify/edge-functions/csp.ts, WL-20), which mints a per-request nonce that
+    # a static header can't. The function defaults to report-only and flips to
+    # enforcing via the CSP_MODE=enforce env var. A static CSP here would only
+    # conflict with it.
+
+# Content-hashed build assets — safe to cache forever (WL-19).
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Self-hosted fonts — stable filenames; replace by renaming if a font ever changes.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

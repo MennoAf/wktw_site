@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import { features } from '../data/features';
+
+// Site search (WL-18 / navigation-no-search). Pagefind indexes the built HTML
+// in a postbuild step (see package.json `build`) and serves its runtime + index
+// from /pagefind/. Those assets only exist in a production build, so the search
+// box is non-functional under `astro dev` — run `npm run build && npm run
+// preview` to exercise it locally.
+//
+// Gated by features.search: when off, the page renders a short notice instead so
+// any lingering link doesn't dead-end. Disable by flipping the flag (see
+// src/data/features.ts).
+const enabled = features.search;
+---
+
+<BaseLayout
+  title="Search"
+  description="Search everything we've published — insights, services, and proof."
+>
+  <Section class="pt-28 pb-16">
+    <div class="max-w-3xl">
+      <h1 class="mb-6">Search</h1>
+      {enabled ? (
+        <>
+          <p class="text-secondary-text text-xl leading-relaxed mb-8">
+            Find anything across the site — insights, services, and proof.
+          </p>
+          <div id="search"></div>
+          <noscript>
+            <p class="text-secondary-text">
+              Search needs JavaScript. Browse <a href="/insights">Insights</a> or
+              <a href="/the-get-right">The Get Right</a> instead.
+            </p>
+          </noscript>
+        </>
+      ) : (
+        <p class="text-secondary-text text-xl leading-relaxed">
+          Search is currently unavailable. Browse <a href="/insights">Insights</a>
+          or <a href="/the-get-right">The Get Right</a> to find what you need.
+        </p>
+      )}
+    </div>
+  </Section>
+
+  {enabled && (
+    <>
+      <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+      <script is:inline src="/pagefind/pagefind-ui.js"></script>
+      <script is:inline>
+        window.addEventListener('DOMContentLoaded', () => {
+          if (window.PagefindUI) {
+            new window.PagefindUI({
+              element: '#search',
+              showSubResults: true,
+              showImages: false,
+            });
+          }
+        });
+      </script>
+      <style is:global>
+        /* Theme Pagefind's runtime-injected UI to the WKTW dark palette. These
+           custom properties cascade onto the widget Pagefind mounts into #search. */
+        #search {
+          --pagefind-ui-scale: 0.9;
+          --pagefind-ui-primary: var(--color-accent);
+          --pagefind-ui-text: var(--color-primary-text);
+          --pagefind-ui-background: var(--color-bg-elevated);
+          --pagefind-ui-border: var(--color-border-subtle);
+          --pagefind-ui-tag: var(--color-bg-inset);
+          --pagefind-ui-border-width: 1px;
+          --pagefind-ui-border-radius: 0.75rem;
+          --pagefind-ui-font: var(--font-body);
+        }
+      </style>
+    </>
+  )}
+</BaseLayout>

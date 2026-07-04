@@ -8,6 +8,7 @@ import PillarCard from '../components/PillarCard.astro';
 <BaseLayout
   title="We Know The Why"
   description="Systems-driven growth agency. We built proprietary diagnostic tools that find what's broken, surface the root causes, and deliver a prioritized execution plan."
+  breadcrumb={false}
 >
   <!-- Hero -->
   <Section class="pt-28 pb-20">
@@ -24,6 +25,12 @@ import PillarCard from '../components/PillarCard.astro';
         <Button href="/contact">Talk to a Founder</Button>
         <Button href="/the-get-right" variant="secondary">Learn About The Get Right</Button>
       </div>
+      <!-- Expectation-setter: lowers the perceived commitment of the CTA by making
+           the next step legible before contact (WL-14). Mirrors the /thanks promise. -->
+      <p class="text-secondary-text text-sm mt-5 max-w-xl">
+        A founder replies within 24 hours &mdash; no sales team, no account managers.
+        We establish fit before either side commits.
+      </p>
     </div>
   </Section>
 
@@ -135,6 +142,10 @@ import PillarCard from '../components/PillarCard.astro';
         <Button href="/contact">Talk to a Founder</Button>
         <Button href="/the-get-right" variant="secondary">Learn About The Get Right</Button>
       </div>
+      <p class="text-secondary-text text-sm mt-5 max-w-xl mx-auto">
+        A founder replies within 24 hours &mdash; no sales team, no account managers.
+        We establish fit before either side commits.
+      </p>
     </div>
   </Section>
 </BaseLayout>

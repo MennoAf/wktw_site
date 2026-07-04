@@ -68,4 +68,24 @@ import Button from '../../components/Button.astro';
       </div>
     </div>
   </Section>
+
+  <!-- Structured Data: the self-audit results page as a WebPage tied to the
+       sitewide Organization. Describes the three audits we run on ourselves;
+       no Rating/Review nodes until real, attributable results are published (WL-17). -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://weknowthewhy.com/proof/our-site",
+    "url": "https://weknowthewhy.com/proof/our-site",
+    "name": "We Audited Our Own Site",
+    "description": "Full Muttr, Canary, and Delphi audit results for weknowthewhy.com. What we found, what we fixed, full transparency.",
+    "about": { "@id": "https://weknowthewhy.com/#organization" },
+    "publisher": { "@id": "https://weknowthewhy.com/#organization" },
+    "isPartOf": { "@id": "https://weknowthewhy.com/proof" },
+    "significantLink": [
+      "https://weknowthewhy.com/the-get-right/platform",
+      "https://weknowthewhy.com/the-get-right/content",
+      "https://weknowthewhy.com/the-get-right/revenue",
+    ],
+  })} />
 </BaseLayout>

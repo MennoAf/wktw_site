@@ -1,4 +1,6 @@
 ---
+import { features } from '../data/features';
+
 const services = [
   { label: 'The Get Right', href: '/the-get-right' },
   { label: 'Platform Audit', href: '/the-get-right/platform' },
@@ -11,6 +13,7 @@ const company = [
   { label: 'Contact', href: '/contact' },
   { label: 'Proof', href: '/proof' },
   { label: 'Insights', href: '/insights' },
+  ...(features.search ? [{ label: 'Search', href: '/search' }] : []),
   { label: 'Privacy', href: '/legal/privacy' },
   { label: 'Terms', href: '/legal/terms' },
 ];
@@ -27,17 +30,23 @@ const company = [
         <p class="mt-3 text-secondary-text text-sm leading-relaxed">
           Systems-driven growth agency. We built the tools. We run the tools. You talk to us.
         </p>
+        <a
+          href="mailto:jon@weknowthewhy.com"
+          class="inline-flex items-center min-h-[44px] mt-2 text-accent text-sm hover:text-accent-hover transition-colors"
+        >
+          jon@weknowthewhy.com
+        </a>
       </div>
 
       <!-- Services -->
       <div>
-        <h4 class="text-primary-text font-body font-semibold text-sm uppercase tracking-wider mb-4">
+        <h3 class="text-primary-text font-body font-semibold text-sm uppercase tracking-wider mb-4">
           Services
-        </h4>
-        <ul class="space-y-2.5">
+        </h3>
+        <ul class="space-y-0.5">
           {services.map((item) => (
             <li>
-              <a href={item.href} class="text-secondary-text text-sm hover:text-primary-text transition-colors">
+              <a href={item.href} class="inline-flex items-center min-h-[44px] text-secondary-text text-sm hover:text-primary-text transition-colors">
                 {item.label}
               </a>
             </li>
@@ -47,13 +56,13 @@ const company = [
 
       <!-- Company -->
       <div>
-        <h4 class="text-primary-text font-body font-semibold text-sm uppercase tracking-wider mb-4">
+        <h3 class="text-primary-text font-body font-semibold text-sm uppercase tracking-wider mb-4">
           Company
-        </h4>
-        <ul class="space-y-2.5">
+        </h3>
+        <ul class="space-y-0.5">
           {company.map((item) => (
             <li>
-              <a href={item.href} class="text-secondary-text text-sm hover:text-primary-text transition-colors">
+              <a href={item.href} class="inline-flex items-center min-h-[44px] text-secondary-text text-sm hover:text-primary-text transition-colors">
                 {item.label}
               </a>
             </li>
@@ -67,7 +76,7 @@ const company = [
       <button
         type="button"
         onclick="window.wktwOpenConsent && window.wktwOpenConsent()"
-        class="text-secondary-text text-sm hover:text-primary-text transition-colors text-left sm:text-right"
+        class="inline-flex items-center min-h-[44px] text-secondary-text text-sm hover:text-primary-text transition-colors text-left sm:text-right"
       >
         Cookie settings
       </button>

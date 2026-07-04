@@ -1,0 +1,82 @@
+---
+// Breadcrumb trail, auto-derived from the current path (WL-16). Renders a
+// visible <nav> + a BreadcrumbList JSON-LD block. Rendered by BaseLayout on
+// every page except the homepage and 404 (which pass breadcrumb={false}).
+//
+// Intermediate segments link to their section index; the final segment is the
+// current page (rendered as text, aria-current). A segment with no index page
+// (e.g. /legal) is listed as text rather than a dead link.
+const SITE = 'https://weknowthewhy.com';
+
+// Slugs that don't humanize cleanly get an explicit label.
+const LABELS: Record<string, string> = {
+  'the-get-right': 'The Get Right',
+  'our-site': 'Self-Audit',
+  'why-most-audits-dont-change-anything': "Why Most Audits Don't Change Anything",
+};
+
+// Section segments that have no index route — list as text, never link.
+const NON_LINK = new Set(['legal']);
+
+function humanize(seg: string): string {
+  return (
+    LABELS[seg] ??
+    seg
+      .split('-')
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ')
+  );
+}
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const segments = path.split('/').filter(Boolean);
+
+type Crumb = { label: string; href: string | null; current: boolean };
+const crumbs: Crumb[] = [{ label: 'Home', href: '/', current: false }];
+
+let acc = '';
+segments.forEach((seg, i) => {
+  acc += '/' + seg;
+  const isLast = i === segments.length - 1;
+  const linkable = !isLast && !NON_LINK.has(seg);
+  crumbs.push({ label: humanize(seg), href: linkable ? acc : null, current: isLast });
+});
+
+// BreadcrumbList: every crumb is a ListItem with an absolute `item` URL.
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    item: SITE + (c.href ?? path),
+  })),
+};
+---
+
+<nav aria-label="Breadcrumb" class="w-full">
+  <ol class="max-w-7xl mx-auto px-6 pt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-secondary-text">
+    {
+      crumbs.map((c, i) => (
+        <li class="flex items-center gap-x-2">
+          {i > 0 && (
+            <span aria-hidden="true" class="text-border-subtle">
+              &rsaquo;
+            </span>
+          )}
+          {c.href ? (
+            <a href={c.href} class="hover:text-accent transition-colors">
+              {c.label}
+            </a>
+          ) : (
+            <span class={c.current ? 'text-primary-text' : undefined} aria-current={c.current ? 'page' : undefined}>
+              {c.label}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonld)} />

@@ -1,0 +1,716 @@
+{
+  "pages": [
+    {
+      "url": "https://weknowthewhy.com",
+      "issue_count": 1,
+      "issues": [
+        {
+          "id": "gdpr-google-fonts-ip-transfer-third-country",
+          "title": "Self-host all Google Fonts WOFF2 files on the site's own origin (or first-party CDN), remove every reference to fonts.googleapis.com and fonts.gstatic.com from the document <head>, global stylesheets, and any CMS plugin/theme settings panel. This eliminates the third-party network connection that transmits visitor IP addresses to Google LLC servers in the United States before consent is obtained, resolving the GDPR Article 44 violation established by LG M\u00fcnchen Case 3 O 17493/20. As a secondary benefit, it removes one full DNS lookup, TCP handshake, and TLS negotiation from the critical rendering path, reducing font-related connection overhead.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "div > a:nth-of-type(1)",
+            "div > div:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/about",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "conv-ux-001",
+          "title": "Add a structured conversion terminus block to the About page template \u2014 a primary CTA (discovery call or contact), a secondary directional link (services or case studies), and an optional lightweight inline contact form \u2014 so that high-intent visitors who finish reading the company narrative and team bios are given a clear, low-friction next step rather than a dead end requiring self-navigation.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "schema-person-about-page-missing",
+          "title": "Inject schema.org/Person JSON-LD structured data blocks for each named team member on the /about page, referencing the parent Organization entity, to make team member rich results eligible in Google SERPs. This is the primary structured data vehicle for a consultancy whose value proposition is built on named individual expertise \u2014 it converts organic impressions into trust-qualified clicks by surfacing name, title, image, and social profiles directly in search results.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "gdpr-google-fonts-pre-consent-ip-transmission",
+          "title": "Replace all Google Fonts CDN references (fonts.googleapis.com / fonts.gstatic.com) with self-hosted font files served from the site's own origin. This single infrastructure change simultaneously eliminates the GDPR Article 44 third-country transfer exposure (visitor IP transmitted to Google servers before any consent interaction is possible) and removes the third-party DNS lookup, TCP connection, and TLS handshake overhead that the CDN references impose on every page load. No consent banner modification, no conditional loading logic, and no JavaScript intervention can substitute for this fix \u2014 the CDN request fires during the browser's initial resource fetch phase, structurally before any JS-based consent mechanism can execute.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/about/",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/contact/",
+      "issue_count": 4,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "form > button:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-missing-name-role-value-https-weknowthewhy-com-contact",
+          "title": "Missing name/role/value [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "form > input:nth-of-type(1)",
+            "#message"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/insights/why-most-audits-dont-change-anything",
+      "issue_count": 2,
+      "issues": [
+        {
+          "id": "conv-arch-1",
+          "title": "Add a full conversion layer to the insight article template: an end-of-article contextual CTA block, an inline newsletter/insight-series signup form, and a related-content recommendation rail. These three components transform the article template from a traffic sink into a qualified-lead pipeline. A fourth component \u2014 a content upgrade / lead magnet gate \u2014 is specified as a follow-on once a downloadable asset exists. All components are template-level additions; no platform rebuild is required.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "conversion-ux-social-share-1",
+          "title": "Add a progressive social sharing component to the article template that: (1) surfaces a native Web Share API trigger on mobile, (2) renders platform-specific share buttons (LinkedIn, X/Twitter, copy-link) on desktop, (3) includes an inline mid-article 'share this insight' prompt at a natural reading pause point, and (4) is built to be inert until og:image is resolved \u2014 so the component and the metadata fix ship as a coordinated distribution upgrade rather than two disconnected patches. The component must be zero-dependency, WCAG AA compliant, keyboard-navigable, and respect prefers-reduced-motion.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/insights/why-most-audits-dont-change-anything/",
+      "issue_count": 2,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "p > a:nth-of-type(1)",
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/legal/privacy",
+      "issue_count": 2,
+      "issues": [
+        {
+          "id": "privacy-cookies-compound-consent-dark-pattern",
+          "title": "Atomic consent flow remediation addressing three co-located defects in the consent banner as a single compliant unit: (1) add an inline, clearly visible privacy policy link within the banner body text \u2014 not in the footer, not post-acceptance; (2) equalize the visual weight of Accept and Decline/Reject buttons \u2014 identical size, identical color treatment, identical placement tier, no hierarchy asymmetry; (3) audit and enforce a hard cookie gate ensuring zero non-essential cookies are set prior to affirmative Accept interaction. All three changes must ship in a single deployment. Shipping any subset leaves the compound GDPR Article 7 / Recital 32 violation materially intact and does not constitute a compliant consent flow under ICO or CNIL enforcement standards.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "resource-loading-js-unused-absolute-bytes-static-page",
+          "title": "Eliminate the delivery of the full application JavaScript bundle (~2.56MB uncompressed, ~475KB unused) to static content pages (privacy policy, terms of service, legal, about) that have zero interactive JavaScript requirements beyond already-flagged analytics scripts. Implement route-level or page-type-level code splitting so that static text pages receive a minimal JS entrypoint \u2014 containing only the platform shell code strictly required for navigation continuity \u2014 rather than the monolithic application bundle built for interactive pages (cart, product configurators, checkout, filter/sort systems). The 475KB of parsed-but-never-executed JavaScript represents a page-scoping architectural failure, not a tree-shaking failure, and cannot be resolved by bundle optimization alone.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/legal/privacy/",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "p > a:nth-of-type(1)",
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/legal/terms/",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "p > a:nth-of-type(1)",
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/proof/our-site",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "gap-structured-data-proof-page-001",
+          "title": "Inject a layered JSON-LD structured data block into the 'proof/our-site' page template covering four Schema.org types in priority order: (1) BreadcrumbList \u2014 universal applicability, zero content dependency; (2) Organization \u2014 entity disambiguation and Knowledge Graph reinforcement for a brand credibility page; (3) AggregateRating / Review \u2014 rich result star-rating eligibility if testimonial content is present; (4) FAQPage \u2014 SERP vertical real estate expansion if objection-handling Q&A content exists. Each type is implemented as a separate <script type='application/ld+json'> block to allow independent CMS population, independent Google Search Console validation, and surgical removal if content changes make a type inapplicable. No single monolithic schema block \u2014 separation prevents one invalid property from invalidating the entire structured data payload.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "analytics-cta-conversion-tracking-gap",
+          "title": "Instrument every CTA interaction (click, form submission, anchor navigation) with a unified dataLayer push that simultaneously satisfies GA4 (via GTM), direct gtag(), and Plausible \u2014 eliminating the attribution blind spot across all three tools in a single platform-level fix. The solution must be implemented at the reusable component/template layer so every instance of the CTA pattern is covered, not just the page where the gap was detected. The instrumentation must be idempotent (no double-fires on re-render), attribution-safe (preserves session continuity and UTM parameters), and resilient to partial analytics stack failures (one tool failing must not silence the others).",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "resource-loading-js-transfer-coverage-inconsistency",
+          "title": "Instrument the audit pipeline to enforce cache-cleared cold-load conditions before capturing network transfer metrics, reconcile js_transfer_bytes against js_total_bytes (Coverage API) as a cross-signal validation gate, and produce a dual-baseline report (cold load vs. warm load) so that first-visit severity and repeat-visit severity are independently calibrated. This fix does not change the site's JavaScript \u2014 it fixes the measurement foundation that all JS payload findings (js-dual-gtm-ga4-payload-overhead, js-unused-bytes-low-but-present, resource-loading-analytics-scripts-dominate-payload) depend on for accurate severity framing.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/proof/our-site/",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/the-get-right/content",
+      "issue_count": 1,
+      "issues": [
+        {
+          "id": "analytics-dual-gtm-inter-container-tag-conflicts",
+          "title": "Eliminate inter-container tag firing conflicts caused by two simultaneous GTM containers by: (1) auditing both containers to produce a canonical tag ownership registry, (2) consolidating all tags into a single authoritative container with documented ownership boundaries, (3) decommissioning the redundant container, and (4) deploying a runtime deduplication guard as a defensive backstop against any future accidental re-introduction of duplicate firing. The fix must also address the compounding gtag.js duplication identified in 'attribution-duplicate-ga4-measurement' \u2014 the three-fire scenario (gtag.js + Container A + Container B) must be reduced to a single authoritative fire path per event.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/the-get-right/content/",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/the-get-right/platform/",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(5)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    }
+  ],
+  "site_wide": [
+    {
+      "id": "privacy-1-no-consent-mechanism",
+      "title": "Pre-consent tracking scripts load without visible consent banner \u2014 GDPR/consent compliance failure",
+      "severity": "critical",
+      "category": "privacy_cookies",
+      "compliance_domains": [
+        "gdpr",
+        "ccpa"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "ux-analytics-triple-redundancy-kpi-corruption",
+      "title": "Triple analytics stack (GA4 via GTM + direct GA4 + Plausible) makes KPIs unreliable with no conversion events configured",
+      "severity": "critical",
+      "category": "analytics_tracking",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "privacy-cookies-consent-banner-dark-pattern",
+      "title": "Cookie consent banner \u2014 Accept/Decline button visual parity requires verification for dark pattern compliance",
+      "severity": "high",
+      "category": "privacy_cookies",
+      "compliance_domains": [
+        "gdpr"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "ux-mobile-hamburger-discoverability",
+      "title": "Hamburger menu button has empty accessible name and 40x40px touch target \u2014 below WCAG minimum",
+      "severity": "high",
+      "category": "mobile_ux",
+      "compliance_domains": [
+        "wcag"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "mobile-nav-touch-targets-ux",
+      "title": "Mobile navigation links render at 24px height \u2014 repeated tap failures likely on primary navigation",
+      "severity": "high",
+      "category": "mobile_ux",
+      "compliance_domains": [
+        "wcag"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "det-gdpr-pre-consent-tracking-https-weknowthewhy-com",
+      "title": "Pre-consent tracking [GDPR]",
+      "severity": "high",
+      "category": "privacy_cookies",
+      "compliance_domains": [
+        "gdpr"
+      ],
+      "pages_affected": [
+        "https://weknowthewhy.com/"
+      ]
+    },
+    {
+      "id": "resource-loading-dual-analytics-redundancy",
+      "title": "Redundant dual analytics stack (Plausible + GA4/GTM) \u2014 excessive overhead and attribution confusion",
+      "severity": "high",
+      "category": "resource_loading",
+      "compliance_domains": [
+        "performance_as_liability"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "an-2-duplicate-analytics-gtm-ga4-plausible",
+      "title": "Triple analytics stack (GTM + standalone GA4 gtag.js + Plausible) constitutes 73%+ of total page transfer weight",
+      "severity": "high",
+      "category": "api_network",
+      "compliance_domains": [
+        "performance_as_liability"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "js-unused-bytes-low-but-present",
+      "title": "465KB unused JavaScript out of 2.5MB parsed \u2014 18.5% unused rate is acceptable but worth monitoring",
+      "severity": "medium",
+      "category": "javascript_third_party",
+      "compliance_domains": [
+        "performance_as_liability"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "ux-interactive-consent-banner-button-clarity",
+      "title": "Consent banner buttons may lack clear visual hierarchy \u2014 accept vs decline distinction unclear",
+      "severity": "medium",
+      "category": "interactive_elements",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "escalation-5-ga4-err-aborted-root-cause",
+      "title": "GA4 ERR_ABORTED likely caused by Playwright/headless browser blocking \u2014 but production ad-blocker risk is real",
+      "severity": "medium",
+      "category": "api_network",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "js-4-ga4-collect-aborted-data-loss",
+      "title": "GA4 collect request aborted (ERR_ABORTED) \u2014 analytics data integrity compromised, likely ad-blocker in test but real production risk",
+      "severity": "medium",
+      "category": "analytics_tracking",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "fonts-google-fonts-privacy-performance",
+      "title": "Google Fonts loaded from external CDN \u2014 privacy implications and variable font optimization opportunity",
+      "severity": "medium",
+      "category": "privacy_cookies",
+      "compliance_domains": [
+        "gdpr"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "resource-3-google-fonts-external-render-blocking-risk",
+      "title": "Google Fonts stylesheet is render-blocking \u2014 external CSS without async/preload strategy introduces FOIT/FOUT risk",
+      "severity": "medium",
+      "category": "resource_loading",
+      "compliance_domains": [
+        "performance_as_liability"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "det-security-headers-https-weknowthewhy-com-about",
+      "title": "Missing recommended security headers",
+      "severity": "medium",
+      "category": "security_headers",
+      "compliance_domains": [],
+      "pages_affected": [
+        "https://weknowthewhy.com/about/",
+        "https://weknowthewhy.com/contact/",
+        "https://weknowthewhy.com/",
+        "https://weknowthewhy.com/insights/why-most-audits-dont-change-anything/",
+        "https://weknowthewhy.com/legal/privacy/",
+        "https://weknowthewhy.com/legal/terms/",
+        "https://weknowthewhy.com/proof/our-site/",
+        "https://weknowthewhy.com/the-get-right/content/",
+        "https://weknowthewhy.com/the-get-right/platform/"
+      ]
+    },
+    {
+      "id": "backwards-compat-astro-modern-css",
+      "title": "Backwards compatibility \u2014 no issues detected; Astro SSG with minimal CSS and JS provides strong baseline",
+      "severity": "low",
+      "category": "backwards_compatibility",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "ux-analytics-cross-domain-unknown",
+      "title": "Cross-domain tracking configuration unverifiable \u2014 potential self-referral if multi-domain journey exists",
+      "severity": "low",
+      "category": "analytics_tracking",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "attribution-split-pixel-not-applicable",
+      "title": "No heavy advertising pixels detected \u2014 split-pixel strategy not required",
+      "severity": "low",
+      "category": "analytics_tracking",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "navigation-no-search",
+      "title": "No site search functionality detected \u2014 navigation relies entirely on menu structure",
+      "severity": "low",
+      "category": "navigation_ia",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "ux-sitemap-unverifiable",
+      "title": "XML sitemap alignment cannot be verified from available data",
+      "severity": "low",
+      "category": "navigation_ia",
+      "compliance_domains": [],
+      "pages_affected": []
+    }
+  ],
+  "page_count": 15,
+  "site_wide_count": 20
+}

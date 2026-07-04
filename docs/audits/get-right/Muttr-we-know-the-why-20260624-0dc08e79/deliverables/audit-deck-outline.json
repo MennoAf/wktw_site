@@ -1,0 +1,1005 @@
+{
+  "slides": [
+    {
+      "title": "We Know the Why \u2014 Technical Performance & Compliance Audit",
+      "content": {
+        "layout": "title_cover",
+        "fields": {
+          "client": "We Know the Why",
+          "auditor": "w.k.t.w.",
+          "scope": "Full-stack audit: Server \u00b7 Platform/CMS \u00b7 Template",
+          "audit_dimensions": [
+            "Performance & Core Web Vitals",
+            "Legal & Regulatory Compliance (GDPR, WCAG/ADA)",
+            "Revenue Attribution & Conversion Architecture",
+            "Security & Supply Chain Integrity"
+          ],
+          "primary_kpis_under_review": [
+            "Revenue",
+            "Conversion Rate",
+            "Bounce Rate"
+          ]
+        }
+      },
+      "notes": "Opening slide. Set the frame immediately: this is not a technical checklist \u2014 it is a business risk and revenue architecture review. The three KPIs named (revenue, conversion rate, bounce rate) are all materially affected by findings in this report. Auditor should verbally establish that findings are grouped by root cause, not by page, so the client understands they are looking at systemic patterns rather than isolated bugs."
+    },
+    {
+      "title": "Executive Summary",
+      "content": {
+        "layout": "summary_scorecard",
+        "overall_health": {
+          "label": "Site Health",
+          "rating": "Needs Significant Remediation",
+          "rationale": "High concentration of systemic findings across legal compliance, revenue attribution, and conversion architecture. Server and rendering fundamentals are strong. The gap is in the layers built on top of that foundation."
+        },
+        "finding_counts": {
+          "total_findings": 80,
+          "by_tier": {
+            "server": 6,
+            "platform_cms": 20,
+            "template": 54
+          },
+          "by_pattern": {
+            "systemic": 53,
+            "isolated": 15
+          },
+          "legal_liability": 19
+        },
+        "headline_observations": [
+          {
+            "label": "What is working",
+            "items": [
+              "Server fundamentals are strong \u2014 fast response times, modern protocol, zero layout shift, clean rendering baseline",
+              "Content-to-code ratio is excellent \u2014 the site is architecturally lean",
+              "Interaction responsiveness is within the 'Good' Core Web Vitals threshold",
+              "Astro SSG architecture provides a strong crawlability and performance foundation"
+            ]
+          },
+          {
+            "label": "Where the site is failing",
+            "items": [
+              "Analytics stack is architecturally broken \u2014 every KPI reported today is unreliable",
+              "Nineteen findings carry legal liability exposure across GDPR and WCAG/ADA",
+              "The conversion funnel has no measurement instrumentation \u2014 lead attribution is structurally blind",
+              "The design system was built without accessibility as a constraint \u2014 violations appear on every page"
+            ]
+          }
+        ],
+        "root_cause_clusters": 10,
+        "critical_severity_findings": 3
+      },
+      "notes": "This slide is the executive anchor. Lead with the server health positive \u2014 it establishes credibility and shows the audit is balanced. Then pivot hard: the foundation is sound, but the layers built on top of it are undermining business outcomes. Key verbal point: 53 of the actionable findings trace back to 10 root causes \u2014 this is not a long punch list, it is a short list of architectural decisions that need to change. Reference finding IDs for critical items: [ux-analytics-triple-redundancy-kpi-corruption], [privacy-1-no-consent-mechanism], [ux-analytics-form-submit-untracked]."
+    },
+    {
+      "title": "The Foundation Is Sound \u2014 But the Layers Above It Are Failing",
+      "content": {
+        "layout": "two_column_contrast",
+        "left_column": {
+          "heading": "What the server gets right",
+          "items": [
+            {
+              "label": "Server response time",
+              "detail": "Excellent \u2014 pre-rendered HTML delivered from CDN edge, no server-side compute on request path",
+              "finding_ref": "[server-transport-ttfb-excellent]"
+            },
+            {
+              "label": "Protocol & encryption",
+              "detail": "HTTP/2, TLS 1.3, compression \u2014 all passing",
+              "finding_ref": "[server-transport-ttfb-excellent]"
+            },
+            {
+              "label": "Visual stability",
+              "detail": "Zero cumulative layout shift \u2014 no content jumping during load",
+              "finding_ref": "[visual-stability-cls-excellent]"
+            },
+            {
+              "label": "Interaction responsiveness",
+              "detail": "INP within 'Good' Core Web Vitals threshold \u2014 pages respond quickly to user input",
+              "finding_ref": "[inp-excellent-no-issues]"
+            },
+            {
+              "label": "Rendering architecture",
+              "detail": "Astro SSG \u2014 static HTML, minimal client-side JavaScript, strong crawlability baseline",
+              "finding_ref": "[backwards-compat-astro-modern-css]"
+            }
+          ]
+        },
+        "right_column": {
+          "heading": "Where the layers above fail",
+          "items": [
+            {
+              "label": "Analytics payload vs. content payload",
+              "detail": "Analytics scripts dominate total page transfer weight on pages with minimal content \u2014 the measurement infrastructure outweighs what it is measuring",
+              "finding_ref": "[an-2-duplicate-analytics-gtm-ga4-plausible]"
+            },
+            {
+              "label": "Security headers",
+              "detail": "No Content-Security-Policy, no X-Frame-Options, no X-Content-Type-Options \u2014 the strong server is unprotected at the application layer",
+              "finding_ref": "[det-security-headers-https-weknowthewhy-com-about]"
+            },
+            {
+              "label": "Caching for static assets",
+              "detail": "Content-hashed assets that should be cached indefinitely are not confirmed to carry immutable cache headers \u2014 repeat visitors may be re-downloading unchanged files",
+              "finding_ref": "[st-6-cache-control-no-immutable-on-hashed-assets]"
+            },
+            {
+              "label": "Third-party font dependency",
+              "detail": "Google Fonts loaded from external CDN on every page \u2014 privacy exposure and connection overhead on every visit",
+              "finding_ref": "[fonts-google-fonts-privacy-performance]"
+            }
+          ]
+        }
+      },
+      "notes": "This slide prevents the client from dismissing the audit as 'everything is broken.' The server is genuinely good \u2014 acknowledge it. The strategic message is: a strong foundation is being undermined by decisions made at the platform and template layers. This sets up the root cause cluster slides that follow. Verbally: 'Your infrastructure team built something solid. The issues we are going to walk through are not infrastructure problems \u2014 they are product and configuration decisions that can be changed without rebuilding anything.'"
+    },
+    {
+      "title": "Legal & Compliance Exposure \u2014 19 Findings Carrying Regulatory Risk",
+      "content": {
+        "layout": "compliance_risk_matrix",
+        "urgency_statement": "These findings are not performance recommendations \u2014 they are active legal exposure. GDPR enforcement, ADA web accessibility litigation, and CCPA compliance failures carry documented regulatory and legal consequences. This section requires immediate executive attention.",
+        "compliance_categories": [
+          {
+            "regulation": "GDPR / CCPA",
+            "finding_count": 6,
+            "risk_level": "Critical",
+            "headline": "Tracking scripts load before consent is obtained",
+            "mechanism": "GTM, GA4, and Plausible all execute and transmit data to third-party servers before any user consent interaction occurs. Google Consent Mode v2 is configured to deny cookie storage, which mitigates cookie-based tracking \u2014 but network requests still transmit IP addresses to Google's servers pre-consent. Under GDPR, IP address transmission to a third-party processor without lawful basis is a violation regardless of cookie state.",
+            "secondary_issue": "Google Fonts loaded from fonts.googleapis.com and fonts.gstatic.com transmits visitor IP addresses to Google's US servers on every page load \u2014 at the TCP/TLS handshake layer, before JavaScript executes, before any consent mechanism can run. German courts have ruled this transmission pattern unlawful under GDPR Article 44 for sites without consent.",
+            "tertiary_issue": "The consent banner's Accept and Decline buttons share identical CSS classes \u2014 visual parity between accept and reject cannot be confirmed without computed styles. Regulators (CNIL, ICO) have identified asymmetric button styling as a priority enforcement pattern under GDPR Article 7.",
+            "finding_refs": [
+              "[privacy-1-no-consent-mechanism]",
+              "[det-gdpr-pre-consent-tracking-https-weknowthewhy-com]",
+              "[fonts-google-fonts-privacy-performance]",
+              "[gdpr-google-fonts-ip-transfer-third-country]",
+              "[privacy-cookies-consent-banner-dark-pattern]",
+              "[consent-banner-ux-on-privacy-page]"
+            ]
+          },
+          {
+            "regulation": "WCAG / ADA",
+            "finding_count": 13,
+            "risk_level": "High",
+            "headline": "Accessibility failures are systemic \u2014 present on every page",
+            "mechanism": "These are not isolated oversights on a single page. The design system was built without accessibility as a constraint. Violations appear across every template type audited.",
+            "violations": [
+              {
+                "category": "Touch targets",
+                "detail": "Multiple interactive elements \u2014 including the hamburger menu button, the primary 'Talk to a Founder' CTA, navigation links, and footer links \u2014 render below the WCAG 2.5.8 minimum of 48\u00d748 CSS pixels. The hamburger button additionally has an empty accessible name, making the gateway to all mobile navigation physically difficult to tap AND invisible to assistive technology simultaneously.",
+                "finding_refs": [
+                  "[accessibility-touch-targets-undersized]",
+                  "[ux-mobile-hamburger-discoverability]",
+                  "[ux-mobile-nav-cta-undersized]",
+                  "[mobile-nav-touch-targets-ux]"
+                ]
+              },
+              {
+                "category": "Color contrast",
+                "detail": "Contrast ratios as low as 1.00:1 detected \u2014 foreground and background colors are identical in at least one element state. Inline links are distinguished from surrounding text by color alone with no underline, border, or other non-color indicator. Both are WCAG Level A violations.",
+                "finding_refs": [
+                  "[det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about]",
+                  "[det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about]"
+                ]
+              },
+              {
+                "category": "Navigation landmarks",
+                "detail": "Multiple navigation elements lack distinguishing aria-label attributes. Screen reader users cannot differentiate between navigation regions \u2014 landmark navigation, a primary screen reader workflow, is non-functional.",
+                "finding_refs": [
+                  "[a11y-mobile-menu-nav-no-aria-label]",
+                  "[a11y-5-mobile-menu-duplicate-nav-no-aria-label]"
+                ]
+              },
+              {
+                "category": "Heading hierarchy",
+                "detail": "Heading levels skip from h1 to h4 on multiple pages, and from h2 to h4 on others. Screen reader users navigating by heading level encounter dead zones \u2014 a primary navigation mechanism is broken across the site.",
+                "finding_refs": [
+                  "[a11y-heading-hierarchy-skip]",
+                  "[ux-heading-hierarchy-skip]"
+                ]
+              },
+              {
+                "category": "Form accessibility",
+                "detail": "A form input lacks a programmatic label. The contact form \u2014 the site's sole conversion mechanism \u2014 has an accessibility failure at its entry point.",
+                "finding_refs": [
+                  "[a11y-3-form-missing-label]",
+                  "[det-wcag-missing-name-role-value-https-weknowthewhy-com-contact]"
+                ]
+              },
+              {
+                "category": "Ghost markup",
+                "detail": "Hidden mobile menu contains duplicate navigation links in collapsed DOM state. Screen readers announce every navigation link twice on every page.",
+                "finding_refs": [
+                  "[ghost-markup-mobile-menu-hidden-links]"
+                ]
+              }
+            ],
+            "legal_context": "ADA Title III web accessibility lawsuits are well-documented and increasing. WCAG Level A failures \u2014 the most severe tier \u2014 are the category most frequently cited in demand letters. The violations documented here are automatable by plaintiff-side scanning tools, making them trivially discoverable."
+          }
+        ],
+        "combined_exposure_statement": "The site has simultaneous GDPR exposure (pre-consent data transmission) and ADA/WCAG exposure (systemic accessibility failures across every page). These are independent legal risk vectors that compound each other \u2014 a regulatory inquiry into one does not resolve the other."
+      },
+      "notes": "This is the highest-stakes slide in the deck. Deliver it with gravity. The key executive message: these are not 'nice to have' improvements \u2014 they are active legal exposure that exists today, on every page, for every visitor. Do not soften the GDPR language. The pre-consent IP transmission issue is structural \u2014 it cannot be fixed with a banner tweak. The Google Fonts issue is particularly important to explain: it fires at the TCP layer before any JavaScript runs, meaning no consent banner can prevent it. The ADA point: plaintiff firms run automated scans. The violations flagged here are the exact type those scans surface. Finding refs for GDPR critical path: [privacy-1-no-consent-mechanism], [det-gdpr-pre-consent-tracking-https-weknowthewhy-com], [gdpr-google-fonts-ip-transfer-third-country]. Finding refs for WCAG critical path: [accessibility-touch-targets-undersized], [det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about], [a11y-mobile-menu-nav-no-aria-label]."
+    },
+    {
+      "title": "Root Cause Cluster 1 \u2014 The Analytics Stack Is Broken and Corrupting Every KPI",
+      "content": {
+        "layout": "root_cause_deep_dive",
+        "cluster_label": "Analytics Architecture Failure",
+        "finding_count": 11,
+        "one_line_summary": "A single GA4 measurement ID is loaded by three separate mechanisms simultaneously. Every KPI this site reports today is unreliable.",
+        "architectural_failure": {
+          "description": "The site runs three analytics tools in parallel: GTM (which fires a GA4 tag), a standalone gtag.js script (which fires the same GA4 property independently), and Plausible. The result is that every page view fires two GA4 collection requests to the same property simultaneously. The browser cancels one of the duplicate requests \u2014 producing the ERR_ABORTED beacon error visible in the network log \u2014 meaning some data is silently dropped even in the double-counting scenario.",
+          "finding_refs": [
+            "[ux-analytics-triple-redundancy-kpi-corruption]",
+            "[an-2-duplicate-analytics-gtm-ga4-plausible]",
+            "[js-4-ga4-collect-aborted-data-loss]"
+          ]
+        },
+        "kpi_corruption_mechanisms": [
+          {
+            "kpi": "Bounce Rate",
+            "mechanism": "GA4 cannot classify a session as a bounce if it contains two or more pageview events. The duplicate beacon means every single-page visit registers as two pageviews \u2014 GA4 treats it as an engaged session. Reported bounce rate is artificially suppressed. The true bounce rate is higher than what GA4 currently shows."
+          },
+          {
+            "kpi": "Session Count",
+            "mechanism": "Two GA4 initialization paths can generate two distinct client IDs for the same user in the same session. In GA4's User Explorer and audience definitions, one real visitor may appear as two separate users with incomplete journeys."
+          },
+          {
+            "kpi": "Conversion Rate",
+            "mechanism": "Zero custom conversion events are configured across any of the three analytics platforms. The contact form \u2014 the site's only conversion mechanism \u2014 fires no event on submission. Lead attribution relies entirely on a destination-based pageview on /thanks, which is fragile and provides no channel, page, or CTA attribution. Conversion rate is structurally unmeasurable today.",
+            "finding_refs": [
+              "[ux-analytics-form-submit-untracked]"
+            ]
+          }
+        ],
+        "compounding_issue": {
+          "label": "Analytics payload vs. content payload",
+          "detail": "The analytics scripts collectively dominate total page transfer weight on pages with minimal content. The measurement infrastructure outweighs the content it is measuring \u2014 and it is producing corrupted data.",
+          "finding_refs": [
+            "[resource-loading-dual-analytics-redundancy]"
+          ]
+        },
+        "business_impact_statement": "Every business decision made using current GA4 data \u2014 channel investment, content prioritization, conversion optimization \u2014 is being made on corrupted numbers. This is not a data quality concern. It is a data integrity failure."
+      },
+      "notes": "This is the slide most likely to create urgency with a business-oriented executive. The message is not 'your analytics are messy' \u2014 it is 'you cannot trust any number GA4 is showing you right now.' Walk through each KPI corruption mechanism slowly. The bounce rate suppression point is particularly powerful: the site may appear to have strong engagement metrics that are entirely artificial. Key finding refs: [ux-analytics-triple-redundancy-kpi-corruption], [an-2-duplicate-analytics-gtm-ga4-plausible], [js-4-ga4-collect-aborted-data-loss], [ux-analytics-form-submit-untracked], [escalation-5-ga4-err-aborted-root-cause]."
+    },
+    {
+      "title": "Root Cause Cluster 2 \u2014 Consent Architecture Has Multiple Simultaneous Failures",
+      "content": {
+        "layout": "root_cause_deep_dive",
+        "cluster_label": "Consent Implementation Failure",
+        "finding_count": 6,
+        "one_line_summary": "The consent banner and the tracking scripts are architecturally decoupled \u2014 scripts load and transmit data before any consent interaction is possible.",
+        "root_cause_explanation": "The consent banner exists in the DOM and Google Consent Mode v2 is configured to deny cookie storage by default \u2014 these are positive signals. However, the enforcement and the loading sequence are not connected. GTM, GA4, and Plausible all load and execute before any consent interaction occurs. Network requests transmitting IP addresses to Google's servers fire at page load, not after consent. No recognized Consent Management Platform (CMP) is deployed \u2014 this is a custom implementation without the compliance guarantees of established platforms.",
+        "failure_modes": [
+          {
+            "failure": "Pre-consent data transmission",
+            "detail": "IP addresses are transmitted to Google's servers on every page load regardless of consent state. This occurs at the network layer \u2014 before JavaScript executes, before the banner renders, before the user sees the page.",
+            "finding_refs": [
+              "[privacy-1-no-consent-mechanism]",
+              "[det-gdpr-pre-consent-tracking-https-weknowthewhy-com]"
+            ]
+          },
+          {
+            "failure": "Google Fonts pre-consent transmission",
+            "detail": "Fonts loaded from fonts.googleapis.com and fonts.gstatic.com transmit visitor IP addresses at the TCP/TLS handshake layer. No consent mechanism \u2014 regardless of how well-implemented \u2014 can intercept a request that fires before JavaScript runs.",
+            "finding_refs": [
+              "[gdpr-google-fonts-ip-transfer-third-country]",
+              "[gdpr-google-fonts-pre-consent-ip-transmission]"
+            ]
+          },
+          {
+            "failure": "Potential dark pattern \u2014 button visual parity unverified",
+            "detail": "The Accept and Decline buttons share identical CSS classes. Without computed styles, it cannot be confirmed that the buttons have equal visual weight. CNIL and ICO enforcement guidance explicitly identifies asymmetric accept/reject button styling as a priority enforcement pattern.",
+            "finding_refs": [
+              "[privacy-cookies-consent-banner-dark-pattern]",
+              "[privacy-cookies-compound-consent-dark-pattern]"
+            ]
+          },
+          {
+            "failure": "Circular UX on privacy policy page",
+            "detail": "The consent banner appears on the privacy policy page, consuming mobile viewport space and competing with the content a user must read to make an informed consent decision. GDPR Article 7 and Recital 42 require that consent be informed \u2014 the user must be able to access the information that informs their decision before the decision is requested.",
+            "finding_refs": [
+              "[consent-banner-ux-on-privacy-page]"
+            ]
+          }
+        ],
+        "remediation_note": "The Google Fonts issue cannot be resolved by modifying the consent banner. It requires self-hosting font files on the site's own origin \u2014 eliminating the third-party connection entirely. This is the only fix that closes the pre-consent transmission gap for fonts."
+      },
+      "notes": "Emphasize the structural nature of the Google Fonts issue \u2014 clients frequently assume a consent banner fix resolves all GDPR exposure. It does not. The fonts issue fires at the TCP layer. The only fix is self-hosting. Also emphasize: no recognized CMP means no compliance audit trail, no documented consent records, and no platform-level enforcement guarantees. Key finding refs: [privacy-1-no-consent-mechanism], [gdpr-google-fonts-ip-transfer-third-country], [privacy-cookies-consent-banner-dark-pattern], [consent-banner-ux-on-privacy-page]."
+    },
+    {
+      "title": "Root Cause Cluster 3 \u2014 The Design System Was Built Without Accessibility as a Constraint",
+      "content": {
+        "layout": "root_cause_deep_dive",
+        "cluster_label": "Systemic Accessibility Failure",
+        "finding_count": 10,
+        "one_line_summary": "Accessibility violations are not isolated bugs \u2014 they are the predictable output of a design system that never enforced accessibility minimums.",
+        "root_cause_explanation": "The spacing and sizing tokens in the design system establish interactive element heights below the WCAG 2.5.8 minimum. Color choices were made without contrast verification. Navigation patterns were implemented without ARIA landmark differentiation. These decisions propagate to every component that inherits from the design system \u2014 which is every component on the site.",
+        "failure_zones": [
+          {
+            "zone": "Touch targets \u2014 every interactive element in header and footer",
+            "detail": "The hamburger menu button, the primary 'Talk to a Founder' CTA, navigation links, and footer links all render below the WCAG 2.5.8 minimum of 48\u00d748 CSS pixels. The hamburger button has an additional failure: its accessible name is empty, making the gateway to all mobile navigation invisible to assistive technology.",
+            "finding_refs": [
+              "[accessibility-touch-targets-undersized]",
+              "[ux-mobile-hamburger-discoverability]",
+              "[ux-mobile-nav-cta-undersized]",
+              "[mobile-nav-touch-targets-ux]"
+            ]
+          },
+          {
+            "zone": "Color contrast \u2014 navigation and consent banner",
+            "detail": "Contrast ratios as low as 1.00:1 detected \u2014 foreground and background colors are identical in at least one element state. Inline links are distinguished from surrounding text by color alone. Both are WCAG Level A violations, the most severe tier.",
+            "finding_refs": [
+              "[det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about]",
+              "[det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about]"
+            ]
+          },
+          {
+            "zone": "Navigation landmarks \u2014 every page",
+            "detail": "Multiple navigation elements exist on every page without distinguishing aria-label attributes. Screen reader users cannot differentiate between navigation regions. Landmark navigation \u2014 a primary screen reader workflow \u2014 is non-functional site-wide.",
+            "finding_refs": [
+              "[a11y-mobile-menu-nav-no-aria-label]",
+              "[a11y-5-mobile-menu-duplicate-nav-no-aria-label]"
+            ]
+          },
+          {
+            "zone": "Heading hierarchy \u2014 multiple page templates",
+            "detail": "Heading levels skip from h1 to h4 on some pages and h2 to h4 on others. Screen reader users navigating by heading level \u2014 a primary navigation strategy \u2014 encounter dead zones across the site.",
+            "finding_refs": [
+              "[a11y-heading-hierarchy-skip]",
+              "[ux-heading-hierarchy-skip]",
+              "[det-wcag-improper-content-structure-https-weknowthewhy-com-about]"
+            ]
+          },
+          {
+            "zone": "Contact form \u2014 the sole conversion mechanism",
+            "detail": "A form input lacks a programmatic label. The contact form is the only conversion path on the site. An accessibility failure at the form's entry point directly excludes screen reader users from completing the site's primary business action.",
+            "finding_refs": [
+              "[a11y-3-form-missing-label]",
+              "[det-wcag-missing-name-role-value-https-weknowthewhy-com-contact]"
+            ]
+          }
+        ],
+        "business_impact_statement": "Accessibility failures are not cosmetic. They exclude users, create legal exposure, and suppress mobile conversion. The touch target failures affect every mobile visitor who attempts to navigate or convert. The contrast failures affect every user in bright-light conditions or with low vision. The form label failure affects every screen reader user who attempts to contact the company."
+      },
+      "notes": "The key message here is systemic vs. isolated. These are not bugs on one page \u2014 they are the output of design system decisions that affect every page. The fix is not patching individual components; it is updating the design system tokens and enforcing them. Verbally: 'Every new page built on this design system will inherit these violations until the system itself is corrected.' Key finding refs for legal exposure: [accessibility-touch-targets-undersized], [det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about], [a11y-3-form-missing-label]. The contact form finding is particularly important for a consultancy \u2014 the sole conversion mechanism has an accessibility failure."
+    },
+    {
+      "title": "Root Cause Cluster 4 \u2014 The Conversion Funnel Has No Instrumentation and No Architecture",
+      "content": {
+        "layout": "root_cause_deep_dive",
+        "cluster_label": "Conversion Architecture Gap",
+        "finding_count": 10,
+        "one_line_summary": "The site was built as a content delivery system. It was not built as a conversion system. The funnel exists in intent but not in architecture.",
+        "conversion_path": {
+          "label": "The intended funnel",
+          "steps": [
+            "Any page \u2192 'Talk to a Founder' CTA",
+            "'Talk to a Founder' CTA \u2192 /contact form",
+            "/contact form \u2192 POST \u2192 /thanks"
+          ],
+          "gaps": [
+            {
+              "gap": "No trust signals at the point of conversion",
+              "detail": "The contact page \u2014 where a visitor is deciding whether to submit personal information \u2014 contains no testimonials, no social proof, no founder photo, no credibility indicators. The CTA promises direct founder access; the destination delivers a bare form.",
+              "finding_refs": [
+                "[ux-conversion-no-trust-signals]",
+                "[ux-revenue-no-social-proof-above-fold]"
+              ]
+            },
+            {
+              "gap": "Form submission fires no analytics event",
+              "detail": "Lead attribution relies entirely on a destination-based pageview on /thanks. If a user submits the form and the redirect fails, or if the /thanks page is visited directly, the conversion is either missed or falsely counted. There is no client-side event tracking on the form submission itself.",
+              "finding_refs": [
+                "[ux-analytics-form-submit-untracked]"
+              ]
+            },
+            {
+              "gap": "Mobile friction in the form itself",
+              "detail": "The URL field triggers the iOS URL keyboard \u2014 no spacebar, protocol prefix required. This is a documented mobile friction point unique to input[type='url']. The field is rarely critical for initial contact in a consultancy context.",
+              "finding_refs": [
+                "[ux-form-url-field-mobile-friction]"
+              ]
+            },
+            {
+              "gap": "No alternative contact paths",
+              "detail": "No tel: or mailto: links exist anywhere on the site. The form is the only conversion mechanism. If the form fails \u2014 client-side validation error, JavaScript failure, server error \u2014 there is no recovery path. High-intent visitors who prefer synchronous communication have no option.",
+              "finding_refs": [
+                "[ux-no-phone-tel-link]"
+              ]
+            },
+            {
+              "gap": "No engagement model clarity",
+              "detail": "Service pages provide no answer to 'what happens if I engage' \u2014 no scope, duration, or fee structure context. B2B buyers who cannot answer this question before initiating contact will abandon rather than reach out blind.",
+              "finding_refs": [
+                "[ux-revenue-no-pricing-signals]"
+              ]
+            },
+            {
+              "gap": "Thought leadership content is a traffic sink",
+              "detail": "Article pages have no end-of-article CTA, no newsletter capture, no related content rail. Organic traffic that reads an article has no mechanism to convert or continue. Every article page is a dead end.",
+              "finding_refs": [
+                "[conv-arch-1]",
+                "[ux-revenue-2]"
+              ]
+            }
+          ]
+        },
+        "business_impact_statement": "The site is generating organic traffic and delivering content. It is not converting that traffic into leads. The conversion architecture gap means the site's primary business function \u2014 generating qualified leads for the founders \u2014 is not being served by the site's design."
+      },
+      "notes": "This cluster is the most directly revenue-relevant for a consultancy. The message: the site is doing the hard work of attracting visitors and delivering content, then failing at the last step. Each gap in the funnel is a specific, fixable architectural decision. Verbally: 'You have built a publication. You need a publication that also converts.' Key finding refs: [ux-analytics-form-submit-untracked], [ux-conversion-no-trust-signals], [ux-no-phone-tel-link], [conv-arch-1], [ux-revenue-no-pricing-signals]."
+    },
+    {
+      "title": "Root Cause Cluster 5 \u2014 Security Headers Are Absent, Leaving the Application Layer Unprotected",
+      "content": {
+        "layout": "root_cause_deep_dive",
+        "cluster_label": "Security Header Gap",
+        "finding_count": 3,
+        "one_line_summary": "The server is strong. The application layer has no defensive headers. A compromised GTM container could exfiltrate contact form data with no browser-level protection.",
+        "missing_headers": [
+          {
+            "header": "Content-Security-Policy (CSP)",
+            "risk": "Without CSP, any JavaScript injected via a compromised GTM container executes with full page privileges \u2014 including reading and exfiltrating contact form field values (name, email, company) to an attacker-controlled endpoint. GTM is the primary attack surface: a single malicious tag in the container can silently harvest every form submission.",
+            "finding_refs": [
+              "[det-security-headers-https-weknowthewhy-com-about]",
+              "[escalation-1-sri-gtm-ga-mitigation]"
+            ]
+          },
+          {
+            "header": "X-Frame-Options",
+            "risk": "Without clickjacking protection, the site can be embedded in a cross-origin iframe. An attacker can overlay a transparent iframe over a legitimate-looking page to capture clicks intended for the contact form.",
+            "finding_refs": [
+              "[det-security-headers-https-weknowthewhy-com-about]"
+            ]
+          },
+          {
+            "header": "X-Content-Type-Options",
+            "risk": "Without nosniff, browsers may execute a response declared as text/plain as JavaScript if it detects script-like content \u2014 a known attack vector when user-controlled content is served.",
+            "finding_refs": [
+              "[det-security-headers-https-weknowthewhy-com-about]"
+            ]
+          },
+          {
+            "header": "Referrer-Policy",
+            "risk": "Without a referrer policy, the browser sends the full URL (including path and query string) in the Referer header to every third-party origin the page contacts \u2014 including Google Analytics and GTM. This leaks internal URL structure to external parties.",
+            "finding_refs": [
+              "[det-security-headers-https-weknowthewhy-com-about]"
+            ]
+          }
+        ],
+        "sri_note": {
+          "label": "Subresource Integrity (SRI) is not viable for GTM/GA4",
+          "detail": "GTM and GA4 scripts are dynamically versioned by Google \u2014 SRI hashes would break on every Google update. The correct mitigation is a nonce-based Content Security Policy deployed via Netlify Edge Functions. This addresses both the missing headers and the supply-chain protection gap simultaneously.",
+          "finding_refs": [
+            "[escalation-1-sri-gtm-ga-mitigation]",
+            "[prescan-escalation-sri-gtm-incompatibility]"
+          ]
+        }
+      },
+      "notes": "The GTM supply chain risk is the most important point on this slide. GTM containers are a well-documented attack vector \u2014 a single compromised tag can silently harvest form data. For a consultancy whose contact form collects name, email, and company, this is a direct business risk. The CSP fix via Netlify Edge Functions is the correct architectural solution \u2014 it does not require changes to the application code. Key finding refs: [det-security-headers-https-weknowthewhy-com-about], [escalation-1-sri-gtm-ga-mitigation], [prescan-escalation-sri-gtm-incompatibility]."
+    },
+    {
+      "title": "Root Cause Clusters 6\u201310 \u2014 Supporting Systemic Issues",
+      "content": {
+        "layout": "multi_cluster_summary",
+        "clusters": [
+          {
+            "cluster": "Google Fonts \u2014 Three-Way Liability",
+            "finding_count": 3,
+            "summary": "Google Fonts loaded from external CDN creates simultaneous GDPR exposure (IP transmission to Google's US servers before consent), performance overhead (additional DNS lookup, TCP connection, and TLS handshake on every page load), and resilience risk (font rendering fails if Google's CDN is unavailable or blocked by corporate firewalls). A single fix \u2014 self-hosting font files \u2014 resolves all three simultaneously.",
+            "finding_refs": [
+              "[fonts-google-fonts-privacy-performance]",
+              "[resource-3-google-fonts-external-render-blocking-risk]",
+              "[resource-loading-font-subsetting-opportunity]"
+            ]
+          },
+          {
+            "cluster": "Caching Architecture \u2014 Repeat Visitor Performance",
+            "finding_count": 3,
+            "summary": "Content-hashed static assets (CSS, JS, fonts) generated by Astro should carry immutable, long-lived cache headers \u2014 but this cannot be confirmed from available data. Without immutable caching, repeat visitors may re-download unchanged files on every visit. No CDN cache-status headers are exposed, making cache-hit ratios unverifiable.",
+            "finding_refs": [
+              "[st-6-cache-control-no-immutable-on-hashed-assets]",
+              "[server-transport-no-cdn-cache-headers]",
+              "[cache-control-no-caching-static-assets]"
+            ]
+          },
+          {
+            "cluster": "SEO & Structured Data \u2014 Invisible to Search Enrichment",
+            "finding_count": 4,
+            "summary": "Structured data schema type cannot be verified from available data. Open Graph and Twitter Card completeness is unverifiable. No BreadcrumbList structured data exists. No Person schema for team members on the About page. For a consultancy whose value proposition is named individual expertise, Person schema is the primary mechanism for converting organic impressions into trust-qualified clicks.",
+            "finding_refs": [
+              "[escalation-unknown-schema-type]",
+              "[escalation-og-twitter-meta-unverifiable]",
+              "[ux-nav-no-breadcrumbs]",
+              "[schema-person-about-page-missing]"
+            ]
+          },
+          {
+            "cluster": "JavaScript Payload \u2014 Static Pages Carrying Interactive Bundle",
+            "finding_count": 2,
+            "summary": "Static content pages (privacy policy, terms, about, legal) receive the full application JavaScript bundle \u2014 built for interactive pages with cart, filtering, and configurator functionality. These pages have no interactive JavaScript requirements beyond analytics. The unused JavaScript represents a page-scoping architectural failure: the wrong bundle is being delivered to the wrong page type.",
+            "finding_refs": [
+              "[resource-loading-js-unused-absolute-bytes-static-page]",
+              "[js-unused-bytes-low-but-present]"
+            ]
+          },
+          {
+            "cluster": "Internal Linking & Content Architecture \u2014 Traffic Sinks",
+            "finding_count": 3,
+            "summary": "Only navigational links exist \u2014 no contextual in-content links between related pages. Article pages dead-end with no next step. The About page terminates with no conversion path. No breadcrumb navigation. The site architecture prioritizes content publishing over content distribution and conversion.",
+            "finding_refs": [
+              "[ux-nav-internal-linking-sparse]",
+              "[conv-ux-001]",
+              "[ux-nav-no-breadcrumbs]"
+            ]
+          }
+        ]
+      },
+      "notes": "This slide covers the remaining five root cause clusters at summary depth. The Google Fonts cluster is worth dwelling on \u2014 the three-way liability framing (GDPR + performance + resilience) is compelling because it shows a single fix resolving three categories of risk simultaneously. The JavaScript payload cluster is important context for the roadmap: it explains why static pages are heavier than they should be. Key finding refs for each cluster are listed inline. If time is limited in the presentation, this slide can be presented as a leave-behind rather than walked through in detail."
+    },
+    {
+      "title": "KPI Impact Analysis \u2014 How These Issues Affect Revenue, Conversion Rate, and Bounce Rate",
+      "content": {
+        "layout": "kpi_impact_matrix",
+        "framing_statement": "The following analysis explains the technical pathway from each finding category to business outcomes. No dollar amounts, conversion percentages, or revenue projections are stated \u2014 those require baseline analytics data that is currently corrupted. What is stated is the mechanism: how each issue creates the business impact.",
+        "kpi_impacts": [
+          {
+            "kpi": "Conversion Rate",
+            "impacting_issues": [
+              {
+                "issue": "Zero conversion event tracking",
+                "mechanism": "The contact form fires no analytics event on submission. Conversion rate is structurally unmeasurable \u2014 the denominator (sessions) is corrupted by duplicate counting, and the numerator (conversions) is zero regardless of actual form submissions. Any conversion rate figure in GA4 today is not a real number.",
+                "finding_refs": [
+                  "[ux-analytics-form-submit-untracked]",
+                  "[ux-analytics-triple-redundancy-kpi-corruption]"
+                ]
+              },
+              {
+                "issue": "No trust signals at point of conversion",
+                "mechanism": "The contact page \u2014 where a visitor is deciding whether to submit personal information \u2014 contains no social proof, no testimonials, no founder credibility signals. The CTA promises direct founder access; the destination delivers a bare form. Visitors who arrive with mid-level confidence have no additional signals to process before deciding to submit or leave.",
+                "finding_refs": [
+                  "[ux-conversion-no-trust-signals]"
+                ]
+              },
+              {
+                "issue": "Touch target failures on primary CTA",
+                "mechanism": "The 'Talk to a Founder' CTA renders below the WCAG 2.5.8 minimum touch target size. On mobile, undersized targets cause mis-taps \u2014 users either hit adjacent elements or require multiple attempts. Each failed interaction increases the probability of abandonment at the exact moment of conversion intent.",
+                "finding_refs": [
+                  "[ux-mobile-nav-cta-undersized]",
+                  "[accessibility-touch-targets-undersized]"
+                ]
+              },
+              {
+                "issue": "Mobile form friction \u2014 URL field",
+                "mechanism": "The URL field triggers the iOS URL keyboard, which removes the spacebar and requires protocol prefixes. This is a mobile-only friction point that does not exist on desktop. Every mobile visitor who reaches the form encounters this friction on a field that is rarely critical for initial consultancy contact.",
+                "finding_refs": [
+                  "[ux-form-url-field-mobile-friction]"
+                ]
+              },
+              {
+                "issue": "No alternative contact paths",
+                "mechanism": "The form is the only conversion mechanism. If it fails \u2014 for any reason \u2014 there is no recovery path. High-intent visitors who prefer phone or email have no option. The form functions as a gatekeeper rather than a facilitator.",
+                "finding_refs": [
+                  "[ux-no-phone-tel-link]"
+                ]
+              }
+            ]
+          },
+          {
+            "kpi": "Bounce Rate",
+            "impacting_issues": [
+              {
+                "issue": "Bounce rate is artificially suppressed today",
+                "mechanism": "The duplicate GA4 beacon means every single-page visit registers as two pageview events. GA4 cannot classify a session with two pageviews as a bounce. The reported bounce rate is lower than the true bounce rate. When the analytics stack is corrected, reported bounce rate will rise \u2014 not because site quality declined, but because the measurement became accurate.",
+                "finding_refs": [
+                  "[ux-analytics-triple-redundancy-kpi-corruption]",
+                  "[js-4-ga4-collect-aborted-data-loss]"
+                ]
+              },
+              {
+                "issue": "Article pages dead-end with no next step",
+                "mechanism": "Organic visitors who read an article have no mechanism to continue their session \u2014 no related content, no newsletter capture, no contextual CTA. The only exit is the browser back button or the navigation bar. Visitors who are not yet commercially ready but are intellectually engaged have no path to stay.",
+                "finding_refs": [
+                  "[conv-arch-1]"
+                ]
+              },
+              {
+                "issue": "Accessibility failures exclude user segments",
+                "mechanism": "Screen reader users who encounter unlabeled navigation landmarks, broken heading hierarchy, or an unlabeled form input face immediate friction. Users who cannot navigate the site effectively leave. This is a bounce that is not caused by content quality \u2014 it is caused by structural inaccessibility.",
+                "finding_refs": [
+                  "[a11y-mobile-menu-nav-no-aria-label]",
+                  "[a11y-heading-hierarchy-skip]",
+                  "[a11y-3-form-missing-label]"
+                ]
+              }
+            ]
+          },
+          {
+            "kpi": "Revenue (Lead Generation)",
+            "impacting_issues": [
+              {
+                "issue": "No channel attribution for leads",
+                "mechanism": "Without a form submission event, GA4 cannot attribute leads to acquisition channels. Paid campaigns, organic search, and referral traffic all appear to generate zero conversions regardless of actual performance. Budget allocation decisions are being made without conversion signal.",
+                "finding_refs": [
+                  "[ux-analytics-form-submit-untracked]",
+                  "[ux-analytics-cross-domain-unknown]"
+                ]
+              },
+              {
+                "issue": "Thought leadership content generates no leads",
+                "mechanism": "Article pages attract organic traffic but have no mechanism to capture it. Readers who finish an article and are not yet commercially ready have no path to newsletter subscription, no related content to continue engagement, and no contextual CTA. Organic content investment generates traffic that exits without any lead capture opportunity.",
+                "finding_refs": [
+                  "[conv-arch-1]",
+                  "[ux-revenue-2]"
+                ]
+              },
+              {
+                "issue": "No engagement model clarity on service pages",
+                "mechanism": "B2B buyers who cannot answer 'what am I committing to' before initiating contact will abandon rather than reach out blind. Service pages provide no scope, duration, or fee structure context. The conversion barrier is not awareness \u2014 it is commitment uncertainty.",
+                "finding_refs": [
+                  "[ux-revenue-no-pricing-signals]"
+                ]
+              },
+              {
+                "issue": "Person schema absent \u2014 named expertise invisible in search",
+                "mechanism": "For a consultancy whose value proposition is named individual expertise, Person schema is the primary mechanism for converting organic impressions into trust-qualified clicks. Without it, team members are invisible in search enrichment. Competitors with Person schema receive enhanced SERP listings while this site renders as a plain result.",
+                "finding_refs": [
+                  "[schema-person-about-page-missing]"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "notes": "This slide is the bridge between technical findings and business outcomes. The framing statement at the top is critical \u2014 set the expectation that mechanism-based explanations are more honest and more actionable than invented percentages. The bounce rate suppression point requires careful verbal delivery: the client may initially hear 'bounce rate will get worse' as bad news. Reframe it: 'Your bounce rate will become accurate. That is good news \u2014 you will finally know what is actually happening.' Key finding refs for the most impactful items: [ux-analytics-form-submit-untracked], [ux-conversion-no-trust-signals], [ux-mobile-nav-cta-undersized], [conv-arch-1]."
+    },
+    {
+      "title": "Recommended Roadmap \u2014 30 / 60 / 90 Day Priority Actions",
+      "content": {
+        "layout": "three_column_roadmap",
+        "framing_statement": "Sequencing is based on three criteria: legal exposure (act first to stop active liability), measurement integrity (fix the data before optimizing against it), and conversion impact (highest-leverage changes to the revenue funnel).",
+        "phases": [
+          {
+            "phase": "30 Days \u2014 Stop Active Legal Exposure and Restore Data Integrity",
+            "theme": "Fix what is actively harmful before optimizing what is merely suboptimal",
+            "actions": [
+              {
+                "priority": 1,
+                "action": "Self-host Google Fonts \u2014 eliminate pre-consent IP transmission",
+                "rationale": "This is the only fix that closes the GDPR Article 44 exposure for font loading. It cannot be resolved by banner changes. It also removes connection overhead from every page load as a secondary benefit.",
+                "tier": "Platform",
+                "finding_refs": [
+                  "[gdpr-google-fonts-ip-transfer-third-country]",
+                  "[gdpr-google-fonts-pre-consent-ip-transmission]",
+                  "[fonts-google-fonts-privacy-performance]"
+                ]
+              },
+              {
+                "priority": 2,
+                "action": "Eliminate duplicate GA4 loading \u2014 remove standalone gtag.js, consolidate to GTM-only",
+                "rationale": "Every KPI is corrupted until this is fixed. This is a prerequisite for all analytics-dependent decisions. Removing the standalone gtag.js also reduces analytics payload and eliminates the ERR_ABORTED beacon error.",
+                "tier": "Platform",
+                "finding_refs": [
+                  "[ux-analytics-triple-redundancy-kpi-corruption]",
+                  "[an-2-duplicate-analytics-gtm-ga4-plausible]",
+                  "[js-4-ga4-collect-aborted-data-loss]"
+                ]
+              },
+              {
+                "priority": 3,
+                "action": "Instrument contact form submission with GA4 generate_lead event",
+                "rationale": "Conversion rate is unmeasurable until this fires. This is the single highest-leverage analytics change \u2014 it transforms the stack from a session counter into a conversion funnel.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[ux-analytics-form-submit-untracked]",
+                  "[analytics-cta-conversion-tracking-gap]"
+                ]
+              },
+              {
+                "priority": 4,
+                "action": "Audit and enforce consent gate \u2014 ensure no tracking scripts fire before consent interaction",
+                "rationale": "Google Consent Mode v2 is configured but enforcement is not verified. GTM must be blocked from loading until consent is obtained. This is the structural fix for the pre-consent tracking exposure.",
+                "tier": "Platform",
+                "finding_refs": [
+                  "[privacy-1-no-consent-mechanism]",
+                  "[det-gdpr-pre-consent-tracking-https-weknowthewhy-com]"
+                ]
+              },
+              {
+                "priority": 5,
+                "action": "Equalize consent banner button visual weight and add inline privacy policy link",
+                "rationale": "Resolves the potential dark pattern finding and the circular UX on the privacy policy page. Must ship as a single deployment \u2014 partial fixes leave the compound GDPR Article 7 violation materially intact.",
+                "tier": "Platform",
+                "finding_refs": [
+                  "[privacy-cookies-consent-banner-dark-pattern]",
+                  "[privacy-cookies-compound-consent-dark-pattern]",
+                  "[consent-banner-ux-on-privacy-page]"
+                ]
+              },
+              {
+                "priority": 6,
+                "action": "Deploy security headers via Netlify configuration \u2014 CSP (Report-Only first), HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy",
+                "rationale": "Deploy CSP in Report-Only mode first to discover violations without breaking functionality. Promotes to enforced after violation stream is clean. Closes the GTM supply chain attack surface.",
+                "tier": "Server",
+                "finding_refs": [
+                  "[det-security-headers-https-weknowthewhy-com-about]",
+                  "[escalation-1-sri-gtm-ga-mitigation]"
+                ]
+              }
+            ]
+          },
+          {
+            "phase": "60 Days \u2014 Fix Accessibility Violations and Conversion Architecture",
+            "theme": "Remove legal exposure from the design system and build the conversion layer",
+            "actions": [
+              {
+                "priority": 1,
+                "action": "Update design system sizing tokens \u2014 enforce 48\u00d748px minimum on all interactive elements",
+                "rationale": "This is a design system fix, not a per-component fix. Updating the tokens propagates the correction to every component that inherits from the system. Covers hamburger button, CTA, navigation links, and footer links simultaneously.",
+                "tier": "Platform",
+                "finding_refs": [
+                  "[accessibility-touch-targets-undersized]",
+                  "[ux-mobile-hamburger-discoverability]",
+                  "[ux-mobile-nav-cta-undersized]",
+                  "[mobile-nav-touch-targets-ux]"
+                ]
+              },
+              {
+                "priority": 2,
+                "action": "Add aria-label to hamburger button and all navigation landmarks",
+                "rationale": "The hamburger button has an empty accessible name \u2014 the gateway to all mobile navigation is invisible to assistive technology. Adding aria-label and aria-expanded resolves a WCAG Level A failure on every page.",
+                "tier": "Platform",
+                "finding_refs": [
+                  "[ux-mobile-hamburger-discoverability]",
+                  "[a11y-mobile-menu-nav-no-aria-label]",
+                  "[a11y-5-mobile-menu-duplicate-nav-no-aria-label]"
+                ]
+              },
+              {
+                "priority": 3,
+                "action": "Fix heading hierarchy across all page templates \u2014 eliminate h2\u2192h4 and h1\u2192h4 skips",
+                "rationale": "Heading hierarchy violations appear across multiple templates. This is a template-level fix that must be applied to each affected template type. A build-time lint script prevents regression.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[a11y-heading-hierarchy-skip]",
+                  "[ux-heading-hierarchy-skip]",
+                  "[det-wcag-improper-content-structure-https-weknowthewhy-com-about]"
+                ]
+              },
+              {
+                "priority": 4,
+                "action": "Fix contact form \u2014 add aria-hidden and tabindex='-1' to honeypot field, verify all inputs have programmatic labels",
+                "rationale": "The contact form is the sole conversion mechanism. An accessibility failure at the form's entry point directly excludes screen reader users from completing the site's primary business action.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[a11y-3-form-missing-label]",
+                  "[det-wcag-missing-name-role-value-https-weknowthewhy-com-contact]"
+                ]
+              },
+              {
+                "priority": 5,
+                "action": "Add trust signals to contact page \u2014 founder photo, testimonials, privacy assurance",
+                "rationale": "The contact page is where conversion intent meets commitment hesitation. Trust signals at this point address the psychological gap between the CTA promise and the form experience.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[ux-conversion-no-trust-signals]",
+                  "[ux-content-sparse-above-fold]"
+                ]
+              },
+              {
+                "priority": 6,
+                "action": "Remove URL field from contact form or make it optional; add tel: and mailto: links",
+                "rationale": "Reduces mobile form friction and provides a recovery path if the form fails. High-intent visitors who prefer synchronous communication currently have no option.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[ux-form-url-field-mobile-friction]",
+                  "[ux-no-phone-tel-link]"
+                ]
+              },
+              {
+                "priority": 7,
+                "action": "Fix color contrast violations and add non-color indicators to inline links",
+                "rationale": "Contrast ratios as low as 1.00:1 are WCAG Level A failures. Inline links distinguished by color alone are a Level A violation. Both must be resolved to achieve any WCAG conformance claim.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about]",
+                  "[det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about]"
+                ]
+              },
+              {
+                "priority": 8,
+                "action": "Fix ghost markup \u2014 add aria-hidden and inert to collapsed mobile menu",
+                "rationale": "Hidden mobile menu exposes duplicate navigation links to screen readers and crawlers. Screen readers announce every navigation link twice on every page.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[ghost-markup-mobile-menu-hidden-links]"
+                ]
+              }
+            ]
+          },
+          {
+            "phase": "90 Days \u2014 SEO, Caching, Conversion Optimization, and Content Architecture",
+            "theme": "Compound the foundation improvements into measurable organic and conversion gains",
+            "actions": [
+              {
+                "priority": 1,
+                "action": "Configure immutable caching for content-hashed assets via Netlify _headers or netlify.toml",
+                "rationale": "Astro generates content-hashed filenames that are safe to cache indefinitely. Without immutable headers, repeat visitors may re-download unchanged files. This is a configuration change, not a code change.",
+                "tier": "Server",
+                "finding_refs": [
+                  "[st-6-cache-control-no-immutable-on-hashed-assets]",
+                  "[server-transport-no-cdn-cache-headers]"
+                ]
+              },
+              {
+                "priority": 2,
+                "action": "Inject Person schema for each named team member on the About page",
+                "rationale": "For a consultancy whose value proposition is named individual expertise, Person schema is the primary mechanism for converting organic impressions into trust-qualified clicks. This is the highest-leverage structured data change for this site type.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[schema-person-about-page-missing]"
+                ]
+              },
+              {
+                "priority": 3,
+                "action": "Add end-of-article CTA, newsletter capture, and related content rail to article template",
+                "rationale": "Article pages are currently traffic sinks. These three components transform the article template from a dead end into a qualified-lead pipeline. All are template-level additions \u2014 no platform rebuild required.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[conv-arch-1]",
+                  "[conversion-ux-social-share-1]"
+                ]
+              },
+              {
+                "priority": 4,
+                "action": "Add conversion terminus block to About page \u2014 primary CTA, secondary directional link",
+                "rationale": "The About page currently terminates with no conversion path. High-intent visitors who finish reading the company narrative have no clear next step.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[conv-ux-001]"
+                ]
+              },
+              {
+                "priority": 5,
+                "action": "Add author attribution to all article pages \u2014 Person schema, author bio, photo",
+                "rationale": "Anonymous content on a consultancy site provides no E-E-A-T signal. Named, credentialed authors with linked profiles directly satisfy Google's Experience and Expertise signals for thought-leadership content.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[ux-revenue-2]",
+                  "[ux-revenue-no-social-proof-above-fold]"
+                ]
+              },
+              {
+                "priority": 6,
+                "action": "Add BreadcrumbList structured data and breadcrumb navigation to depth-2+ pages",
+                "rationale": "Enables Google to display breadcrumb trails in SERPs, replacing raw URL slugs with readable path hierarchies. Also creates explicit parent-child internal link relationships that currently do not exist.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[ux-nav-no-breadcrumbs]"
+                ]
+              },
+              {
+                "priority": 7,
+                "action": "Implement route-level code splitting \u2014 deliver minimal JS entrypoint to static content pages",
+                "rationale": "Static pages currently receive the full application JavaScript bundle built for interactive pages. This is a page-scoping architectural failure that cannot be resolved by tree-shaking alone.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[resource-loading-js-unused-absolute-bytes-static-page]"
+                ]
+              },
+              {
+                "priority": 8,
+                "action": "Add engagement model clarity to service pages \u2014 scope, duration, process context",
+                "rationale": "B2B buyers who cannot answer 'what am I committing to' before initiating contact will abandon. This is content, not code \u2014 it can be authored in the CMS.",
+                "tier": "Template",
+                "finding_refs": [
+                  "[ux-revenue-no-pricing-signals]"
+                ]
+              },
+              {
+                "priority": 9,
+                "action": "Align canonical URLs and trailing-slash configuration \u2014 resolve canonical/redirect mismatch",
+                "rationale": "Google currently receives contradictory canonicalization signals on every non-root page. Aligning these signals removes ambiguity and eliminates redirect latency for internal navigation.",
+                "tier": "Server",
+                "finding_refs": [
+                  "[prescan-escalation-3-canonical-trailing-slash]"
+                ]
+              },
+              {
+                "priority": 10,
+                "action": "Verify and enforce CSP from Report-Only to enforced mode after 30-day violation monitoring period",
+                "rationale": "CSP deployed in Report-Only mode in the 30-day phase. After the violation stream is clean, promote to enforced mode to activate browser-level script injection protection.",
+                "tier": "Server",
+                "finding_refs": [
+                  "[escalation-1-sri-gtm-ga-mitigation]",
+                  "[det-security-headers-https-weknowthewhy-com-about]"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "notes": "The sequencing logic is the most important thing to communicate on this slide. Verbally: 'We are not sequencing by effort or by what is easiest. We are sequencing by what is actively harmful today versus what is an improvement opportunity.' The 30-day phase is entirely about stopping active harm \u2014 legal exposure and data corruption. The 60-day phase is about removing barriers to conversion. The 90-day phase is about compounding the improvements into measurable gains. One important note for the client: when the analytics stack is fixed in the 30-day phase, reported metrics will change \u2014 bounce rate will rise, session counts will fall. This is not regression; it is accuracy. Set this expectation explicitly before the 30-day work begins."
+    },
+    {
+      "title": "What Accurate Data Will Reveal \u2014 Setting Expectations for the 30-Day Analytics Fix",
+      "content": {
+        "layout": "expectation_setting",
+        "framing": "When the duplicate GA4 loading is removed and form submission tracking is added, reported metrics will change. This slide explains what to expect and why the changes represent accuracy, not regression.",
+        "metric_changes": [
+          {
+            "metric": "Bounce Rate",
+            "current_state": "Artificially suppressed \u2014 every single-page visit registers as two pageviews, preventing GA4 from classifying it as a bounce",
+            "after_fix": "Will rise to reflect actual user behavior \u2014 visitors who view one page and leave will be correctly classified as bounces",
+            "interpretation": "A higher reported bounce rate after the fix is not a sign that site quality declined. It is a sign that the measurement became accurate. The true bounce rate was always higher than what GA4 was showing."
+          },
+          {
+            "metric": "Session Count",
+            "current_state": "Inflated \u2014 two GA4 initialization paths can generate duplicate client IDs for the same user",
+            "after_fix": "Will decrease to reflect actual unique sessions",
+            "interpretation": "Lower session counts after the fix mean the denominator in all rate calculations (conversion rate, pages per session, session duration) becomes accurate."
+          },
+          {
+            "metric": "Conversion Rate",
+            "current_state": "Structurally zero \u2014 no form submission event exists, so GA4 reports zero conversions regardless of actual form submissions",
+            "after_fix": "Will show actual form submissions for the first time, attributed to acquisition channels",
+            "interpretation": "Any non-zero conversion rate after the fix represents real leads that were previously invisible to analytics."
+          },
+          {
+            "metric": "Historical data",
+            "current_state": "All GA4 data prior to the fix is unreliable \u2014 session counts, bounce rates, and conversion rates are all corrupted",
+            "after_fix": "A GA4 annotation should be added at the fix date to mark the clean-data start point",
+            "interpretation": "Do not use pre-fix data as a baseline for post-fix performance comparisons. The fix date is the start of reliable measurement."
+          }
+        ]
+      },
+      "notes": "This slide exists to prevent a common client reaction: 'our metrics got worse after you fixed things.' Set this expectation explicitly before the work begins. The key message: the numbers are not getting worse \u2014 they are getting accurate. The site's actual performance has not changed; the measurement of it has. This is particularly important for the bounce rate point, which is the most counterintuitive. Reference finding IDs: [ux-analytics-triple-redundancy-kpi-corruption], [js-4-ga4-collect-aborted-data-loss], [ux-analytics-form-submit-untracked]."
+    },
+    {
+      "title": "Next Steps \u2014 Implementation Support and Engagement Continuation",
+      "content": {
+        "layout": "next_steps_cta",
+        "immediate_actions": {
+          "heading": "What happens in the next 7 days",
+          "items": [
+            {
+              "action": "Findings handoff",
+              "detail": "Full findings report with finding IDs, severity classifications, root cause cluster assignments, and implementation-ready fix specifications delivered to the development team"
+            },
+            {
+              "action": "30-day sprint scoping",
+              "detail": "Prioritized implementation backlog for the 30-day legal exposure and data integrity phase \u2014 sequenced, estimated, and ready for sprint planning"
+            },
+            {
+              "action": "Analytics baseline documentation",
+              "detail": "Document current GA4 state before any changes \u2014 session counts, reported bounce rate, reported conversion rate \u2014 so the post-fix accuracy change is clearly attributable to measurement correction, not site regression"
+            }
+          ]
+        },
+        "engagement_options": {
+          "heading": "How w.k.t.w. can support implementation",
+          "options": [
+            {
+              "option": "Implementation oversight",
+              "detail": "Technical review of each fix before deployment \u2014 ensuring the implementation matches the specification and does not introduce regressions"
+            },
+            {
+              "option": "Compliance verification",
+              "detail": "Post-implementation audit of GDPR consent flow and WCAG accessibility fixes \u2014 producing a documented compliance verification report"
+            },
+            {
+              "option": "Conversion architecture build",
+              "detail": "Hands-on implementation of the 60-day conversion layer \u2014 trust signals, form optimization, article template conversion components"
+            },
+            {
+              "option": "Ongoing performance monitoring",
+              "detail": "Quarterly audit cadence to catch regressions before they compound \u2014 particularly important as the site grows and new templates are added"
+            }
+          ]
+        },
+        "closing_statement": "The foundation of this site is genuinely strong. The server is fast, the architecture is clean, and the content is well-structured. The issues documented in this audit are not fundamental \u2014 they are layered decisions that can be changed. The 30-day phase stops active harm. The 60-day phase builds the conversion layer. The 90-day phase compounds both into measurable organic and lead generation gains. The work is sequenced, scoped, and ready to begin."
+      },
+      "notes": "Close with confidence, not alarm. The audit has surfaced serious issues \u2014 but the framing should be: 'we know exactly what is wrong and exactly how to fix it.' The closing statement is designed to leave the client feeling that the path forward is clear, not overwhelming. Verbally emphasize the foundation strength one more time \u2014 it is genuine, and it means the fixes are additive rather than reconstructive. The analytics baseline documentation point is operationally important: document the current corrupted state before fixing it, so the post-fix metric changes are clearly explained and not misread as regression."
+    }
+  ]
+}

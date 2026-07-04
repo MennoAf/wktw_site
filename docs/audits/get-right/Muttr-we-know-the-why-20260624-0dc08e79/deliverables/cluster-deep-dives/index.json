@@ -1,0 +1,98 @@
+[
+  {
+    "cluster_id": "cluster_001",
+    "name": "Triple Analytics Stack \u2014 Redundant GA4 + GTM + Plausible Architecture",
+    "file": "cluster_001_triple_analytics_stack_redundant_ga4_gtm_plausible_architecture.md",
+    "finding_count": 11,
+    "is_systemic": true,
+    "compliance_implications": [
+      "gdpr",
+      "performance_as_liability"
+    ]
+  },
+  {
+    "cluster_id": "cluster_002",
+    "name": "Pre-Consent Tracking and Consent Mechanism Failures",
+    "file": "cluster_002_pre_consent_tracking_and_consent_mechanism_failures.md",
+    "finding_count": 6,
+    "is_systemic": true,
+    "compliance_implications": [
+      "gdpr",
+      "ccpa"
+    ]
+  },
+  {
+    "cluster_id": "cluster_003",
+    "name": "Global Touch Target and Interactive Element Sizing Deficit",
+    "file": "cluster_003_global_touch_target_and_interactive_element_sizing_deficit.md",
+    "finding_count": 4,
+    "is_systemic": true,
+    "compliance_implications": [
+      "wcag"
+    ]
+  },
+  {
+    "cluster_id": "cluster_004",
+    "name": "Site-Wide WCAG Accessibility Failures \u2014 Contrast, Color Indicators, Landmarks, and Form Labels",
+    "file": "cluster_004_site_wide_wcag_accessibility_failures_contrast_color_indicators_land.md",
+    "finding_count": 10,
+    "is_systemic": true,
+    "compliance_implications": [
+      "wcag"
+    ]
+  },
+  {
+    "cluster_id": "cluster_005",
+    "name": "Google Fonts External Dependency \u2014 Privacy, Performance, and Render-Blocking",
+    "file": "cluster_005_google_fonts_external_dependency_privacy_performance_and_render_bloc.md",
+    "finding_count": 3,
+    "is_systemic": true,
+    "compliance_implications": [
+      "gdpr"
+    ]
+  },
+  {
+    "cluster_id": "cluster_006",
+    "name": "Missing Security Headers and Supply-Chain Protection",
+    "file": "cluster_006_missing_security_headers_and_supply_chain_protection.md",
+    "finding_count": 3,
+    "is_systemic": true,
+    "compliance_implications": [
+      "gdpr"
+    ]
+  },
+  {
+    "cluster_id": "cluster_007",
+    "name": "Caching Architecture Gaps \u2014 Static Assets Without Immutable Headers",
+    "file": "cluster_007_caching_architecture_gaps_static_assets_without_immutable_headers.md",
+    "finding_count": 3,
+    "is_systemic": true,
+    "compliance_implications": []
+  },
+  {
+    "cluster_id": "cluster_008",
+    "name": "Conversion Path Architecture \u2014 Missing Trust Signals, Tracking, and Form Optimization",
+    "file": "cluster_008_conversion_path_architecture_missing_trust_signals_tracking_and_form.md",
+    "finding_count": 10,
+    "is_systemic": true,
+    "compliance_implications": []
+  },
+  {
+    "cluster_id": "cluster_009",
+    "name": "SEO Metadata and Structured Data Gaps",
+    "file": "cluster_009_seo_metadata_and_structured_data_gaps.md",
+    "finding_count": 5,
+    "is_systemic": true,
+    "compliance_implications": [
+      "performance_as_liability"
+    ]
+  },
+  {
+    "cluster_id": "cluster_010",
+    "name": "Navigation Architecture \u2014 Sparse Internal Linking and Content Dead-Ends",
+    "file": "cluster_010_navigation_architecture_sparse_internal_linking_and_content_dead_end.md",
+    "finding_count": 3,
+    "is_systemic": true,
+    "compliance_implications": []
+  }
+]

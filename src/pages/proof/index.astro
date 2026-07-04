@@ -47,4 +47,27 @@ import Section from '../../components/Section.astro';
       </div>
     </div>
   </Section>
+
+  <!-- Structured Data: the Proof index is a CollectionPage about our own
+       transparency — links the page into the graph via the sitewide Organization
+       and its one published self-audit. No Review/Rating nodes: we don't fabricate
+       testimonials we haven't earned (WL-17). -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://weknowthewhy.com/proof",
+    "url": "https://weknowthewhy.com/proof",
+    "name": "Proof",
+    "description": "We audit our own site with our own tools. Same standards, full transparency. See the results.",
+    "about": { "@id": "https://weknowthewhy.com/#organization" },
+    "publisher": { "@id": "https://weknowthewhy.com/#organization" },
+    "hasPart": [
+      {
+        "@type": "WebPage",
+        "@id": "https://weknowthewhy.com/proof/our-site",
+        "url": "https://weknowthewhy.com/proof/our-site",
+        "name": "We Audited Our Own Site",
+      },
+    ],
+  })} />
 </BaseLayout>

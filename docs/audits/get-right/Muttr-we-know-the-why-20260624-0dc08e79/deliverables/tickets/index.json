@@ -1,0 +1,488 @@
+[
+  {
+    "id": "a11y-3-form-missing-label",
+    "title": "Apply the complete honeypot accessibility hiding pattern to the unlabeled input at the start of the contact form: make it invisible to assistive technology (aria-hidden, tabindex=-1), prevent autofill from poisoning it (autocomplete='off'), and add a visually-hidden label as a fallback safety net. This prevents screen reader confusion, keyboard trap, and legitimate submission rejection from autofill triggering the honeypot.",
+    "file": "a11y-3-form-missing-label_apply_the_complete_honeypot_accessibility_hiding_patte.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "a11y-5-mobile-menu-duplicate-nav-no-aria-label",
+    "title": "Add distinguishing aria-labels to all <nav> landmarks, synchronize aria-hidden state on the mobile nav with its visibility toggle, and retrofit the consent banner with focus trapping, ARIA context, and keyboard dismissal.",
+    "file": "a11y-5-mobile-menu-duplicate-nav-no-aria-label_add_distinguishing_aria_labels_to.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "a11y-6-prefers-reduced-motion-unverified",
+    "title": "Audit the site's CSS for all transition and animation declarations, then wrap every motion declaration in a @media (prefers-reduced-motion: reduce) block that disables or replaces it. Add a CI-level CSS lint rule so future motion additions are caught before deployment.",
+    "file": "a11y-6-prefers-reduced-motion-unverified_audit_the_site_s_css_for_all_transition.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "a11y-heading-hierarchy-skip",
+    "title": "Replace hardcoded heading levels in Astro section components with a prop-driven heading level system so that each component renders the correct heading level based on its position in the page's document outline, eliminating orphaned h4 elements that lack logical h3 ancestors.",
+    "file": "a11y-heading-hierarchy-skip_replace_hardcoded_heading_levels_in_astro_section_co.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "a11y-lang-attribute-correct",
+    "title": "No remediation required. This is a passing audit check. The proposal below documents a regression guard to prevent future CMS builds or template changes from silently stripping the lang attribute \u2014 the only actionable work this finding warrants.",
+    "file": "a11y-lang-attribute-correct_no_remediation_required_this_is_a_passing_audit_chec.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "a11y-mobile-menu-nav-no-aria-label",
+    "title": "Add unique aria-label attributes to every <nav> element in the Astro layout and component templates so screen readers can distinguish landmarks. Hide the mobile nav from the accessibility tree when it is visually closed.",
+    "file": "a11y-mobile-menu-nav-no-aria-label_add_unique_aria_label_attributes_to_every_nav.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "accessibility-touch-targets-undersized",
+    "title": "Establish a global minimum 48\u00d748 CSS pixel interactive bounding box for all touch targets site-wide by introducing a design-system-level CSS layer that enforces minimum tap dimensions on every interactive element category (buttons, links in navigation/footer, icon links), scoped to avoid inflating inline body text links or disrupting existing visual design.",
+    "file": "accessibility-touch-targets-undersized_establish_a_global_minimum_48_48_css_pixe.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "an-2-duplicate-analytics-gtm-ga4-plausible",
+    "title": "Consolidate to a single analytics architecture: GTM as the sole analytics orchestrator firing one GA4 tag, remove the standalone gtag.js script entirely, and make a deliberate keep-or-kill decision on Plausible. This eliminates ~160KB of redundant JavaScript, fixes double-counted pageviews, and restores GA4 data integrity.",
+    "file": "an-2-duplicate-analytics-gtm-ga4-plausible_consolidate_to_a_single_analytics_arc.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "analytics-cta-conversion-tracking-gap",
+    "title": "Instrument every CTA interaction (click, form submission, anchor navigation) with a unified dataLayer push that simultaneously satisfies GA4 (via GTM), direct gtag(), and Plausible \u2014 eliminating the attribution blind spot across all three tools in a single platform-level fix. The solution must be implemented at the reusable component/template layer so every instance of the CTA pattern is covered, not just the page where the gap was detected. The instrumentation must be idempotent (no double-fires on re-render), attribution-safe (preserves session continuity and UTM parameters), and resilient to partial analytics stack failures (one tool failing must not silence the others).",
+    "file": "analytics-cta-conversion-tracking-gap_instrument_every_cta_interaction_click_for.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "analytics-dual-gtm-inter-container-tag-conflicts",
+    "title": "Eliminate inter-container tag firing conflicts caused by two simultaneous GTM containers by: (1) auditing both containers to produce a canonical tag ownership registry, (2) consolidating all tags into a single authoritative container with documented ownership boundaries, (3) decommissioning the redundant container, and (4) deploying a runtime deduplication guard as a defensive backstop against any future accidental re-introduction of duplicate firing. The fix must also address the compounding gtag.js duplication identified in 'attribution-duplicate-ga4-measurement' \u2014 the three-fire scenario (gtag.js + Container A + Container B) must be reduced to a single authoritative fire path per event.",
+    "file": "analytics-dual-gtm-inter-container-tag-conflicts_eliminate_inter_container_tag_f.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "api-1-minimal-network-waterfall",
+    "title": "No corrective action required. Document the current architecture as a verified baseline and establish a monitoring contract to detect regressions if dynamic pages are added.",
+    "file": "api-1-minimal-network-waterfall_no_corrective_action_required_document_the_curre.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "api-network-waterfall-minimal",
+    "title": "Document the static architecture as a structural invariant and install a CI guard that fails the build if SSR mode, client-side data fetching, or runtime API dependencies are introduced \u2014 preserving the zero-waterfall property as the codebase evolves.",
+    "file": "api-network-waterfall-minimal_document_the_static_architecture_as_a_structural_i.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "attribution-split-pixel-not-applicable",
+    "title": "Remove the standalone gtag.js script and consolidate all GA4 tracking exclusively through the existing GTM container. Then evaluate whether GTM itself is justified given zero advertising pixels and zero conversion event instrumentation \u2014 if not, replace the entire stack with Plausible-only and remove GTM entirely.",
+    "file": "attribution-split-pixel-not-applicable_remove_the_standalone_gtag_js_script_and.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "backwards-compat-astro-modern-css",
+    "title": "Establish a forward-looking backwards compatibility guardrail system for the Astro SSG build pipeline. No current defects exist. The objective is to codify the current passing posture into enforceable build-time checks so that future template additions (modern CSS without @supports guards) and future Astro island components (untranspiled JS syntax) cannot silently regress the site's legacy browser compatibility without a CI failure.",
+    "file": "backwards-compat-astro-modern-css_establish_a_forward_looking_backwards_compatib.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "cache-control-no-caching-static-assets",
+    "title": "Add a netlify.toml [[headers]] block (or _headers file) that applies 'public, max-age=31536000, immutable' exclusively to Astro's content-hashed asset paths (/_astro/*) while leaving the existing HTML document policy ('public, max-age=0, must-revalidate') completely untouched. Simultaneously enable Netlify cache-status response headers on all routes to restore CDN observability.",
+    "file": "cache-control-no-caching-static-assets_add_a_netlify_toml_headers_block_or_heade.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "consent-banner-ux-on-privacy-page",
+    "title": "Add route-awareness to the consent banner so it auto-suppresses on legal/policy pages, eliminating the circular UX where users must consent before reading the policy that informs their consent. On suppressed pages, render a minimal, non-blocking inline notice instead.",
+    "file": "consent-banner-ux-on-privacy-page_add_route_awareness_to_the_consent_banner_so_i.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "conv-arch-1",
+    "title": "Add a full conversion layer to the insight article template: an end-of-article contextual CTA block, an inline newsletter/insight-series signup form, and a related-content recommendation rail. These three components transform the article template from a traffic sink into a qualified-lead pipeline. A fourth component \u2014 a content upgrade / lead magnet gate \u2014 is specified as a follow-on once a downloadable asset exists. All components are template-level additions; no platform rebuild is required.",
+    "file": "conv-arch-1_add_a_full_conversion_layer_to_the_insight_article_template_an_end_o.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "conv-ux-001",
+    "title": "Add a structured conversion terminus block to the About page template \u2014 a primary CTA (discovery call or contact), a secondary directional link (services or case studies), and an optional lightweight inline contact form \u2014 so that high-intent visitors who finish reading the company narrative and team bios are given a clear, low-friction next step rather than a dead end requiring self-navigation.",
+    "file": "conv-ux-001_add_a_structured_conversion_terminus_block_to_the_about_page_templat.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "conversion-ux-social-share-1",
+    "title": "Add a progressive social sharing component to the article template that: (1) surfaces a native Web Share API trigger on mobile, (2) renders platform-specific share buttons (LinkedIn, X/Twitter, copy-link) on desktop, (3) includes an inline mid-article 'share this insight' prompt at a natural reading pause point, and (4) is built to be inert until og:image is resolved \u2014 so the component and the metadata fix ship as a coordinated distribution upgrade rather than two disconnected patches. The component must be zero-dependency, WCAG AA compliant, keyboard-navigable, and respect prefers-reduced-motion.",
+    "file": "conversion-ux-social-share-1_add_a_progressive_social_sharing_component_to_the_a.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "det-gdpr-pre-consent-tracking-https-weknowthewhy-com",
+    "title": "Gate all third-party network requests (GTM, GA4, any additional vendors) behind explicit consent. No vendor script may load, no network request may fire, and no GTM container may initialize until the user has made an affirmative consent decision in the current session. Google Consent Mode v2 storage-denial defaults are retained as a secondary safeguard but are not the primary enforcement mechanism \u2014 script loading itself must be blocked pre-consent.",
+    "file": "det-gdpr-pre-consent-tracking-https-weknowthewhy-com_gate_all_third_party_networ.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "det-security-headers-https-weknowthewhy-com-about",
+    "title": "Deploy a two-layer security header configuration: (1) static headers for all non-CSP directives via netlify.toml, and (2) a nonce-based Content-Security-Policy injected per-request via a Netlify Edge Function. The Edge Function generates a cryptographically unique nonce per response, rewrites matching <script> tags in the HTML to carry that nonce, and emits the CSP header referencing it \u2014 making GTM's dynamically versioned scripts compliant without SRI.",
+    "file": "det-security-headers-https-weknowthewhy-com-about_deploy_a_two_layer_security_he.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+    "title": "Restore visible underlines on all inline text links site-wide via a scoped child-theme CSS override, ensuring links within body content, navigation, footers, and widgets are distinguishable by more than color alone \u2014 satisfying WCAG 2.1 SC 1.4.1 (Use of Color).\n\nAffected selectors captured by the detector (2 element(s)):\n  - li > a:nth-of-type(1)\n  - p > a:nth-of-type(1)",
+    "file": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about_restore_visible_un.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-about",
+    "title": "Refactor shared Astro components that hardcode <h4> to accept a polymorphic `headingLevel` prop, and add a design-system-level guard that decouples visual heading style from semantic heading rank. Add a skip-to-main-content link and fix the 20 undersized touch targets as part of the same accessibility pass.",
+    "file": "det-wcag-improper-content-structure-https-weknowthewhy-com-about_refactor_shared.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about",
+    "title": "Replace every failing foreground colour with a WCAG AA\u2013compliant equivalent computed from the measured foreground/background pair. All replacement values are arithmetically derived \u2014 no design judgment is required.",
+    "file": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-about_replace_every.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "det-wcag-missing-name-role-value-https-weknowthewhy-com-contact",
+    "title": "Fix two independent WCAG 4.1.2 (Name, Role, Value) Level A violations on the contact page: (1) remove the honeypot input from the accessibility tree entirely, and (2) add an accessible name to the mobile menu toggle button site-wide. Simultaneously bring the mobile menu button to WCAG 2.5.8 minimum touch target size (48\u00d748px). Both fixes are scoped to their respective components with no changes to surrounding layout or form logic.",
+    "file": "det-wcag-missing-name-role-value-https-weknowthewhy-com-contact_fix_two_independ.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "escalation-1-sri-gtm-ga-mitigation",
+    "title": "Implement a nonce-based Content-Security-Policy header in Report-Only mode first, then enforce it. Simultaneously eliminate the standalone gtag.js load (duplicate GA4 beacon source) and remove SRI from any GTM/GA4/Google Fonts allowlist candidates. The fix has three sequenced phases: (1) eliminate the dual-beacon architectural defect, (2) deploy CSP in report-only mode to capture violations without breaking the site, (3) promote to enforced CSP once the violation report stream is clean. Plausible SRI is deferred until a deployment pipeline can automate hash rotation \u2014 manual pinning is explicitly rejected as operationally unsustainable.",
+    "file": "escalation-1-sri-gtm-ga-mitigation_implement_a_nonce_based_content_security_poli.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "escalation-2-og-twitter-meta-unknown",
+    "title": "Audit and remediate Open Graph and Twitter Card meta tag quality on utility pages (Contact, About, Terms, Privacy, 404). The crawl confirmed 13 meta tags exist but did not serialize their attribute values, leaving tag presence vs. quality unresolved. The fix has two phases: (1) instrument a diagnostic to enumerate actual tag content, then (2) apply page-specific OG/Twitter Card values to utility pages that currently fall back to generic CMS defaults.",
+    "file": "escalation-2-og-twitter-meta-unknown_audit_and_remediate_open_graph_and_twitter.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "escalation-5-ga4-err-aborted-root-cause",
+    "title": "Eliminate the dual-beacon race condition by removing the standalone gtag.js snippet, retaining GTM as the sole GA4 delivery mechanism, adding server-side GTM or first-party proxy routing to survive ad-blockers, and instrumenting conversion events (generate_lead, cta_click, scroll_depth) that the current stack entirely omits. Plausible remains as the ad-blocker-resilient parallel signal.",
+    "file": "escalation-5-ga4-err-aborted-root-cause_eliminate_the_dual_beacon_race_condition.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "escalation-og-twitter-meta-unverifiable",
+    "title": "Implement a centralized Astro SEO component with a TypeScript-enforced metadata contract, a build-time validation script that fails the build on missing required fields, and a CI/CD gate that blocks deployment when metadata is incomplete. Scope is contained to the <head> rendering pipeline \u2014 no page content, routing, or layout structure is modified.",
+    "file": "escalation-og-twitter-meta-unverifiable_implement_a_centralized_astro_seo_compon.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "escalation-unknown-schema-type",
+    "title": "Replace ad-hoc, unvalidated JSON-LD blocks with a centralized, server-rendered structured data architecture in Astro. Implement: (1) a typed SchemaGraph utility that composes and serializes all schema types into a single top-level JSON-LD block per page, (2) server-rendered injection via Astro's <head> slot in the shared layout (never client:load), (3) a build-time validation step that fails the build on missing required properties or unknown @type values, and (4) page-type-specific schema factories for Organization+WebSite (global), BreadcrumbList (all interior pages), BlogPosting (blog posts), and Article (content pages).",
+    "file": "escalation-unknown-schema-type_replace_ad_hoc_unvalidated_json_ld_blocks_with_a.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "fonts-google-fonts-privacy-performance",
+    "title": "Self-host Inter and Lora font files from the site's own origin/CDN, inline the @font-face CSS into the document <head>, and remove all references to fonts.googleapis.com and fonts.gstatic.com. This eliminates GDPR-violating IP transmission to Google and collapses the four-step serial font discovery waterfall into a single parallel fetch from the origin.",
+    "file": "fonts-google-fonts-privacy-performance_self_host_inter_and_lora_font_files_from.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "gap-structured-data-proof-page-001",
+    "title": "Inject a layered JSON-LD structured data block into the 'proof/our-site' page template covering four Schema.org types in priority order: (1) BreadcrumbList \u2014 universal applicability, zero content dependency; (2) Organization \u2014 entity disambiguation and Knowledge Graph reinforcement for a brand credibility page; (3) AggregateRating / Review \u2014 rich result star-rating eligibility if testimonial content is present; (4) FAQPage \u2014 SERP vertical real estate expansion if objection-handling Q&A content exists. Each type is implemented as a separate <script type='application/ld+json'> block to allow independent CMS population, independent Google Search Console validation, and surgical removal if content changes make a type inapplicable. No single monolithic schema block \u2014 separation prevents one invalid property from invalidating the entire structured data payload.",
+    "file": "gap-structured-data-proof-page-001_inject_a_layered_json_ld_structured_data_bloc.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "gdpr-google-fonts-ip-transfer-third-country",
+    "title": "Self-host all Google Fonts WOFF2 files on the site's own origin (or first-party CDN), remove every reference to fonts.googleapis.com and fonts.gstatic.com from the document <head>, global stylesheets, and any CMS plugin/theme settings panel. This eliminates the third-party network connection that transmits visitor IP addresses to Google LLC servers in the United States before consent is obtained, resolving the GDPR Article 44 violation established by LG M\u00fcnchen Case 3 O 17493/20. As a secondary benefit, it removes one full DNS lookup, TCP handshake, and TLS negotiation from the critical rendering path, reducing font-related connection overhead.",
+    "file": "gdpr-google-fonts-ip-transfer-third-country_self_host_all_google_fonts_woff2_fil.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "gdpr-google-fonts-pre-consent-ip-transmission",
+    "title": "Replace all Google Fonts CDN references (fonts.googleapis.com / fonts.gstatic.com) with self-hosted font files served from the site's own origin. This single infrastructure change simultaneously eliminates the GDPR Article 44 third-country transfer exposure (visitor IP transmitted to Google servers before any consent interaction is possible) and removes the third-party DNS lookup, TCP connection, and TLS handshake overhead that the CDN references impose on every page load. No consent banner modification, no conditional loading logic, and no JavaScript intervention can substitute for this fix \u2014 the CDN request fires during the browser's initial resource fetch phase, structurally before any JS-based consent mechanism can execute.",
+    "file": "gdpr-google-fonts-pre-consent-ip-transmission_replace_all_google_fonts_cdn_refer.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "ghost-markup-mobile-menu-hidden-links",
+    "title": "Eliminate the dual-DOM navigation pattern by consolidating into a single <nav> element that adapts layout via CSS and manages ARIA state on mobile toggle. If consolidation is blocked by timeline, apply the immediate ARIA remediation as a standalone fix.",
+    "file": "ghost-markup-mobile-menu-hidden-links_eliminate_the_dual_dom_navigation_pattern.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "inp-excellent-no-issues",
+    "title": "Preserve the architectural conditions producing 40ms INP on this template. No remediation required. Establish a regression guard so future changes cannot silently degrade this baseline without detection.",
+    "file": "inp-excellent-no-issues_preserve_the_architectural_conditions_producing_40ms_inp.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "js-4-ga4-collect-aborted-data-loss",
+    "title": "Remove the standalone gtag.js script tag and its window.dataLayer/gtag() initialization from the site's global header. Retain GA4 measurement exclusively through the existing GTM container (GTM-5VQTG6TH), which already contains a GA4 tag configured with the same measurement ID. This eliminates the dual-beacon architecture causing double-counted pageviews in clean environments and ERR_ABORTED in ad-blocker environments \u2014 without changing what is measured.",
+    "file": "js-4-ga4-collect-aborted-data-loss_remove_the_standalone_gtag_js_script_tag_and.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "js-unused-bytes-low-but-present",
+    "title": "Consolidate the triple analytics stack (GTM + standalone gtag.js + redundant runtime) into a single GTM container as the sole analytics entry point, eliminating ~159KB compressed / ~500KB+ parsed of redundant standalone gtag.js and reducing total parsed JavaScript from ~2.5MB to ~1.5MB. Configure the single GTM container with actual conversion events instead of double-counted pageviews.",
+    "file": "js-unused-bytes-low-but-present_consolidate_the_triple_analytics_stack_gtm_stand.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "mobile-nav-touch-targets-ux",
+    "title": "Enforce a global 48\u00d748 CSS pixel minimum touch target on all interactive elements at mobile breakpoints, with scoped overrides for the four specific component zones identified: hamburger button, primary nav links, primary CTA, and footer links.",
+    "file": "mobile-nav-touch-targets-ux_enforce_a_global_48_48_css_pixel_minimum_touch_targe.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "mobile-text-readability-unverified",
+    "title": "Enforce a centralized Tailwind base-layer typography contract that guarantees minimum font-size (16px) and line-height (1.5) for all body/content contexts, while explicitly permitting text-sm only in non-content UI chrome (nav links, labels, captions) with a mandatory line-height override. Eliminate ad-hoc text-sm usage in content-critical templates via a scoped prose utility class.",
+    "file": "mobile-text-readability-unverified_enforce_a_centralized_tailwind_base_layer_typ.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "navigation-no-search",
+    "title": "Implement a two-phase content discovery system: (1) contextual in-content linking via a 'Related Content' component injected into service and insight pages \u2014 this is the structural fix the root cause demands; (2) a lightweight client-side search overlay using Pagefind (static-site-compatible, zero backend) as the scalable escape hatch for intent-driven navigation. Phase 1 ships first and is the higher-priority fix. Phase 2 is additive and non-breaking.",
+    "file": "navigation-no-search_implement_a_two_phase_content_discovery_system_1_contextual.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "no-cross-sell-or-trust-signals",
+    "title": "Implement a reusable TrustFooter CMS component and inject it into all non-primary page templates (legal, contact, blog, service). The component renders: (1) 3\u20134 trust signals (certifications, client logos, or stat callouts), (2) a single low-friction CTA ('Schedule a call' or equivalent), and (3) a contextual micro-copy line that varies by page type. Injection is controlled by a single CMS boolean field ('show_trust_footer') defaulting to true on all affected templates, with an opt-out escape hatch per page.",
+    "file": "no-cross-sell-or-trust-signals_implement_a_reusable_trustfooter_cms_component_an.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "no-horizontal-scroll-issues",
+    "title": "Close five responsive audit gaps left unverified by the 393px spot-check: (1) intermediate breakpoints 393\u2013768px, (2) mobile landscape at 844px, (3) narrow viewports at 320px, (4) JS-injected overflow from third-party widgets, and (5) long unbreakable strings on content pages. Implement a CSS overflow safety net and a runtime overflow sentinel to catch regressions before they reach production.",
+    "file": "no-horizontal-scroll-issues_close_five_responsive_audit_gaps_left_unverified_by.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "prescan-escalation-3-canonical-trailing-slash",
+    "title": "Align Astro's build output to consistently produce trailing-slash URLs across canonical tags, og:url, sitemap.xml, and internal links \u2014 matching Netlify's server-enforced trailing-slash 301 behavior. This eliminates the contradictory canonicalization signal loop between the server (301 \u2192 /page/) and the HTML (canonical \u2192 /page).",
+    "file": "prescan-escalation-3-canonical-trailing-slash_align_astro_s_build_output_to_cons.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "prescan-escalation-internal-links-unverified",
+    "title": "Add a Netlify build-time link verification step that issues HEAD requests against the deploy preview URL for all internal link destinations extracted from the built HTML, failing the deploy if any return non-200 responses. This closes the audit coverage gap permanently without requiring a separate crawl tool or post-deploy manual check.",
+    "file": "prescan-escalation-internal-links-unverified_add_a_netlify_build_time_link_verif.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "prescan-escalation-sri-gtm-incompatibility",
+    "title": "Replace SRI (architecturally incompatible with GTM/gtag.js) with a nonce-based Content Security Policy that governs script execution site-wide, eliminate the redundant standalone gtag.js load (already covered by GTM), and apply SRI to the two resources where it is viable: Plausible's versioned script and the Google Fonts stylesheet. The end state is: one Google analytics entry point (GTM only), a strict CSP enforced via HTTP response headers with per-request nonces, and SRI on every third-party resource whose content is stable.",
+    "file": "prescan-escalation-sri-gtm-incompatibility_replace_sri_architecturally_incompati.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "privacy-1-no-consent-mechanism",
+    "title": "Replace the broken custom consent implementation with a consent-gated script loading architecture where GTM, GA4, Plausible, and Google Fonts are blocked from loading until the user grants explicit consent. Self-host Google Fonts to eliminate the pre-consent IP transmission entirely. Implement a minimal, spec-compliant consent manager that persists state, replays consent decisions, and injects scripts only after affirmative action.",
+    "file": "privacy-1-no-consent-mechanism_replace_the_broken_custom_consent_implementation.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "privacy-cookies-compound-consent-dark-pattern",
+    "title": "Atomic consent flow remediation addressing three co-located defects in the consent banner as a single compliant unit: (1) add an inline, clearly visible privacy policy link within the banner body text \u2014 not in the footer, not post-acceptance; (2) equalize the visual weight of Accept and Decline/Reject buttons \u2014 identical size, identical color treatment, identical placement tier, no hierarchy asymmetry; (3) audit and enforce a hard cookie gate ensuring zero non-essential cookies are set prior to affirmative Accept interaction. All three changes must ship in a single deployment. Shipping any subset leaves the compound GDPR Article 7 / Recital 32 violation materially intact and does not constitute a compliant consent flow under ICO or CNIL enforcement standards.",
+    "file": "privacy-cookies-compound-consent-dark-pattern_atomic_consent_flow_remediation_ad.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "privacy-cookies-consent-banner-dark-pattern",
+    "title": "Replace the cosmetic consent banner with a consent-gated script loading pipeline: (1) enforce visual parity between Accept and Decline buttons so neither is visually dominant, (2) block all non-essential scripts (GTM, GA4, Plausible, Google Fonts) from loading until explicit consent is granted, (3) persist consent state across sessions, and (4) provide a mechanism to revoke consent post-acceptance.",
+    "file": "privacy-cookies-consent-banner-dark-pattern_replace_the_cosmetic_consent_banner.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "resource-3-google-fonts-external-render-blocking-risk",
+    "title": "Self-host Google Fonts as variable WOFF2 files with an optimized loading strategy: replace the render-blocking external <link> to fonts.googleapis.com with locally-served, Latin-subset variable font files, an inlined critical @font-face declaration, and font-display: swap. This eliminates the two third-party domain dependencies (fonts.googleapis.com, fonts.gstatic.com), removes the render-blocking external stylesheet, reduces total font file count from 4 to 2, and returns control of the text rendering strategy to the site.",
+    "file": "resource-3-google-fonts-external-render-blocking-risk_self_host_google_fonts_as.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "resource-4-no-srcset-on-team-images",
+    "title": "Replace the three fixed <img src> headshot elements in the team/about template with <picture> elements that supply 1x and 2x WebP srcset descriptors, preserving the existing WebP format and file-size discipline while giving the browser a density-negotiation contract.",
+    "file": "resource-4-no-srcset-on-team-images_replace_the_three_fixed_img_src_headshot_ele.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "resource-loading-dual-analytics-redundancy",
+    "title": "Eliminate the redundant GA4/GTM stack entirely. Retain Plausible as the sole analytics platform. Configure Plausible custom events to capture the conversion signals (form submissions, CTA clicks) that GA4 was never configured to track anyway. This removes ~290KB of JavaScript, eliminates the double-counting data corruption, and establishes a single source of truth for site analytics.",
+    "file": "resource-loading-dual-analytics-redundancy_eliminate_the_redundant_ga4_gtm_stack.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "resource-loading-font-subsetting-opportunity",
+    "title": "Eliminate Google Fonts dependency entirely. Self-host Inter as a single variable font WOFF2 (weight axis 100\u2013900) and Lora as a subsetted static WOFF2, both scoped to Latin glyphs only. Remove the render-blocking Google Fonts stylesheet and the two preconnect hints. Serve fonts from the site's own origin with immutable cache headers and content-hash filenames. This resolves the GDPR structural liability, eliminates the two-stage serial request chain, and reduces total font payload from 98KB to approximately 25\u201332KB.",
+    "file": "resource-loading-font-subsetting-opportunity_eliminate_google_fonts_dependency_e.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "resource-loading-js-transfer-coverage-inconsistency",
+    "title": "Instrument the audit pipeline to enforce cache-cleared cold-load conditions before capturing network transfer metrics, reconcile js_transfer_bytes against js_total_bytes (Coverage API) as a cross-signal validation gate, and produce a dual-baseline report (cold load vs. warm load) so that first-visit severity and repeat-visit severity are independently calibrated. This fix does not change the site's JavaScript \u2014 it fixes the measurement foundation that all JS payload findings (js-dual-gtm-ga4-payload-overhead, js-unused-bytes-low-but-present, resource-loading-analytics-scripts-dominate-payload) depend on for accurate severity framing.",
+    "file": "resource-loading-js-transfer-coverage-inconsistency_instrument_the_audit_pipelin.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "resource-loading-js-unused-absolute-bytes-static-page",
+    "title": "Eliminate the delivery of the full application JavaScript bundle (~2.56MB uncompressed, ~475KB unused) to static content pages (privacy policy, terms of service, legal, about) that have zero interactive JavaScript requirements beyond already-flagged analytics scripts. Implement route-level or page-type-level code splitting so that static text pages receive a minimal JS entrypoint \u2014 containing only the platform shell code strictly required for navigation continuity \u2014 rather than the monolithic application bundle built for interactive pages (cart, product configurators, checkout, filter/sort systems). The 475KB of parsed-but-never-executed JavaScript represents a page-scoping architectural failure, not a tree-shaking failure, and cannot be resolved by bundle optimization alone.",
+    "file": "resource-loading-js-unused-absolute-bytes-static-page_eliminate_the_delivery_of.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "resource-loading-lcp-svg-hero",
+    "title": "Add fetchpriority='high' to the hero SVG <img> tag and a matching <link rel='preload'> in <head>. Separately, instrument a PerformanceObserver to assert the LCP element is identifiable in field conditions, so future asset swaps do not silently regress without detection.",
+    "file": "resource-loading-lcp-svg-hero_add_fetchpriority_high_to_the_hero_svg_img_tag_and.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": null,
+    "title": null,
+    "file": "unknown_untitled.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "schema-person-about-page-missing",
+    "title": "Inject schema.org/Person JSON-LD structured data blocks for each named team member on the /about page, referencing the parent Organization entity, to make team member rich results eligible in Google SERPs. This is the primary structured data vehicle for a consultancy whose value proposition is built on named individual expertise \u2014 it converts organic impressions into trust-qualified clicks by surfacing name, title, image, and social profiles directly in search results.",
+    "file": "schema-person-about-page-missing_inject_schema_org_person_json_ld_structured_dat.md",
+    "confidence_tier": "reviewer_identified"
+  },
+  {
+    "id": "server-transport-no-cdn-cache-headers",
+    "title": "Add a Netlify _headers file (or netlify.toml [[headers]] rules) that applies Cache-Control: public, max-age=31536000, immutable to all /_astro/* assets, retains must-revalidate on HTML documents, and enables Netlify's CDN-Cache-Control header so edge cache behavior becomes observable. No application code changes required.",
+    "file": "server-transport-no-cdn-cache-headers_add_a_netlify_headers_file_or_netlify_toml.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "server-transport-ttfb-excellent",
+    "title": "No corrective action required. Document the passing transport baseline as a configuration checkpoint and establish a regression-detection mechanism so future Netlify configuration changes (headers, redirects, build plugins) do not silently degrade the verified posture.",
+    "file": "server-transport-ttfb-excellent_no_corrective_action_required_document_the_passi.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "st-6-cache-control-no-immutable-on-hashed-assets",
+    "title": "Add a _headers file (or netlify.toml [[headers]] rules) that applies Cache-Control: public, max-age=31536000, immutable to all /_astro/* assets, while leaving HTML document caching untouched. This claims the caching benefit that Astro's content-hashing strategy already makes safe but that Netlify's default policy never activates.",
+    "file": "st-6-cache-control-no-immutable-on-hashed-assets_add_a_headers_file_or_netlify_t.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-analytics-cross-domain-unknown",
+    "title": "Eliminate the dual GA4 initialization (standalone gtag.js + GTM-fired GA4 tag), establish GTM as the single authoritative GA4 instance, configure cross-domain linker for all identified third-party destination domains (/thanks redirect target, scheduling tools), and implement conversion events that survive the cross-domain boundary \u2014 restoring attribution integrity from first touch through post-form session.",
+    "file": "ux-analytics-cross-domain-unknown_eliminate_the_dual_ga4_initialization_standalo.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-analytics-form-submit-untracked",
+    "title": "Intercept contact form submission to fire a GA4 generate_lead event via the dataLayer before the full-page navigation to /thanks occurs. Use navigator.sendBeacon via GTM's transport_type to guarantee the hit lands despite the synchronous page unload. Scope the listener to the contact form only \u2014 no global form interception.",
+    "file": "ux-analytics-form-submit-untracked_intercept_contact_form_submission_to_fire_a_g.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-analytics-triple-redundancy-kpi-corruption",
+    "title": "Consolidate to a single GTM-managed GA4 property with conversion events configured. Remove the standalone gtag.js script entirely. Remove Plausible or retain it deliberately as a privacy-first secondary source (decision required from client). Configure business-meaningful events in GTM for the primary conversion action ('Talk to a Founder' CTA \u2192 contact form submission) and supporting engagement signals.",
+    "file": "ux-analytics-triple-redundancy-kpi-corruption_consolidate_to_a_single_gtm_manage.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-content-1",
+    "title": "Audit all sibling static/low-interactivity pages (Terms of Service, Cookie Policy, About, Contact, FAQ) to verify they share the privacy policy template's clean component footprint, and enforce a lightweight shared template for this page class to prevent future contamination.",
+    "file": "ux-content-1_audit_all_sibling_static_low_interactivity_pages_terms_of_service_c.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-content-sparse-above-fold",
+    "title": "Rebuild the /contact page template with a four-component persuasion scaffold \u2014 outcome clarity, social proof, value restatement, and trust mechanics \u2014 positioned above and adjacent to the existing form. The form itself is not replaced; the template gains a two-column layout that wraps the form in conversion architecture. A new CMS template variant ('contact-conversion') is created so the bare-form template remains available for utility pages and future contact pages inherit the conversion-optimized structure by default.",
+    "file": "ux-content-sparse-above-fold_rebuild_the_contact_page_template_with_a_four_compo.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-conversion-cta-text-generic",
+    "title": "Replace the generic submit button text ('Submit', 'Send', 'Send Message') on /contact with action-specific copy that mirrors the page's h1 value proposition ('Talk to a founder.'). Confirm the current button text via DOM inspection before any change \u2014 this finding is a high-probability hypothesis, not a confirmed defect.",
+    "file": "ux-conversion-cta-text-generic_replace_the_generic_submit_button_text_submit_sen.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-conversion-no-trust-signals",
+    "title": "Inject a contextual trust rail into the /contact page alongside the existing form, and add inline proof snippets to service pages \u2014 without touching the form's submission logic, field structure, or any existing DOM IDs. The /proof page remains intact as a destination; this fix surfaces proof content at the commitment moment rather than replacing the proof architecture.",
+    "file": "ux-conversion-no-trust-signals_inject_a_contextual_trust_rail_into_the_contact_p.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-form-url-field-mobile-friction",
+    "title": "Remove the URL field from the contact form entirely. Reduce the form from 6 fields to 5 (or fewer). If company context is operationally required before a founder call, capture it post-submission via an automated follow-up or enrich it from the submitter's email domain using a data enrichment tool \u2014 not by taxing the visitor at the point of first contact.",
+    "file": "ux-form-url-field-mobile-friction_remove_the_url_field_from_the_contact_form_ent.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-heading-hierarchy-skip",
+    "title": "Create a polymorphic heading component in Astro that accepts a heading level as a prop, replace all hardcoded h4 (and other mis-leveled) heading tags across the site with this component, and add build-time linting to prevent regressions.",
+    "file": "ux-heading-hierarchy-skip_create_a_polymorphic_heading_component_in_astro_that_a.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-interactive-consent-banner-button-clarity",
+    "title": "Replace the custom consent banner's visually identical button pair with a WCAG 2.5.8-compliant, hierarchically differentiated accept/decline implementation that: (1) enforces 48px minimum touch targets, (2) applies primary/ghost visual hierarchy so accept and decline are unambiguously distinct, (3) gates all tracking script injection behind a verified consent signal, (4) persists consent state with correct cookie attributes, and (5) exposes a re-consent UI so users can revise their choice \u2014 eliminating the dark pattern classification risk and making collected consent signals legally defensible under GDPR Article 7.",
+    "file": "ux-interactive-consent-banner-button-clarity_replace_the_custom_consent_banner_s.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-mobile-hamburger-discoverability",
+    "title": "Add an accessible name (aria-label) to the hamburger menu button and increase its touch target to 48x48 CSS pixels minimum. Both fixes target the single header component template, scoped to avoid side effects on other interactive elements.",
+    "file": "ux-mobile-hamburger-discoverability_add_an_accessible_name_aria_label_to_the_ham.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-mobile-nav-cta-undersized",
+    "title": "Enforce a 48px minimum touch target height on the primary 'Talk to a Founder' CTA in the global navigation, and establish a design-system-level token that prevents any interactive element from rendering below 48px on touch-capable viewports.",
+    "file": "ux-mobile-nav-cta-undersized_enforce_a_48px_minimum_touch_target_height_on_the_p.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-nav-internal-linking-sparse",
+    "title": "Extend Astro content frontmatter schema with a typed relationship model (relatedPages, nextStep, proofLinks), then build two shared components \u2014 RelatedContent and InlineContextualLink \u2014 that consume those relationships to render contextual links at the template level. This converts every content page from a dead-end into a node in a navigable content graph without touching global nav, routing, or any existing page layout outside the designated slot zones.",
+    "file": "ux-nav-internal-linking-sparse_extend_astro_content_frontmatter_schema_with_a_ty.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-nav-no-breadcrumbs",
+    "title": "Build a route-aware Breadcrumb Astro component that (1) derives crumb segments from Astro.url.pathname, (2) renders accessible breadcrumb UI, and (3) emits BreadcrumbList JSON-LD \u2014 then slot it into the shared Layout so every page at depth \u2265 2 receives both automatically with zero per-page authoring.",
+    "file": "ux-nav-no-breadcrumbs_build_a_route_aware_breadcrumb_astro_component_that_1_deri.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-no-phone-tel-link",
+    "title": "Add tel: and mailto: links at three non-negotiable touchpoints \u2014 footer partial (global), /contact page, and service page CTAs \u2014 converting plain-text or absent contact information into tappable, trackable links that serve as parallel conversion paths alongside the existing form.",
+    "file": "ux-no-phone-tel-link_add_tel_and_mailto_links_at_three_non_negotiable_touchpoint.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-revenue-2",
+    "title": "Wire author Person entities into the BlogPosting template at three layers simultaneously: (1) CMS data model \u2014 add structured author profile fields (name, slug/URL, photo, bio, credentials, social links); (2) Template \u2014 render a visible author byline block with photo, name, credentials, and bio excerpt above or below article body; (3) JSON-LD \u2014 replace any Organization author node with a Person entity carrying name, url, and sameAs properties. All three layers must ship together \u2014 partial implementation (schema only, or byline only) leaves the E-E-A-T signal chain broken.",
+    "file": "ux-revenue-2_wire_author_person_entities_into_the_blogposting_template_at_three.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-revenue-no-pricing-signals",
+    "title": "Add engagement model framing to /the-get-right and the homepage CTA zone. The goal is not to publish prices \u2014 it is to answer the three B2B pre-qualification questions (relevance, budget range, commitment scope) before the prospect reaches the contact form. This requires two targeted content additions: (1) an Engagement Model section on /the-get-right describing how the firm works (scope types, typical duration, what a first engagement looks like), and (2) a CTA context block on the homepage that sets expectations immediately below or adjacent to 'Talk to a Founder'. No existing page structure is removed or restructured.",
+    "file": "ux-revenue-no-pricing-signals_add_engagement_model_framing_to_the_get_right_and.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-revenue-no-social-proof-above-fold",
+    "title": "Decompose the siloed /proof page into an injectable TrustBlock component system. Wire TrustBlock into three template slots: (1) article pages \u2014 author bio + one contextually matched testimonial above the CTA, (2) service pages \u2014 outcome-focused testimonial strip above every 'Talk to a Founder' CTA, (3) the CTA component itself \u2014 a single credibility line adjacent to the button. No new content is required; the fix routes existing /proof content into template slots that currently have none.",
+    "file": "ux-revenue-no-social-proof-above-fold_decompose_the_siloed_proof_page_into_an_in.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "ux-sitemap-unverifiable",
+    "title": "Install @astrojs/sitemap with build-time enforcement: canonical URL normalization (trailing-slash consistent), automatic exclusion of noindex/draft pages, and a CI validation step that fails the build if sitemap URLs contain 404s, redirect chains, or noindex directives.",
+    "file": "ux-sitemap-unverifiable_install_astrojs_sitemap_with_build_time_enforcement_cano.md",
+    "confidence_tier": "confirmed"
+  },
+  {
+    "id": "visual-stability-cls-excellent",
+    "title": "Codify the structural conditions producing CLS 0.000 into enforceable extension guardrails \u2014 CSS custom properties, a layout contract mixin, and a CI lint rule \u2014 so that adding images, dynamic content, or additional fonts to this template cannot silently degrade CLS without a build-time failure.",
+    "file": "visual-stability-cls-excellent_codify_the_structural_conditions_producing_cls_0.md",
+    "confidence_tier": "confirmed"
+  }
+]
