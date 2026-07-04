@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import PillarCard from '../components/PillarCard.astro';
+import GoldThread from '../components/GoldThread.astro';
 ---
 
 <BaseLayout
@@ -10,32 +11,103 @@ import PillarCard from '../components/PillarCard.astro';
   description="Systems-driven growth agency. We built proprietary diagnostic tools that find what's broken, surface the root causes, and deliver a prioritized execution plan."
   breadcrumb={false}
 >
-  <!-- Hero -->
-  <Section class="pt-28 pb-20">
-    <div class="max-w-3xl">
-      <h1 class="mb-6">
-        Your website has problems you can't see.
-        <span class="text-accent">We built the tools that find them.</span>
-      </h1>
-      <p class="text-secondary-text text-xl leading-relaxed mb-10 max-w-2xl">
-        Three simultaneous audits. One unified execution plan. Every fix prioritized
-        by revenue impact. You always talk to the people who built the system.
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <Button href="/contact">Talk to a Founder</Button>
-        <Button href="/the-get-right" variant="secondary">Learn About The Get Right</Button>
+  <!-- Hero — deepest band; the gold thread begins here as a diagnostic trace
+       that rises to the located root cause (the amber point). -->
+  <Section band="deep" class="pt-24 pb-24">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      <div class="max-w-xl">
+        <p class="eyebrow mb-5">Systems-driven growth agency</p>
+        <h1 class="mb-6">
+          Your website has problems you can't see.
+          <span class="text-sheen">We built the tools that find them.</span>
+        </h1>
+        <p class="text-secondary-text text-xl leading-relaxed mb-10">
+          Three simultaneous audits. One unified execution plan. Every fix prioritized
+          by revenue impact. You always talk to the people who built the system.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <Button href="/contact">Talk to a Founder</Button>
+          <Button href="/the-get-right" variant="secondary">Learn About The Get Right</Button>
+        </div>
+        <!-- Expectation-setter: lowers the perceived commitment of the CTA by making
+             the next step legible before contact (WL-14). Mirrors the /thanks promise. -->
+        <p class="text-secondary-text text-sm mt-6">
+          A founder replies within 24 hours &mdash; no sales team, no account managers.
+          We establish fit before either side commits.
+        </p>
       </div>
-      <!-- Expectation-setter: lowers the perceived commitment of the CTA by making
-           the next step legible before contact (WL-14). Mirrors the /thanks promise. -->
-      <p class="text-secondary-text text-sm mt-5 max-w-xl">
-        A founder replies within 24 hours &mdash; no sales team, no account managers.
-        We establish fit before either side commits.
-      </p>
+
+      <!-- Signal trace: a flatline that spikes, then climbs to the root cause,
+           ringed like a target. Decorative — the headline carries the message. -->
+      <div class="relative" aria-hidden="true">
+        <svg
+          viewBox="0 0 520 440"
+          fill="none"
+          class="trace-draw w-full h-auto max-h-[460px]"
+          role="presentation"
+        >
+          <defs>
+            <linearGradient id="wktw-trace" x1="0" y1="440" x2="520" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8A7354" />
+              <stop offset="0.55" stop-color="#D9BE8C" />
+              <stop offset="1" stop-color="#F0DCAE" />
+            </linearGradient>
+            <radialGradient id="wktw-glow" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stop-color="#FFB300" stop-opacity="0.14" />
+              <stop offset="0.6" stop-color="#C9A961" stop-opacity="0.06" />
+              <stop offset="1" stop-color="#C9A961" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <!-- Warm glow behind the target -->
+          <circle cx="400" cy="110" r="150" fill="url(#wktw-glow)" />
+
+          <!-- Dashed baseline: the symptom level everyone else stops at -->
+          <path d="M0 396 H520" stroke="#C9A961" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 7" />
+
+          <!-- Target rings around the located root cause -->
+          <circle cx="400" cy="110" r="92" stroke="#8A7354" stroke-opacity="0.25" />
+          <circle cx="400" cy="110" r="56" stroke="#8A7354" stroke-opacity="0.35" />
+          <circle cx="400" cy="110" r="26" stroke="#C9A961" stroke-opacity="0.45" />
+
+          <!-- Echo trace -->
+          <path
+            class="draw draw-echo"
+            pathLength="1"
+            d="M-10 374 H64 l18 -20 18 20 H164 l26 -52 26 52 h52 l22 -44 22 44 h44 L390 140"
+            stroke="#D9BE8C"
+            stroke-opacity="0.28"
+            stroke-width="1.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <!-- Main trace -->
+          <path
+            class="draw"
+            pathLength="1"
+            d="M0 360 H70 l18 -20 18 20 H170 l26 -52 26 52 h48 l22 -44 22 44 h40 L400 110"
+            stroke="url(#wktw-trace)"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+          <!-- Findings along the trace; the amber point is the why. -->
+          <circle cx="88" cy="340" r="3.5" fill="#C9A961" />
+          <circle cx="196" cy="308" r="3.5" fill="#C9A961" />
+          <circle cx="292" cy="316" r="3.5" fill="#C9A961" />
+          <circle cx="400" cy="110" r="11" stroke="#FFB300" stroke-opacity="0.45" stroke-width="1.5" />
+          <circle cx="400" cy="110" r="5" fill="#FFB300" />
+        </svg>
+      </div>
     </div>
   </Section>
 
+  <GoldThread class="-my-4" />
+
   <!-- Three Pillars -->
-  <Section id="pillars" elevated>
+  <Section id="pillars" class="pt-12">
+    <p class="eyebrow text-center mb-4">The Get Right</p>
     <h2 class="text-center mb-4">Three audits. One roadmap.</h2>
     <p class="text-secondary-text text-center text-lg mb-12 max-w-2xl mx-auto">
       Each pillar finds problems the others can't see. Together, they build a complete
@@ -67,60 +139,68 @@ import PillarCard from '../components/PillarCard.astro';
   </Section>
 
   <!-- Proof Strip -->
-  <Section>
-    <div class="grid md:grid-cols-3 gap-8 text-center">
-      <div>
-        <div class="text-4xl font-heading font-bold text-accent mb-2">130+</div>
+  <Section elevated>
+    <div class="grid md:grid-cols-3 gap-10 md:gap-0 text-center md:divide-x md:divide-gilt-dim/30">
+      <div class="md:px-8">
+        <div class="text-5xl font-heading font-bold text-sheen mb-2">130+</div>
         <div class="text-secondary-text">Technical checks per audit</div>
       </div>
-      <div>
-        <div class="text-4xl font-heading font-bold text-accent mb-2">3</div>
+      <div class="md:px-8">
+        <div class="text-5xl font-heading font-bold text-sheen mb-2">3</div>
         <div class="text-secondary-text">Simultaneous audit pillars</div>
       </div>
-      <div>
-        <div class="text-4xl font-heading font-bold text-accent mb-2">45</div>
+      <div class="md:px-8">
+        <div class="text-5xl font-heading font-bold text-sheen mb-2">45</div>
         <div class="text-secondary-text">Years combined experience</div>
       </div>
     </div>
   </Section>
 
-  <!-- How It Works -->
-  <Section id="how-it-works" elevated>
-    <h2 class="text-center mb-12">How The Get Right works</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="text-center">
-        <div class="w-12 h-12 rounded-full bg-accent text-on-primary font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">1</div>
-        <h3 class="text-lg mb-3">Diagnose</h3>
-        <p class="text-secondary-text">
-          Month one: all three audits run simultaneously. Technical infrastructure,
-          content gaps, and analytics integrity &mdash; examined in parallel.
-        </p>
-      </div>
-      <div class="text-center">
-        <div class="w-12 h-12 rounded-full bg-accent text-on-primary font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">2</div>
-        <h3 class="text-lg mb-3">Execute</h3>
-        <p class="text-secondary-text">
-          Month two: your team ships fixes from a unified, prioritized backlog.
-          Every fix ranked by revenue impact and implementation effort.
-        </p>
-      </div>
-      <div class="text-center">
-        <div class="w-12 h-12 rounded-full bg-accent text-on-primary font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">3</div>
-        <h3 class="text-lg mb-3">Verify</h3>
-        <p class="text-secondary-text">
-          Month three: re-audit to measure improvement. Clean measurement baseline.
-          Growth plan for continued engagement.
-        </p>
+  <!-- How It Works — a true sequence, so the steps keep their numbers and a
+       connecting thread runs behind the badges. -->
+  <Section id="how-it-works">
+    <p class="eyebrow text-center mb-4">How it works</p>
+    <h2 class="text-center mb-14">How The Get Right works</h2>
+    <div class="relative">
+      <div class="hidden md:block absolute top-6 left-[16%] right-[16%] hairline" aria-hidden="true"></div>
+      <div class="relative grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="badge-gold w-12 h-12 rounded-full font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">1</div>
+          <h3 class="text-lg mb-3">Diagnose</h3>
+          <p class="text-secondary-text">
+            Month one: all three audits run simultaneously. Technical infrastructure,
+            content gaps, and analytics integrity &mdash; examined in parallel.
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="badge-gold w-12 h-12 rounded-full font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">2</div>
+          <h3 class="text-lg mb-3">Execute</h3>
+          <p class="text-secondary-text">
+            Month two: your team ships fixes from a unified, prioritized backlog.
+            Every fix ranked by revenue impact and implementation effort.
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="badge-gold w-12 h-12 rounded-full font-heading font-bold text-xl flex items-center justify-center mx-auto mb-4">3</div>
+          <h3 class="text-lg mb-3">Verify</h3>
+          <p class="text-secondary-text">
+            Month three: re-audit to measure improvement. Clean measurement baseline.
+            Growth plan for continued engagement.
+          </p>
+        </div>
       </div>
     </div>
-    <div class="text-center mt-12">
+    <div class="text-center mt-14">
       <Button href="/the-get-right">See the full breakdown</Button>
     </div>
   </Section>
 
+  <GoldThread flip class="-my-4" />
+
   <!-- Self-Audit Showcase -->
-  <Section>
-    <div class="bg-bg-elevated border border-border-subtle rounded-xl p-10 md:p-14 text-center">
+  <Section class="pt-12">
+    <div class="plate p-10 md:p-14 text-center">
+      <p class="eyebrow mb-4">Proof</p>
       <h2 class="mb-4">We audit our own site.</h2>
       <p class="text-secondary-text text-lg max-w-2xl mx-auto mb-8">
         We run Muttr, Canary, and Delphi against this website. Same tools, same standards,
@@ -131,7 +211,7 @@ import PillarCard from '../components/PillarCard.astro';
   </Section>
 
   <!-- CTA -->
-  <Section elevated>
+  <Section band="deep">
     <div class="text-center">
       <h2 class="mb-4">Ready to find what's broken?</h2>
       <p class="text-secondary-text text-lg mb-8 max-w-xl mx-auto">
@@ -142,7 +222,7 @@ import PillarCard from '../components/PillarCard.astro';
         <Button href="/contact">Talk to a Founder</Button>
         <Button href="/the-get-right" variant="secondary">Learn About The Get Right</Button>
       </div>
-      <p class="text-secondary-text text-sm mt-5 max-w-xl mx-auto">
+      <p class="text-secondary-text text-sm mt-6 max-w-xl mx-auto">
         A founder replies within 24 hours &mdash; no sales team, no account managers.
         We establish fit before either side commits.
       </p>

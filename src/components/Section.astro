@@ -2,17 +2,23 @@
 interface Props {
   id?: string;
   class?: string;
+  /** Back-compat alias for band="elevated". */
   elevated?: boolean;
+  /** Ground level: surface (default) sits on the page, elevated steps up with
+      hairline edges, deep drops to the near-black band with warm glows. */
+  band?: 'surface' | 'elevated' | 'deep';
 }
 
-const { id, class: className, elevated = false } = Astro.props;
+const { id, class: className, elevated = false, band } = Astro.props;
+const level = band ?? (elevated ? 'elevated' : 'surface');
 ---
 
 <section
   id={id}
   class:list={[
     'py-20 px-6',
-    elevated && 'bg-bg-elevated',
+    level === 'elevated' && 'band-elevated',
+    level === 'deep' && 'band-deep',
     className,
   ]}
 >

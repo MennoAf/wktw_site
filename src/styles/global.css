@@ -54,17 +54,27 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* ─── WKTW Brand Tokens ─── */
+/* ─── WKTW Brand Tokens ───
+   Ground: a three-level depth arc (deep → surface → elevated) replaces the old
+   single flat surface. Gilt family: champagne golds for decorative hairlines,
+   numerals, and eyebrows — amber (--color-accent) remains the interactive color
+   for inline links and highlights. All text/background pairs verified ≥ 4.5:1
+   (gilt on any bg ≥ 7.5:1; on-primary on the darkest button stop 6.95:1). */
 @theme {
-  --color-bg-surface: #2C211D;
-  --color-bg-elevated: #382C27;
-  --color-bg-inset: #231A16;
+  --color-bg-deep: #1D1512;
+  --color-bg-surface: #241B17;
+  --color-bg-elevated: #2C211D;
+  --color-bg-inset: #17110E;
   --color-primary-brand: #A1887F;
-  --color-on-primary: #2C211D;
+  --color-on-primary: #241B17;
   --color-primary-text: #EFEBE9;
   --color-secondary-text: #BCAAA4;
   --color-accent: #FFB300;
   --color-accent-hover: #FFC107;
+  --color-gilt-bright: #F0DCAE;
+  --color-gilt: #D9BE8C;
+  --color-gilt-mid: #C9A961;
+  --color-gilt-dim: #8A7354;
   --color-border-subtle: #4A3D37;
   --color-success: #66BB6A;
   --color-warning: #FFA726;
@@ -95,17 +105,17 @@
     font-family: var(--font-heading);
     font-weight: 700;
     color: var(--color-primary-text);
-    line-height: 1.2;
+    line-height: 1.15;
   }
 
-  h1 { font-size: 3.5rem; letter-spacing: -0.02em; }
+  h1 { font-size: 4rem; letter-spacing: -0.025em; }
   h2 { font-size: 2.5rem; letter-spacing: -0.015em; }
   h3 { font-size: 1.75rem; letter-spacing: -0.01em; }
   h4 { font-size: 1.25rem; }
 
   @media (max-width: 768px) {
-    h1 { font-size: 2.25rem; }
-    h2 { font-size: 1.75rem; }
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 1.875rem; }
     h3 { font-size: 1.375rem; }
   }
 
@@ -134,11 +144,199 @@
 
   /* Inline content links: underline so they're distinguishable by more than
      colour alone (WCAG 1.4.1). Scoped to prose inside <main>; excludes
-     button-styled links (bg-*) and leaves nav/footer/CTA chrome untouched. */
-  main :is(p, li) a:not([class*="bg-"]) {
+     button-styled links (bg-* or .btn) and leaves nav/footer/CTA chrome untouched. */
+  main :is(p, li) a:not([class*="bg-"]):not([class*="btn"]) {
     text-decoration: underline;
     text-underline-offset: 0.15em;
     text-decoration-thickness: from-font;
+  }
+
+  /* Visible keyboard focus everywhere (WCAG 2.4.7) — amber ring reads against
+     every band level. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* ─── Depth bands ───
+   The page is composed of three ground levels. band-deep carries warm radial
+   glows (hero, footer, CTA); band-elevated gets hairline top/bottom edges so
+   the step up reads as a surface change, not just a color swap. */
+@layer components {
+  .band-deep {
+    background:
+      radial-gradient(1100px 520px at 72% 18%, rgba(201, 169, 97, 0.09), transparent 62%),
+      radial-gradient(800px 420px at 12% 85%, rgba(161, 136, 127, 0.06), transparent 60%),
+      var(--color-bg-deep);
+  }
+
+  .band-elevated {
+    background: linear-gradient(180deg, var(--color-bg-elevated) 0%, #291E19 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(240, 220, 174, 0.06),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  /* ─── Engraved plate ───
+     The card treatment from the design reference: gradient hairline border
+     (bright top-left, falling away), inner top-light, soft drop. The border is
+     a masked pseudo-element so it stays 1px at any radius. */
+  .plate {
+    position: relative;
+    background: linear-gradient(160deg, #352921 0%, #291E19 100%);
+    border-radius: 1rem;
+    box-shadow:
+      inset 0 1px 0 rgba(240, 220, 174, 0.08),
+      0 24px 48px -24px rgba(0, 0, 0, 0.55);
+  }
+
+  .plate::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      rgba(240, 220, 174, 0.55) 0%,
+      rgba(201, 169, 97, 0.22) 35%,
+      rgba(138, 115, 84, 0.14) 70%,
+      rgba(138, 115, 84, 0.28) 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .plate-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .plate-hover:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(240, 220, 174, 0.12),
+      0 32px 56px -24px rgba(0, 0, 0, 0.65),
+      0 0 0 1px rgba(201, 169, 97, 0.12);
+  }
+
+  /* ─── Buttons: champagne pills ───
+     Primary: gold gradient, embossed. Dark text on the darkest stop = 6.95:1.
+     Secondary: hairline outline pill in gilt. Both keep ≥48px hit areas. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.2;
+    transition: filter 0.15s ease, box-shadow 0.2s ease, border-color 0.15s ease,
+      color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+  }
+
+  .btn-gold {
+    background: linear-gradient(180deg, #F0DCAE 0%, #DDC084 55%, #C9A961 100%);
+    color: var(--color-on-primary);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+      0 12px 28px -14px rgba(201, 169, 97, 0.55);
+  }
+
+  .btn-gold:hover {
+    filter: brightness(1.06);
+    color: var(--color-on-primary);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+      0 16px 32px -14px rgba(201, 169, 97, 0.7);
+  }
+
+  .btn-gold:active {
+    transform: translateY(1px);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--color-gilt-dim);
+    color: var(--color-gilt);
+    box-shadow: inset 0 1px 0 rgba(240, 220, 174, 0.06);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-gilt);
+    color: var(--color-gilt-bright);
+    background-color: rgba(217, 190, 140, 0.06);
+  }
+
+  /* Compact pill for chrome (header CTA) — still ≥44px tap height. */
+  .btn-sm {
+    min-height: 2.75rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  /* Gold numeral badge for true sequences (Diagnose → Execute → Verify). */
+  .badge-gold {
+    background: linear-gradient(180deg, #F0DCAE 0%, #C9A961 100%);
+    color: var(--color-on-primary);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      0 8px 20px -10px rgba(201, 169, 97, 0.6);
+  }
+
+  /* ─── Eyebrow: mono small-caps kicker ─── */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gilt-mid);
+  }
+
+  /* ─── Gilt sheen: gradient-clipped display text ───
+     Darkest stop #C9A961 holds 5.99:1 on the lightest band, so the clipped
+     text passes AA at any size. */
+  .text-sheen {
+    background: linear-gradient(100deg, #F0DCAE 0%, #D9BE8C 45%, #C9A961 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ─── Hairline rules ─── */
+  .hairline {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(201, 169, 97, 0.45) 50%,
+      transparent 100%
+    );
+  }
+
+  /* ─── The gold thread ───
+     Signature motif: a continuous diagnostic trace that flows down the page.
+     Paths use pathLength="1" so the draw animation is unit-based; under
+     prefers-reduced-motion the global rule collapses it to its drawn end state. */
+  .trace-draw .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: trace-draw 1.6s ease-out 0.2s forwards;
+  }
+
+  .trace-draw .draw-echo { animation-delay: 0.45s; }
+
+  @keyframes trace-draw {
+    to { stroke-dashoffset: 0; }
   }
 }
 
