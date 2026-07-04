@@ -7,8 +7,9 @@ import Section from '../../components/Section.astro';
   title="Proof"
   description="We audit our own site with our own tools. Same standards, full transparency. See the results."
 >
-  <Section class="pt-28 pb-16">
+  <Section band="deep" class="pt-24 pb-20">
     <div class="max-w-3xl">
+      <p class="eyebrow mb-5">Proof</p>
       <h1 class="mb-6">We prove it.</h1>
       <p class="text-secondary-text text-xl leading-relaxed">
         We tell clients their sites have problems. So we run our own tools on ours.
@@ -23,10 +24,10 @@ import Section from '../../components/Section.astro';
       <!-- Self-audit card (always first) -->
       <a
         href="/proof/our-site"
-        class="group block bg-bg-surface border-2 border-accent/30 rounded-xl p-8 hover:border-accent transition-all"
+        class="group block plate plate-hover p-8"
       >
-        <div class="text-accent font-mono text-sm mb-2">Self-Audit</div>
-        <h3 class="text-xl mb-3 group-hover:text-accent transition-colors">
+        <div class="eyebrow text-xs mb-2">Self-Audit</div>
+        <h3 class="text-xl mb-3 group-hover:text-gilt-bright transition-colors">
           We audited our own site
         </h3>
         <p class="text-secondary-text mb-4">
@@ -39,7 +40,7 @@ import Section from '../../components/Section.astro';
       </a>
 
       <!-- Placeholder for future case studies -->
-      <div class="bg-bg-surface border border-border-subtle rounded-xl p-8 flex items-center justify-center">
+      <div class="border border-gilt-dim/30 border-dashed rounded-2xl p-8 flex items-center justify-center">
         <p class="text-secondary-text text-center">
           Client case studies coming soon.<br />
           <a href="/contact" class="text-accent text-sm hover:text-accent-hover">Be our first &rarr;</a>

@@ -8,8 +8,9 @@ import Section from '../components/Section.astro';
   description="See what we'd find on your site. Enter your URL and get a preview of our structural audit — top findings, prioritized by severity."
   noindex
 >
-  <Section class="pt-28 pb-16">
+  <Section band="deep" class="pt-24 pb-16">
     <div class="max-w-2xl mx-auto text-center">
+      <p class="eyebrow mb-5">Free scan</p>
       <h1 class="mb-4">See what we'd find.</h1>
       <p class="text-secondary-text text-xl leading-relaxed mb-12">
         Enter your URL and we'll run a structural scan powered by Muttr. You'll
@@ -25,7 +26,7 @@ import Section from '../components/Section.astro';
         action="/thanks?type=scan"
         data-netlify="true"
         netlify-honeypot="bot-field"
-        class="space-y-4 text-left max-w-lg mx-auto"
+        class="plate p-8 space-y-4 text-left max-w-lg mx-auto"
       >
         <input type="hidden" name="form-name" value="scan" />
         <p class="hidden">
@@ -63,10 +64,7 @@ import Section from '../components/Section.astro';
             placeholder="Company name"
           />
         </div>
-        <button
-          type="submit"
-          class="bg-accent text-on-primary px-8 py-3 rounded-lg font-semibold hover:bg-accent-hover transition-colors w-full"
-        >
+        <button type="submit" class="btn btn-gold w-full">
           Scan My Site
         </button>
       </form>
@@ -86,16 +84,16 @@ import Section from '../components/Section.astro';
     <div class="max-w-2xl mx-auto">
       <h2 class="text-center mb-8">What's in a scan</h2>
       <div class="space-y-4">
-        <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-          <h3 class="text-accent text-xl mb-2">Top findings by severity</h3>
+        <div class="plate p-6">
+          <h3 class="text-gilt text-xl mb-2">Top findings by severity</h3>
           <p class="text-secondary-text">The 5-10 most impactful structural issues on your site, each with severity rating and confidence tier (confirmed / probable / hypothesis).</p>
         </div>
-        <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-          <h3 class="text-accent text-xl mb-2">Root cause clusters</h3>
+        <div class="plate p-6">
+          <h3 class="text-gilt text-xl mb-2">Root cause clusters</h3>
           <p class="text-secondary-text">Findings grouped by their underlying pattern &mdash; not 47 disconnected issues, but the 3-5 systemic causes producing them. Fix the cluster, not the symptoms.</p>
         </div>
-        <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-          <h3 class="text-accent text-xl mb-2">The full picture preview</h3>
+        <div class="plate p-6">
+          <h3 class="text-gilt text-xl mb-2">The full picture preview</h3>
           <p class="text-secondary-text">A count of all detected issues beyond the top findings. "We found N additional issues across X categories" &mdash; explored in the full Platform Technical Audit.</p>
         </div>
       </div>

@@ -20,10 +20,10 @@ const ogImage = new URL('/og-default.png', Astro.site).href;
   title={pageTitle ?? title}
   description={description}
 >
-  <Section class="pt-28 pb-12">
+  <Section band="deep" class="pt-24 pb-14">
     <div class="max-w-3xl">
-      <p class="text-accent font-mono text-sm mb-4">
-        <a href="/insights" class="hover:text-accent-hover">Insights</a> &rsaquo; {tag}
+      <p class="eyebrow mb-4">
+        <a href="/insights" class="text-gilt-mid hover:text-gilt transition-colors">Insights</a> &rsaquo; {tag}
       </p>
       <h1 class="mb-6">Why most audits don't change anything.</h1>
       <p class="text-secondary-text text-xl leading-relaxed mb-8">
@@ -31,7 +31,7 @@ const ogImage = new URL('/og-default.png', Astro.site).href;
         a Google Drive folder nobody opens. It's not your team. It's the
         shape of the work.
       </p>
-      <div class="flex flex-wrap items-center gap-4 text-secondary-text text-sm border-t border-border-subtle pt-6">
+      <div class="flex flex-wrap items-center gap-4 text-secondary-text text-sm border-t border-gilt-dim/30 pt-6">
         <span class="text-primary-text font-medium">{author}</span>
         <span>&middot;</span>
         <span>{authorTitle}</span>
@@ -351,7 +351,7 @@ const ogImage = new URL('/og-default.png', Astro.site).href;
         </p>
       </div>
 
-      <div class="mt-16 pt-8 border-t border-border-subtle">
+      <div class="mt-16 plate p-8 md:p-10">
         <h3 class="text-primary-text text-xl mb-4">Want to see what we'd find?</h3>
         <p class="text-secondary-text mb-6">
           The Get Right runs three structural audits on your site and turns
