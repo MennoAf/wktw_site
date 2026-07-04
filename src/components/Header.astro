@@ -11,10 +11,10 @@ const navItems = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 bg-bg-surface/95 backdrop-blur-sm border-b border-border-subtle">
+<header class="sticky top-0 z-50 bg-bg-deep/90 backdrop-blur-sm">
   <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="text-primary-text font-heading font-bold text-xl tracking-tight hover:text-accent transition-colors">
+    <a href="/" class="text-primary-text font-heading font-bold text-xl tracking-tight hover:text-gilt transition-colors">
       WKTW
     </a>
 
@@ -47,10 +47,7 @@ const currentPath = Astro.url.pathname;
           Search
         </a>
       )}
-      <a
-        href="/contact"
-        class="bg-accent text-on-primary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-accent-hover transition-colors inline-flex items-center min-h-[44px]"
-      >
+      <a href="/contact" class="btn btn-gold btn-sm">
         Talk to a Founder
       </a>
     </div>
@@ -69,9 +66,12 @@ const currentPath = Astro.url.pathname;
     </button>
   </nav>
 
+  <!-- Gradient hairline: the header's bottom edge reads as a gilt rule, not a flat border. -->
+  <div class="hairline absolute bottom-0 inset-x-0" aria-hidden="true"></div>
+
   <!-- Mobile Menu — starts hidden + inert so its links leave the a11y/focus tree
        until opened (WL-06). Links are 48px tap targets (WL-04). -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-bg-surface" inert aria-hidden="true">
+  <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-bg-deep" inert aria-hidden="true">
     <div class="px-6 py-4 flex flex-col gap-2">
       {navItems.map((item) => (
         <a
@@ -99,10 +99,7 @@ const currentPath = Astro.url.pathname;
           Search
         </a>
       )}
-      <a
-        href="/contact"
-        class="bg-accent text-on-primary px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-accent-hover transition-colors inline-flex items-center justify-center min-h-[48px]"
-      >
+      <a href="/contact" class="btn btn-gold min-h-[48px] justify-center text-sm">
         Talk to a Founder
       </a>
     </div>

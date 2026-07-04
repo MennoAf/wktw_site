@@ -10,8 +10,9 @@ const posts = insightsByDate();
   title="Insights"
   description="Practical insights on technical debt, content strategy, analytics integrity, and what we've learned from auditing sites."
 >
-  <Section class="pt-28 pb-16">
+  <Section band="deep" class="pt-24 pb-20">
     <div class="max-w-3xl">
+      <p class="eyebrow mb-5">From the field</p>
       <h1 class="mb-6">Insights</h1>
       <p class="text-secondary-text text-xl leading-relaxed">
         What we learn from auditing sites, turned into practical knowledge.
@@ -26,16 +27,16 @@ const posts = insightsByDate();
       {posts.map((post) => (
         <a
           href={postHref(post)}
-          class="group block bg-bg-surface border border-border-subtle rounded-xl p-8 hover:border-accent transition-colors"
+          class="group block plate plate-hover p-8"
         >
           <div class="flex flex-wrap items-center gap-3 text-secondary-text text-sm mb-3">
-            <span class="text-accent font-mono">{post.tag}</span>
+            <span class="eyebrow text-xs">{post.tag}</span>
             <span>&middot;</span>
             <time datetime={post.date}>{post.dateLabel}</time>
             <span>&middot;</span>
             <span>{post.readingTime}</span>
           </div>
-          <h2 class="text-2xl mb-3 group-hover:text-accent transition-colors">
+          <h2 class="text-2xl mb-3 group-hover:text-gilt-bright transition-colors">
             {post.title}
           </h2>
           <p class="text-secondary-text mb-4">{post.description}</p>

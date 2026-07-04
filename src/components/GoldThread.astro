@@ -1,0 +1,42 @@
+---
+/** The gold thread — the site's signature motif. A single hairline trace that
+    flows between sections, tying the page into one continuous diagnostic path.
+    Purely decorative (aria-hidden), zero JS, ~300 bytes of inline SVG. */
+interface Props {
+  /** Mirror the curve so consecutive threads alternate direction. */
+  flip?: boolean;
+  class?: string;
+}
+
+const { flip = false, class: className } = Astro.props;
+---
+
+<div class:list={['overflow-hidden', className]} aria-hidden="true">
+  <svg
+    viewBox="0 0 1440 96"
+    preserveAspectRatio="none"
+    fill="none"
+    class:list={['block w-full h-16 md:h-24', flip && '-scale-x-100']}
+  >
+    <defs>
+      <linearGradient id="wktw-thread" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#8A7354" stop-opacity="0" />
+        <stop offset="0.25" stop-color="#C9A961" stop-opacity="0.55" />
+        <stop offset="0.55" stop-color="#F0DCAE" stop-opacity="0.8" />
+        <stop offset="0.8" stop-color="#C9A961" stop-opacity="0.55" />
+        <stop offset="1" stop-color="#8A7354" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <path
+      d="M-20 18 C 240 18, 420 82, 720 82 C 1020 82, 1200 34, 1460 44"
+      stroke="url(#wktw-thread)"
+      stroke-width="1.5"
+    />
+    <path
+      d="M-20 30 C 260 30, 440 92, 720 92 C 1000 92, 1180 46, 1460 56"
+      stroke="url(#wktw-thread)"
+      stroke-width="0.75"
+      opacity="0.45"
+    />
+  </svg>
+</div>

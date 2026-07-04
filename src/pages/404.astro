@@ -8,9 +8,9 @@ import Section from '../components/Section.astro';
   description="This page either moved, never existed, or got pruned in an audit. Let's get you somewhere that actually helps."
   breadcrumb={false}
 >
-  <Section class="pt-28 pb-24">
+  <Section band="deep" class="pt-24 pb-24">
     <div class="max-w-2xl mx-auto">
-      <p class="font-heading font-bold text-accent leading-none tracking-tight text-[8rem] md:text-[10rem] mb-2">
+      <p class="font-heading font-bold text-sheen leading-none tracking-tight text-[8rem] md:text-[10rem] mb-2">
         404
       </p>
       <h1 class="mb-6">We don't know the why on this one.</h1>
@@ -20,16 +20,10 @@ import Section from '../components/Section.astro';
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 mb-8">
-        <a
-          href="/the-get-right"
-          class="bg-accent text-on-primary px-6 py-3 rounded-lg font-semibold hover:bg-accent-hover transition-colors text-center"
-        >
+        <a href="/the-get-right" class="btn btn-gold text-center">
           See what we do &rarr;
         </a>
-        <a
-          href="/contact"
-          class="border border-border-subtle text-primary-text px-6 py-3 rounded-lg font-semibold hover:border-accent hover:text-accent transition-colors text-center"
-        >
+        <a href="/contact" class="btn btn-outline text-center">
           Talk to us &rarr;
         </a>
       </div>

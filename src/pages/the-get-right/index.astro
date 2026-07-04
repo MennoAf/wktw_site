@@ -37,11 +37,11 @@ const faqs = [
   description="A 90-day diagnostic sprint. Three simultaneous audits produce one unified execution plan, with every fix prioritized by revenue impact."
 >
   <!-- Hero -->
-  <Section class="pt-28 pb-16">
+  <Section band="deep" class="pt-24 pb-20">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div class="max-w-2xl">
+        <p class="eyebrow mb-5">A 90-day diagnostic sprint</p>
         <h1 class="mb-6">The Get Right</h1>
-        <p class="text-accent text-xl font-medium mb-4">A 90-day diagnostic sprint.</p>
         <p class="text-secondary-text text-xl leading-relaxed">
           Three simultaneous audits &mdash; technical infrastructure, content authority,
           and revenue performance &mdash; produce one unified execution plan. Every fix
@@ -93,8 +93,8 @@ const faqs = [
   <Section>
     <h2 class="text-center mb-12">The 90-day timeline</h2>
     <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-bg-elevated border border-border-subtle rounded-xl p-8">
-        <div class="text-accent font-mono text-sm mb-2">Month 1</div>
+      <div class="plate p-8">
+        <div class="eyebrow mb-2">Month 1</div>
         <h3 class="text-xl mb-4">Diagnose</h3>
         <ul class="text-secondary-text space-y-2">
           <li>All three audits run simultaneously</li>
@@ -104,8 +104,8 @@ const faqs = [
           <li>Unified findings synthesis</li>
         </ul>
       </div>
-      <div class="bg-bg-elevated border border-border-subtle rounded-xl p-8">
-        <div class="text-accent font-mono text-sm mb-2">Month 2</div>
+      <div class="plate p-8">
+        <div class="eyebrow mb-2">Month 2</div>
         <h3 class="text-xl mb-4">Execute</h3>
         <ul class="text-secondary-text space-y-2">
           <li>Ship fixes from the prioritized backlog</li>
@@ -115,8 +115,8 @@ const faqs = [
           <li>Weekly check-ins with your team</li>
         </ul>
       </div>
-      <div class="bg-bg-elevated border border-border-subtle rounded-xl p-8">
-        <div class="text-accent font-mono text-sm mb-2">Month 3</div>
+      <div class="plate p-8">
+        <div class="eyebrow mb-2">Month 3</div>
         <h3 class="text-xl mb-4">Verify</h3>
         <ul class="text-secondary-text space-y-2">
           <li>Re-audit to measure improvement</li>
@@ -136,20 +136,20 @@ const faqs = [
       These aren't recommendations. They're tickets your team can ship.
     </p>
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-        <h3 class="text-accent text-xl mb-2">Sprint-ready technical backlog</h3>
+      <div class="plate p-6">
+        <h3 class="text-gilt text-xl mb-2">Sprint-ready technical backlog</h3>
         <p class="text-secondary-text">Code fixes with implementation context. Copy, paste, deploy. Tagged by severity, root cause cluster, and confidence tier.</p>
       </div>
-      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-        <h3 class="text-accent text-xl mb-2">Prioritized content roadmap</h3>
+      <div class="plate p-6">
+        <h3 class="text-gilt text-xl mb-2">Prioritized content roadmap</h3>
         <p class="text-secondary-text">Every topic gap mapped against competitive coverage. Content briefs ready for your writers or ours.</p>
       </div>
-      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-        <h3 class="text-accent text-xl mb-2">Unified 90-day execution plan</h3>
+      <div class="plate p-6">
+        <h3 class="text-gilt text-xl mb-2">Unified 90-day execution plan</h3>
         <p class="text-secondary-text">All three pillars synthesized into one prioritized roadmap. Revenue projections at conservative, moderate, and aggressive scenarios.</p>
       </div>
-      <div class="bg-bg-surface border border-border-subtle rounded-lg p-6">
-        <h3 class="text-accent text-xl mb-2">Measurement baseline + KPIs</h3>
+      <div class="plate p-6">
+        <h3 class="text-gilt text-xl mb-2">Measurement baseline + KPIs</h3>
         <p class="text-secondary-text">Clean analytics setup. 30/60/90 day KPIs. The foundation for proving ROI on everything that follows.</p>
       </div>
     </div>
@@ -163,8 +163,8 @@ const faqs = [
         The Get Right is a project-based engagement. No retainer commitment upfront.
         We earn continued engagement by proving value in the first 90 days.
       </p>
-      <div class="bg-bg-elevated border border-border-subtle rounded-xl p-10">
-        <div class="text-accent font-heading text-4xl font-bold mb-2">Contact us for a quote</div>
+      <div class="plate p-10">
+        <div class="text-sheen font-heading text-4xl font-bold mb-2">Contact us for a quote</div>
         <p class="text-secondary-text">Custom scoped per engagement. Includes all three audit pillars, the unified execution plan, and 90 days of founder-level support.</p>
       </div>
     </div>
@@ -176,12 +176,12 @@ const faqs = [
       <h2 class="text-center mb-12">Common questions</h2>
       <div class="space-y-4">
         {faqs.map((faq) => (
-          <details class="group bg-bg-elevated border border-border-subtle rounded-xl p-6 open:border-accent/40 transition-colors">
+          <details class="group plate p-6">
             <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
-              <h3 class="text-lg text-primary-text font-heading group-open:text-accent transition-colors">
+              <h3 class="text-lg text-primary-text font-heading group-open:text-gilt-bright transition-colors">
                 {faq.question}
               </h3>
-              <span class="text-accent text-2xl leading-none transition-transform group-open:rotate-45 shrink-0">+</span>
+              <span class="text-gilt text-2xl leading-none transition-transform group-open:rotate-45 shrink-0">+</span>
             </summary>
             <p class="text-secondary-text mt-4 leading-relaxed">{faq.answer}</p>
           </details>
@@ -191,7 +191,7 @@ const faqs = [
   </Section>
 
   <!-- CTA -->
-  <Section elevated>
+  <Section band="deep">
     <div class="text-center">
       <h2 class="mb-4">Let's find what's costing you revenue.</h2>
       <p class="text-secondary-text text-lg mb-8 max-w-xl mx-auto">
