@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 440" fill="none" role="img" aria-label="">
   <defs>
     <radialGradient id="bgglow" cx="50%" cy="48%" r="55%">
-      <stop offset="0%" stop-color="#FFB300" stop-opacity="0.14"/>
-      <stop offset="55%" stop-color="#FFB300" stop-opacity="0.04"/>
-      <stop offset="100%" stop-color="#FFB300" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#C9A961" stop-opacity="0.14"/>
+      <stop offset="55%" stop-color="#C9A961" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#C9A961" stop-opacity="0"/>
     </radialGradient>
     <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="2.2" result="b"/>
@@ -28,7 +28,7 @@
   <ellipse cx="300" cy="228" rx="215" ry="185" fill="url(#bgglow)"/>
 
   <!-- long faint light streaks -->
-  <g stroke="#FFB300" stroke-width="1" stroke-linecap="round" filter="url(#glow)">
+  <g stroke="#C9A961" stroke-width="1" stroke-linecap="round" filter="url(#glow)">
     <line x1="30" y1="430" x2="470" y2="70" opacity="0.16"/>
     <line x1="72" y1="432" x2="500" y2="96" opacity="0.13"/>
     <line x1="12" y1="372" x2="420" y2="44" opacity="0.12"/>
@@ -36,34 +36,34 @@
   </g>
 
   <!-- structural grid -->
-  <g stroke="#FFB300" stroke-width="1" opacity="0.9">
+  <g stroke="#C9A961" stroke-width="1" opacity="0.9">
     <line x1="120" y1="300" x2="432" y2="300" opacity="0.22"/>
     <line x1="96" y1="356" x2="404" y2="356" opacity="0.18"/>
     <line x1="414" y1="120" x2="414" y2="360" opacity="0.16"/>
   </g>
 
   <!-- parallel guide diagonals -->
-  <g stroke="#FFB300" stroke-width="1.2" stroke-linecap="round" opacity="0.4" filter="url(#glow)">
+  <g stroke="#C9A961" stroke-width="1.2" stroke-linecap="round" opacity="0.4" filter="url(#glow)">
     <line x1="110" y1="376" x2="360" y2="146"/>
     <line x1="150" y1="392" x2="402" y2="160"/>
   </g>
 
   <!-- secondary arrow -->
-  <g stroke="#FFB300" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" filter="url(#glow)">
+  <g stroke="#C9A961" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" filter="url(#glow)">
     <path d="M170 388 L415 160"/>
     <path d="M415 160 L388 167"/>
     <path d="M415 160 L409 193"/>
   </g>
 
   <!-- primary arrow -->
-  <g stroke="#FFC107" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+  <g stroke="#D9BE8C" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
     <path d="M135 365 L388 128"/>
     <path d="M388 128 L343 140"/>
     <path d="M388 128 L377 177"/>
   </g>
 
   <!-- glints at intersections -->
-  <g fill="#FFD54F" filter="url(#glow)">
+  <g fill="#F0DCAE" filter="url(#glow)">
     <use href="#glint" class="tw" transform="translate(388 128) scale(10)"/>
     <use href="#glint" class="tw d1" transform="translate(250 257) scale(8)"/>
     <use href="#glint" class="tw d2" transform="translate(320 192) scale(6)"/>
