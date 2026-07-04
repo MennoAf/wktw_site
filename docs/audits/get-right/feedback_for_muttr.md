@@ -222,7 +222,7 @@
 ## MUTTR-07 — Stale findings reported as open
 
 **Severity:** medium · **Category:** Current-state re-check
-**Status:** ☐ Open ☑ Fixed (partial) ☐ Verified — **Muttr: 2026-07-01**
+**Status:** ☑ Fixed (all three cases grounded 2026-07-04) ☐ Verified on fresh crawl — **Muttr: 2026-07-01 (head-meta) + 2026-07-04 (a11y elements + sitemap)**
 
 **Observed:** Several findings flag things already remediated in the current build:
 - `ux-sitemap-unverifiable` — `@astrojs/sitemap` is already installed (`astro.config.mjs`).
@@ -235,9 +235,9 @@
 **Fix:** Re-check current page source/state for each finding immediately before emission; suppress or downgrade to "already addressed — verify" when the remediation is present.
 
 ### Verify (Muttr to complete)
-- [~] Each finding is re-validated against current source before emission _(head-meta only — see note)_
+- [x] Each finding is re-validated against current state before emission _(head-meta, a11y tree, and sitemap — three artifacts)_
 - [x] Already-remediated items are suppressed or clearly marked "verify — appears resolved"
-- [~] Spot-check: sitemap, OG/Twitter, hamburger aria, consent banner no longer flagged as missing _(OG/Twitter done; others below)_
+- [x] Spot-check: sitemap, OG/Twitter, hamburger aria, consent banner no longer flagged as missing _(all four grounded)_
 
 > **Muttr (2026-07-01):** `check_stale_head_meta` (new
 > `phases/documentation/_staleness.py`) runs at ticket emission. When a finding
@@ -255,12 +255,10 @@
 > pages). New `stale_flagged_count` telemetry; advisory only, never suppresses.
 > Tests: `tests/test_staleness.py` (8).
 >
-> **PARTIAL — not yet grounded:** the **sitemap** case (Astro's `@astrojs/sitemap`
-> is a build-time output the crawl doesn't fetch, so presence can't be confirmed
-> from crawl data), and the **hamburger-aria** and **consent-banner** cases (they
-> need element-level ARIA / a11y-tree parsing, not the head-meta signal captured
-> today). These remain open — a follow-up if fuller current-state re-check is
-> wanted.
+> **Muttr (2026-07-04) — the remaining three cases are now grounded, each against a different crawl artifact.**
+> - **hamburger-aria + consent-banner → new accessibility tree.** The crawl now captures the browser's computed accessibility tree (CDP `Accessibility.getFullAXTree`, pruned to interactive/landmark/named nodes: role + computed accessible name + name source + `expanded`/`haspopup` state), stored as `page_data.a11y_tree`. `check_stale_a11y_elements` grounds against it: a "consent banner has no decline / dark pattern" finding is flagged when the tree shows a consent `dialog` exposing both Accept and Decline; a "menu button missing accessible name" finding is flagged when the tree shows the control already named. **Validated live under the crawl's real device (iPhone 14 Pro, 393px):** the tree surfaces `dialog "Cookie consent"` + `Accept`/`Decline`, and the mobile nav control as `button "Toggle menu"` (name_from=`aria-label`, `expanded` state) — so both cases work on the real mobile crawl, not just in theory. Precision-first: fires only when the tree *positively* shows the remediation, so a missing tree never yields a false "already done".
+> - **sitemap → the sitemap the crawl already fetches.** This one needed no new fetching: `fetch_sitemap` already tries the **robots.txt `Sitemap:` directive** and `/sitemap*.xml`, and `audit.py` persists the result to `crawl/sitemap.json` only when a real sitemap is found. `check_stale_sitemap` flags an "install/add a sitemap" finding when that file is present and non-empty (a sitemap *quality* fix — lastmod/robots-reference — is left alone). Validated on this workspace: `ux-sitemap-unverifiable` flags (14 URLs found).
+> All three feed the same `stale_flagged_count` telemetry and are advisory-only. Tests: `tests/test_staleness.py` (+12) and `tests/test_a11y_tree.py` (11). Full suite 2487 green. `muttr` commits `bae77f6` (a11y tree) + `96e5873` (sitemap). MUTTR-07 fully grounded; fresh-crawl end-to-end confirmation still welcome.
 
 ---
 
@@ -453,3 +451,4 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-07-02 — **Muttr** closed MUTTR-03 generation-side (✓ verified): the detected stack is now injected into all proposal prompts, so the author emits drop-in code for the real framework. Live-validated — a finding that previously produced Liquid now returns an Astro component with zero CMS idioms. MUTTR-03 fully fixed (prevention + detection). Remaining follow-ups: MUTTR-07 aria/consent/sitemap staleness (needs a11y-tree parsing / sitemap not crawled); MUTTR-05 numeric-grounding prevention lives in the muttr-frontier epic.
 - 2026-07-04 — **WKTW** independently verified all 11 defects against a fresh full crawl (`audit-weknowthewhy-20260702-12a9972b`, tickets emitted 2026-07-02 23:01) instead of the old-workspace re-runs Muttr used to sign off. **Result: 6 fully corrected** (01 dedup 82→45, 02 quarantine, 04 remediation-surface on all 45, 06 tiers 34/4/7 no unverified-in-confirmed, 09 tests 790 all on-origin/0 empty/0 placeholder, 10 fix-card), **2 partial-as-scoped** (05 cart/checkout removed + measurement ticket added; 07 OG/Twitter "already resolved" advisory fires, sitemap/hamburger/consent still open by design), **2 not confirmed on the full run** → **RE-OPENED MUTTR-08** (6 passing-check tickets leaked back into `tickets/` incl. the named `inp-excellent`/`api-waterfall-minimal`; opener-string heuristic doesn't generalize) and **MUTTR-03 gen-side downgraded to UNCONFIRMED** (6 tickets still ship Liquid/WP code bodies; detection backstop fired on all 6 but prevention didn't; may predate deploy or not hold in full pipeline). 11 opt-in guide (`--repo-grounding`) not emitted this run — N/A, not a regression. Action for Muttr: re-run on current `main` to disambiguate MUTTR-03, and drive MUTTR-08 routing off the structured `remediation_required` flag rather than opener lexicon.
 - 2026-07-04 — **Muttr** closed both re-opens deterministically against the workspace itself (no re-run needed to find root cause), commits `bdb80cd` + `6876b15`, full suite 2470 green (+15 tests). **MUTTR-08**: the opener-string route never generalized because the structured `remediation_required` flag was never set by any emitter; new `is_passing_check_finding()` routes off the detector's own slug/title instead (run-stable), catching all 12 passing checks on this workspace with zero real-finding misroutes — also clearing the MUTTR-05 "checkout" contamination that rode inside `dom-quality-excellent`. **MUTTR-03 gen-side**: the 6 wrong-stack tickets had two causes the 07-02 fix didn't cover — 4 were `coverage_review` gaps whose `propose_fix_for_gap` fed `detect_stack` a signal-less technical-findings file (empty guidance → generic CMS), now pointed at the whole-site `cached_site_stack`; 2 were `canned_template` proposals hard-coding WordPress selectors/deployment, now made stack-neutral. Both re-opens' root causes are closed; a fresh full crawl would confirm end-to-end. Still genuinely open (by design, unchanged): MUTTR-07 sitemap/hamburger-aria/consent staleness (needs a11y-tree parsing / sitemap not crawled).
+- 2026-07-04 — **Muttr** closed the last MUTTR-07 follow-ups — all three remaining stale cases now grounded, commits `bae77f6` (a11y tree) + `96e5873` (sitemap), full suite 2487 green (+18 tests). Added a **CDP accessibility-tree capture** (`Accessibility.getFullAXTree`, pruned to interactive/landmark/named nodes → `page_data.a11y_tree`) so element-level staleness can see what the head-meta signal couldn't: `check_stale_a11y_elements` flags an already-remediated consent banner (tree shows a consent `dialog` with Accept + Decline) or an already-labelled menu button. Validated live under the crawl's real device emulation (iPhone 14 Pro, 393px): consent dialog + `Accept`/`Decline` and the mobile hamburger as `button "Toggle menu"` (aria-label, expanded). Separately, `check_stale_sitemap` grounds "install a sitemap" against `crawl/sitemap.json` — which the crawl already populates via `fetch_sitemap` (robots.txt `Sitemap:` directive + `/sitemap*.xml`); on this workspace `ux-sitemap-unverifiable` flags with 14 URLs found. All advisory-only, precision-first. MUTTR-07 fully grounded. (Also corrected the crawl-is-desktop misconception: Muttr crawls mobile — iPhone 14 Pro — so responsive/mobile-only controls like the hamburger are correctly in-scope.)
