@@ -2,20 +2,20 @@
 import { features } from '../data/features';
 
 const services = [
-  { label: 'The Get Right', href: '/the-get-right' },
-  { label: 'Platform Audit', href: '/the-get-right/platform' },
-  { label: 'Content Audit', href: '/the-get-right/content' },
-  { label: 'Revenue Audit', href: '/the-get-right/revenue' },
+  { label: 'The Get Right', href: '/the-get-right/' },
+  { label: 'Platform Audit', href: '/the-get-right/platform/' },
+  { label: 'Content Audit', href: '/the-get-right/content/' },
+  { label: 'Revenue Audit', href: '/the-get-right/revenue/' },
 ];
 
 const company = [
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Proof', href: '/proof' },
-  { label: 'Insights', href: '/insights' },
-  ...(features.search ? [{ label: 'Search', href: '/search' }] : []),
-  { label: 'Privacy', href: '/legal/privacy' },
-  { label: 'Terms', href: '/legal/terms' },
+  { label: 'About', href: '/about/' },
+  { label: 'Contact', href: '/contact/' },
+  { label: 'Proof', href: '/proof/' },
+  { label: 'Insights', href: '/insights/' },
+  ...(features.search ? [{ label: 'Search', href: '/search/' }] : []),
+  { label: 'Privacy', href: '/legal/privacy/' },
+  { label: 'Terms', href: '/legal/terms/' },
 ];
 ---
 
@@ -25,7 +25,7 @@ const company = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
       <!-- Brand -->
       <div>
-        <a href="/" class="text-primary-text font-heading font-bold text-xl tracking-tight">
+        <a href="/" class="inline-flex items-center min-h-[48px] text-primary-text font-heading font-bold text-xl tracking-tight">
           WKTW
         </a>
         <p class="mt-3 text-secondary-text text-sm leading-relaxed">
@@ -47,7 +47,7 @@ const company = [
         <ul class="space-y-0.5">
           {services.map((item) => (
             <li>
-              <a href={item.href} class="inline-flex items-center min-h-[44px] text-secondary-text text-sm hover:text-primary-text transition-colors">
+              <a href={item.href} class="inline-flex items-center min-h-[48px] text-secondary-text text-sm hover:text-primary-text transition-colors">
                 {item.label}
               </a>
             </li>
@@ -63,7 +63,7 @@ const company = [
         <ul class="space-y-0.5">
           {company.map((item) => (
             <li>
-              <a href={item.href} class="inline-flex items-center min-h-[44px] text-secondary-text text-sm hover:text-primary-text transition-colors">
+              <a href={item.href} class="inline-flex items-center min-h-[48px] text-secondary-text text-sm hover:text-primary-text transition-colors">
                 {item.label}
               </a>
             </li>
@@ -77,7 +77,7 @@ const company = [
       <button
         type="button"
         onclick="window.wktwOpenConsent && window.wktwOpenConsent()"
-        class="inline-flex items-center min-h-[44px] text-secondary-text text-sm hover:text-primary-text transition-colors text-left sm:text-right"
+        class="inline-flex items-center min-h-[48px] text-secondary-text text-sm hover:text-primary-text transition-colors text-left sm:text-right"
       >
         Cookie settings
       </button>

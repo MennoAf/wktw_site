@@ -5,8 +5,9 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# Netlify defaults to Pretty URLs (strips trailing slashes) — matches Astro's
-# trailingSlash: 'never' setting. No redirect rules needed.
+# Netlify serves static directory routes as trailing-slash URLs; Astro's
+# trailingSlash: 'always' setting keeps canonicals and internal links aligned.
+# No redirect rules needed.
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Headers (WL-19 caching, WL-20 security). Netlify applies every matching block;

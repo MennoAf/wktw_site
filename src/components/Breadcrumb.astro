@@ -29,6 +29,7 @@ function humanize(seg: string): string {
 }
 
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonicalPath = path === '/' ? '/' : `${path}/`;
 const segments = path.split('/').filter(Boolean);
 
 type Crumb = { label: string; href: string | null; current: boolean };
@@ -39,7 +40,7 @@ segments.forEach((seg, i) => {
   acc += '/' + seg;
   const isLast = i === segments.length - 1;
   const linkable = !isLast && !NON_LINK.has(seg);
-  crumbs.push({ label: humanize(seg), href: linkable ? acc : null, current: isLast });
+  crumbs.push({ label: humanize(seg), href: linkable ? `${acc}/` : null, current: isLast });
 });
 
 // BreadcrumbList: every crumb is a ListItem with an absolute `item` URL.
@@ -50,7 +51,7 @@ const jsonld = {
     '@type': 'ListItem',
     position: i + 1,
     name: c.label,
-    item: SITE + (c.href ?? path),
+    item: SITE + (c.href ?? canonicalPath),
   })),
 };
 ---

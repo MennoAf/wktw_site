@@ -8,9 +8,10 @@ interface Props {
 }
 
 const { title, tool, description, href, icon } = Astro.props;
+const normalizedHref = href.startsWith('/') && href !== '/' ? `${href.replace(/\/+$/, '')}/` : href;
 ---
 
-<a href={href} class="group block plate plate-hover p-8">
+<a href={normalizedHref} class="group block plate plate-hover p-8">
   <div
     class="w-12 h-12 rounded-xl border border-gilt-dim/40 bg-bg-inset/60 flex items-center justify-center text-2xl text-gilt mb-5"
     aria-hidden="true"
