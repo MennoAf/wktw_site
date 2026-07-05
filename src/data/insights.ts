@@ -47,7 +47,7 @@ export const insights: InsightPost[] = [
 ];
 
 /** Canonical path for a post. */
-export const postHref = (post: InsightPost): string => `/insights/${post.slug}`;
+export const postHref = (post: InsightPost): string => `/insights/${post.slug}/`;
 
 /** Find a post by slug. Throws if missing so a typo fails the build, not at runtime. */
 export function getPost(slug: string): InsightPost {

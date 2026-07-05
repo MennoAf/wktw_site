@@ -10,9 +10,12 @@ export default defineConfig({
   output: 'static',
   // /scan is unlinked for v1 (free-scan funnel paused) — keep the page on disk
   // but exclude it from the sitemap so it isn't discoverable.
-  integrations: [svelte(), sitemap({ filter: (page) => !page.endsWith('/scan') })],
+  integrations: [
+    svelte(),
+    sitemap({ filter: (page) => !page.endsWith('/scan') && !page.endsWith('/scan/') }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
-  trailingSlash: 'never',
+  trailingSlash: 'always',
 });

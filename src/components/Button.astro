@@ -6,10 +6,14 @@ interface Props {
 }
 
 const { href, variant = 'primary', class: className } = Astro.props;
+const normalizedHref =
+  href.startsWith('/') && href !== '/' && !href.includes('#') && !href.includes('?') && !href.includes('.')
+    ? `${href.replace(/\/+$/, '')}/`
+    : href;
 ---
 
 <a
-  href={href}
+  href={normalizedHref}
   class:list={[
     'btn',
     variant === 'primary' ? 'btn-gold' : 'btn-outline',

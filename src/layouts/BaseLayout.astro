@@ -141,11 +141,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <body class="min-h-screen flex flex-col">
     <!-- No GTM <noscript> fallback by design: a no-JS visitor can't operate the
          consent banner, so firing GTM for them would be pre-consent tracking (WL-02). -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <Header />
     {breadcrumb && <Breadcrumb />}
     <!-- data-pagefind-body scopes the search index (WL-18) to page content, so
          the repeated header/footer chrome isn't indexed as result text. -->
-    <main class="flex-1" data-pagefind-body>
+    <main id="main-content" class="flex-1" tabindex="-1" data-pagefind-body>
       <slot />
     </main>
     <Footer />
