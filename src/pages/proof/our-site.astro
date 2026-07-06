@@ -2,56 +2,113 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import Button from '../../components/Button.astro';
+
+const retrospective = '/insights/we-pointed-muttr-at-our-own-site/';
 ---
 
 <BaseLayout
   title="We Audited Our Own Site"
-  description="Full Muttr, Canary, and Delphi audit results for weknowthewhy.com. What we found, what we fixed, full transparency."
+  description="We ran Muttr on weknowthewhy.com twice — what it caught, what we fixed, what we threw out, and how we used the results to make the tool better. Full transparency, receipts in the repo."
 >
   <Section band="deep" class="pt-24 pb-20">
     <div class="max-w-3xl">
       <p class="eyebrow mb-4">Proof &rsaquo; Self-Audit</p>
-      <h1 class="mb-6">We audited our own site.</h1>
+      <h1 class="mb-6">We audited our own site &mdash; twice.</h1>
       <p class="text-secondary-text text-xl leading-relaxed mb-6">
-        We run Muttr, Canary, and Delphi against weknowthewhy.com using the same
-        configuration and standards we apply to client sites. Here are the real results.
+        We run Muttr, Canary, and Delphi against weknowthewhy.com with the same
+        standards we apply to client sites. Here's what they found, what we fixed,
+        and what we threw out.
       </p>
       <p class="text-secondary-text text-sm">
-        Last updated: <span class="text-primary-text">Coming soon &mdash; this page will be populated after Phase 2</span>
+        Last updated: <span class="text-primary-text">July 6, 2026</span>
       </p>
     </div>
   </Section>
 
   <!-- Muttr Results -->
   <Section elevated>
-    <h2 class="mb-6">Platform Technical Audit (Muttr)</h2>
-    <div class="plate p-8">
-      <p class="text-secondary-text text-center py-8">
-        Audit results will be published here after the site is live and Muttr has been run against it.
-        Check back after launch.
-      </p>
+    <div class="max-w-3xl">
+      <h2 class="mb-6">Platform Technical Audit (Muttr)</h2>
+      <div class="plate p-8 space-y-6 text-secondary-text leading-relaxed">
+        <p>
+          We ran Muttr against this site, remediated, and ran it again. The honest
+          scorecard:
+        </p>
+
+        <div>
+          <p class="text-primary-text font-medium mb-2">What it caught that was worth fixing.</p>
+          <p>
+            The first pass flagged ~80 issues; about a dozen were real &mdash;
+            visitor IPs reaching Google's font CDN before consent (a GDPR exposure),
+            tag manager loading before the consent banner could be answered, no
+            security headers or Content Security Policy, and a dozen accessibility
+            defects. All fixed.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-primary-text font-medium mb-2">What we threw out &mdash; which matters just as much.</p>
+          <p>
+            The rest were stale, false, or passing checks dressed up as problems. It
+            reported a 2.56&nbsp;MB app bundle from &ldquo;cart, checkout, and product
+            configurators&rdquo; &mdash; we have none of those; our entire JavaScript
+            is one 28&nbsp;KB component. We deleted it. It proposed a three-tier
+            pricing grid; we sell one engagement, so we deleted that too.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-primary-text font-medium mb-2">Then we fixed the tool and re-ran it.</p>
+          <p>
+            Every ungrounded finding went back into Muttr as a fix. The second audit
+            proved it: the phantom bundle was gone, the report was shorter and
+            cleaner, and the real fixes held. It surfaced one new false positive
+            &mdash; our working cookie banner, measured hidden instead of rendered
+            &mdash; which we traced to root cause and filed the same day.
+          </p>
+        </div>
+
+        <p class="text-primary-text">
+          The failure modes we find, we train out. By the time these tools run on
+          your site, the specific mistakes in our own audit have already been
+          grounded out of them.
+        </p>
+
+        <div class="pt-2">
+          <a href={retrospective} class="text-accent hover:text-accent-hover font-medium underline">
+            Read the full retrospective &rarr;
+          </a>
+        </div>
+      </div>
     </div>
   </Section>
 
   <!-- Canary Results -->
   <Section>
-    <h2 class="mb-6">Content Authority Audit (Canary)</h2>
-    <div class="plate p-8">
-      <p class="text-secondary-text text-center py-8">
-        Content audit results will be published here once the insights section is live
-        and Canary has been run against the site's topic coverage.
-      </p>
+    <div class="max-w-3xl">
+      <h2 class="mb-6">Content Authority Audit (Canary)</h2>
+      <div class="plate p-8 text-secondary-text leading-relaxed">
+        <p>
+          The same method, applied to content. We run Canary against our own topic
+          coverage as the insights library grows &mdash; the summary lands here once
+          there's enough published to audit honestly. We don't post a score we
+          haven't earned.
+        </p>
+      </div>
     </div>
   </Section>
 
   <!-- Delphi Results -->
   <Section elevated>
-    <h2 class="mb-6">Revenue Performance Audit (Delphi)</h2>
-    <div class="plate p-8">
-      <p class="text-secondary-text text-center py-8">
-        Analytics audit results will be published here once measurement is established
-        and Delphi has verified the analytics implementation.
-      </p>
+    <div class="max-w-3xl">
+      <h2 class="mb-6">Revenue Performance Audit (Delphi)</h2>
+      <div class="plate p-8 text-secondary-text leading-relaxed">
+        <p>
+          The same method, applied to measurement. Delphi verifies our analytics
+          implementation once conversion tracking is fully established &mdash;
+          results here when they're real and attributable, not before.
+        </p>
+      </div>
     </div>
   </Section>
 
@@ -78,11 +135,12 @@ import Button from '../../components/Button.astro';
     "@id": "https://weknowthewhy.com/proof/our-site",
     "url": "https://weknowthewhy.com/proof/our-site",
     "name": "We Audited Our Own Site",
-    "description": "Full Muttr, Canary, and Delphi audit results for weknowthewhy.com. What we found, what we fixed, full transparency.",
+    "description": "We ran Muttr on weknowthewhy.com twice — what it caught, what we fixed, what we threw out, and how we used the results to make the tool better.",
     "about": { "@id": "https://weknowthewhy.com/#organization" },
     "publisher": { "@id": "https://weknowthewhy.com/#organization" },
     "isPartOf": { "@id": "https://weknowthewhy.com/proof" },
     "significantLink": [
+      "https://weknowthewhy.com/insights/we-pointed-muttr-at-our-own-site",
       "https://weknowthewhy.com/the-get-right/platform",
       "https://weknowthewhy.com/the-get-right/content",
       "https://weknowthewhy.com/the-get-right/revenue",

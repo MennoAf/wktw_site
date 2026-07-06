@@ -31,6 +31,20 @@ export interface InsightPost {
 
 export const insights: InsightPost[] = [
   {
+    slug: 'we-pointed-muttr-at-our-own-site',
+    title: 'We pointed Muttr at our own site',
+    pageTitle: 'We Pointed Muttr at Our Own Site',
+    description:
+      "We ran our own audit tools on weknowthewhy.com, fixed what was real, threw out what wasn't, and used what we learned to make the tools better — including a second audit that was measurably cleaner than the first.",
+    author: 'Jason Bauman',
+    authorId: 'https://weknowthewhy.com/about#jason-bauman',
+    authorTitle: 'Chief Product Officer',
+    date: '2026-07-06',
+    dateLabel: 'July 6, 2026',
+    readingTime: '9 min read',
+    tag: 'Self-Audit',
+  },
+  {
     slug: 'why-most-audits-dont-change-anything',
     title: "Why most audits don't change anything",
     pageTitle: "Why Most Audits Don't Change Anything",
