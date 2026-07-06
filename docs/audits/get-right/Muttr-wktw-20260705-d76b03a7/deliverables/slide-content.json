@@ -1,0 +1,173 @@
+[
+  {
+    "type": "title",
+    "title": "Website Audit Report",
+    "content": [
+      "WKTW",
+      "w.k.t.w.",
+      "KPIs: conversion_rate, bounce_rate, contact_form"
+    ],
+    "notes": ""
+  },
+  {
+    "type": "content",
+    "title": "What We Audited",
+    "content": [
+      "92 findings identified",
+      "10 systemic root cause patterns detected",
+      "16 findings with legal/compliance exposure",
+      "Technical infrastructure analysis (server, platform, template)",
+      "UX and accessibility audit",
+      "Privacy and consent compliance verification",
+      "Performance profiling (lab + CrUX field data)"
+    ],
+    "notes": "This slide covers the scope and methodology of the audit."
+  },
+  {
+    "type": "content",
+    "title": "Executive Summary",
+    "content": [
+      "## Executive Summary: WKTW Digital Audit\n\nThis report summarizes the findings from a comprehensive digital audit of WKTW, identifying 92 distinct issues across platform, server, and template layers. While the site demonstrates a solid foundation in core technical areas like DOM quality and initial page load speed, a significant number of systemic issues are impacting user experience, conversion pathways, and critical legal compliance."
+    ],
+    "notes": "Full executive summary available in deliverables."
+  },
+  {
+    "type": "issue",
+    "title": "Consent Infrastructure Failure \u2014 Banner Present but Non-Functional",
+    "content": [
+      "A custom consent banner exists in the DOM (buttons #consent-accept, #consent-decline) with Google Consent Mode v2 defaults set to 'denied', but the banner never renders visibly during page load. This creates a cascade of downstream issues: users cannot grant consent, consent-dependent tracking can never activate, the consent accept button itself has a 1.00:1 contrast ratio (invisible text), the privacy policy link within the consent context is critically undersized at 17px height, and a mystery footer button (likely a consent re-trigger) has no accessible name. The root cause is a custom consent implementation that either has a rendering bug or depends on a condition that was never met during the audit.",
+      "Affects 8 finding(s)",
+      "Consent banner not rendered despite consent infrastructure present in DOM (medium)",
+      "Consent banner present but analytics not integrated with consent state \u2014 users cannot grant meaningful consent (medium)",
+      "Plausible analytics script loads before consent interaction \u2014 potential pre-consent tracking (medium)",
+      "Privacy policy link at 17px height is critically undersized \u2014 consent context makes this high-impact (high)",
+      "Fix opportunity: Debug and fix the consent banner rendering logic \u2014 this is the single highest-priority fix on the site. Once the banner renders: (1) fix the #consent-accept button contrast ratio from 1.00:1 to \u22654.5:1, (2) expand the privacy policy link touch target to \u226548x48px, (3) add aria-label to the footer cookie-settings button, (4) gate Plausible loading behind consent or document the legal basis for pre-consent loading, (5) verify consent state change propagates to Google Consent Mode. This single architectural fix resolves 8 findings across privacy, accessibility, and analytics domains."
+    ],
+    "notes": "Cluster findings: privacy-consent-banner-absent, consent-banner-not-rendering, privacy-2-pre-consent-plausible-fires, mobile-privacy-policy-link-critically-undersized, ux-mobile-consent-banner-viewport-impact, ghost-2-consent-banner-hidden-interactive, interactive-footer-button-purpose-unclear, prescan-escalation-console-errors"
+  },
+  {
+    "type": "issue",
+    "title": "Site-Wide Dark Color Palette Contrast Failures",
+    "content": [
+      "The site uses a dark brown/charcoal color palette where foreground and background colors are too close in luminance. The same contrast failures appear on every audited page \u2014 the same selectors (div > a:nth-of-type(6), li > span:nth-of-type(1), div > a:nth-of-type(1)) fail across all 9 crawled pages. This is not a per-page issue \u2014 it is a design system / CSS variable problem where the color tokens for certain UI states (likely navigation links, metadata spans, and the consent button) were defined without contrast verification. The worst offender is #consent-accept at 1.00:1 (identical foreground/background), but navigation links at 1.06:1 and metadata spans at 1.62:1 are also critically below the 4.5:1 minimum.",
+      "Affects 2 finding(s)",
+      "Insufficient contrast ratio [WCAG] (medium)",
+      "Color as sole indicator [WCAG] (medium)",
+      "Fix opportunity: Audit and update the CSS custom properties (or Tailwind config) defining the color palette. The fix is at the design token level \u2014 updating 3-4 color values in the theme configuration will resolve all 32 contrast violations and the 12 color-as-sole-indicator violations across every page simultaneously. Specifically: (1) increase the contrast between the dark brown foreground (rgb(36,27,23)) and the darker background (rgb(29,21,18)) \u2014 these are nearly identical; (2) increase the metadata span color (rgb(74,61,55)) against its background; (3) fix the consent button to have visible text; (4) add text-decoration: underline or a non-color visual indicator to inline links."
+    ],
+    "notes": "Cluster findings: det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com, det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about"
+  },
+  {
+    "type": "issue",
+    "title": "Touch Target Sizing \u2014 Global Navigation and Footer Pattern",
+    "content": [
+      "Navigation links, footer links, and contextual links across the site are consistently undersized for mobile touch interaction. The pattern is architectural \u2014 the site's CSS for interactive elements uses text-intrinsic sizing without minimum touch target dimensions. This affects the global header navigation (Home at 39x20px, The Get Right at 90x20px), footer links (Terms at 41x48px, privacy policy at 91x17px), and inline links (jon@weknowthewhy.com at various undersized dimensions). The root cause is that the navigation and footer components were designed for desktop pointer interaction and lack mobile-specific padding/min-height rules.",
+      "Affects 3 finding(s)",
+      "Touch targets below 48x48px minimum \u2014 mobile usability and WCAG 2.5.8 failure (high)",
+      "Multiple undersized touch targets below 48\u00d748px WCAG minimum \u2014 navigation and footer links affected on mobile (high)",
+      "Privacy policy link at 17px height is critically undersized \u2014 consent context makes this high-impact (high)",
+      "Fix opportunity: Add a global CSS rule scoped to interactive elements in the header nav and footer: min-height: 48px; min-width: 48px applied via padding rather than changing visual dimensions. For the Astro/Tailwind stack, this is likely a single utility class addition to the nav link and footer link components. A rule like `nav a, footer a { min-height: 48px; display: inline-flex; align-items: center; padding: 14px 4px; }` resolves all 16 undersized targets across every page. This single CSS change resolves 3 findings."
+    ],
+    "notes": "Cluster findings: a11y-2-touch-targets-undersized, touch-targets-ux-impact, mobile-privacy-policy-link-critically-undersized"
+  },
+  {
+    "type": "issue",
+    "title": "Conversion Path Architecture \u2014 No On-Page Forms, No Inline CTAs, No Trust Signals",
+    "content": [
+      "The site's conversion architecture requires every visitor to navigate to a dedicated /contact/ page to convert. No page other than /contact/ contains a form. Service pages, the About page, the Proof page, legal pages, and article pages all terminate without an inline conversion mechanism. CTAs are limited to the global navigation 'Contact' link and occasional 'Let's talk' buttons that link to /contact/. Trust signals (testimonials, client logos, case study results) are absent from all pages including the dedicated /proof/ page. The article about audit failures \u2014 the most topically relevant content for the firm's service \u2014 does not link to the service page. This is a content architecture problem, not a template bug.",
+      "Affects 9 finding(s)",
+      "No contact form on page \u2014 conversion requires full navigation to /contact/ (high)",
+      "Prescan Review: No Contact Form \u2014 Severity Contextually Appropriate (high)",
+      "Primary CTA 'Let's talk' positioned below fold \u2014 requires scroll commitment on mobile (medium)",
+      "Primary CTA competes with navigation links and lacks urgency or value proposition reinforcement (medium)",
+      "Fix opportunity: Implement a reusable Astro component for an inline contact form or CTA section that can be included at the bottom of any page template. This component should include: (1) a compact contact form (name, email, message) or a prominent CTA linking to /contact/ with value-proposition text, (2) 1-2 trust signals (client quote, result metric), (3) contextual CTA copy that varies by page type (service page: 'Get your audit started', article: 'Want this for your site?', about: 'Work with us'). Deploying this component across service, about, proof, and article templates resolves 6 of the 9 findings in this cluster. Separately, add inline contextual links from articles to relevant service pages, and add pricing/engagement signals to the about or service pages."
+    ],
+    "notes": "Cluster findings: ux-conversion-no-form-on-page, prescan-override-1-contact-form-severity, ux-conversion-01, ux-conversion-cta-clarity-competing-actions, revenue-no-service-page-link-in-article, trust-signals-absent-at-conversion-points, revenue-no-social-proof-above-fold, ux-revenue-no-pricing-signals, conversion-no-error-recovery-evidence"
+  },
+  {
+    "type": "issue",
+    "title": "Analytics Blindness \u2014 No Conversion Tracking, No Event Measurement, Client-Side Only",
+    "content": [
+      "The site uses Plausible Analytics as its sole analytics platform, loaded client-side with no custom event tracking configured. No GA4, no GTM, no data layer, no server-side tracking fallback. Plausible's script loads from a third-party domain (plausible.io) making it blockable by ad blockers and privacy tools \u2014 particularly relevant for the B2B technical audience this site targets. The contact form (the stated primary KPI) has no submission tracking. The consent infrastructure's non-functional state means even if GA4 were added, consent-dependent tracking would never activate. The result is that the business cannot measure conversion rates, cannot attribute traffic sources to form completions, and cannot optimize marketing spend.",
+      "Affects 3 finding(s)",
+      "No GA4 or equivalent full-featured analytics \u2014 conversion tracking and enhanced measurement absent (critical)",
+      "All tracking is client-side only \u2014 ad blocker and ITP data loss unmitigated, no server-side fallback (medium)",
+      "Consent banner present but analytics not integrated with consent state \u2014 users cannot grant meaningful consent (medium)",
+      "Fix opportunity: Three-phase fix: (1) Immediate \u2014 add Plausible custom event tracking for contact form submission using plausible('Contact Form Submitted') in the form's submit handler. This requires zero additional scripts and works within the existing analytics stack. (2) Short-term \u2014 proxy Plausible through a first-party endpoint (Plausible supports this natively) to eliminate ad-blocker data loss. Configure in Netlify redirects: /js/script.js \u2192 https://plausible.io/js/pa-GNbSMJlnmKdl4_QO4sS4C.js and /api/event \u2192 https://plausible.io/api/event. (3) Medium-term \u2014 fix the consent banner (cluster_001), then evaluate whether GA4 or enhanced Plausible event tracking is needed for the business's measurement maturity."
+    ],
+    "notes": "Cluster findings: analytics-no-ga4-no-conversion-tracking, ux-analytics-client-side-only-data-loss, consent-banner-not-rendering"
+  },
+  {
+    "type": "issue",
+    "title": "Contact Form Accessibility \u2014 Missing Labels and Unverified Error Handling",
+    "content": [
+      "The contact form on /contact/ has a form field missing a programmatic label association (likely a Netlify hidden form-name input, but unverified), and the form's error handling and data preservation behavior on submission failure is unverifiable from the audit data. The form uses HTML required attributes only \u2014 no JavaScript validation framework was detected. If the unlabeled field is user-facing, it is a WCAG 4.1.2 violation. If the form clears on submission failure, it creates a conversion-killing UX failure. The heading hierarchy on /contact/ also skips from h1 to h3.",
+      "Affects 6 finding(s)",
+      "1 form field missing programmatic label association \u2014 screen reader users cannot identify the field (high)",
+      "Missing name/role/value [WCAG] (medium)",
+      "Contact form has 1 field missing a programmatic label \u2014 accessibility and conversion barrier (medium)",
+      "Form error handling and data preservation on failure unverifiable \u2014 high-risk gap (medium)",
+      "Fix opportunity: Audit the /contact/ form template: (1) verify whether the unlabeled input is a Netlify hidden field (if so, add aria-hidden='true' and tabindex='-1' to remove it from the accessibility tree) or a user-facing field (if so, add a <label>), (2) fix heading hierarchy from h1\u2192h3 to h1\u2192h2, (3) add client-side form data preservation using sessionStorage (wrapped in try-catch for Safari private browsing) so data survives submission failures, (4) add aria-describedby error messages linked to fields with validation failures. This is a template-level fix isolated to the contact page."
+    ],
+    "notes": "Cluster findings: a11y-1-form-missing-label, det-wcag-missing-name-role-value-https-weknowthewhy-com-contact, form-1-missing-label, conversion-no-error-recovery-evidence, det-wcag-improper-content-structure-https-weknowthewhy-com-contact, escalation-6-console-errors-unverifiable"
+  },
+  {
+    "type": "compliance",
+    "title": "GDPR Compliance",
+    "content": [
+      "2 total violation(s)",
+      "GDPR Art. 13 + Art. 14: transparency obligation"
+    ],
+    "notes": "Domain: gdpr, violations: 2"
+  },
+  {
+    "type": "compliance",
+    "title": "Accessibility (WCAG/ADA)",
+    "content": [
+      "12 total violation(s)",
+      "WCAG 2.1 SC 1.4.3 (AA): insufficient contrast ratio",
+      "WCAG 2.1 SC 1.4.1 (A): color as sole indicator",
+      "WCAG 2.1 SC 4.1.2 (A): missing name/role/value",
+      "WCAG 2.1 SC 1.3.1 (A): improper content structure"
+    ],
+    "notes": "Domain: wcag, violations: 12"
+  },
+  {
+    "type": "quickwins",
+    "title": "Quick Wins",
+    "content": [
+      "Highest impact for lowest effort \u2014 start here.",
+      "Add a primary above-the-fold CTA on the homepage that creates a direct, frictionless conversion path to the contact form. This is a template-level architectural fix: the homepage must actively route users toward the client's stated primary KPI (contact_form submission) rather than passively existing as a brand landing page. Three coordinated changes are required: (1) a hero-section CTA button linking to the contact page or a contact anchor, (2) a persistent 'Contact' link in the sticky navigation, and (3) an inline contextual prompt in the value proposition section. All three must be implemented together \u2014 any single element in isolation is insufficient because users scan pages non-linearly and may enter the viewport at different scroll depths. (quick win)",
+      "Consent banner not rendered despite consent infrastructure present in DOM (quick win)",
+      "Expand all 16 undersized touch targets on the About page to meet WCAG 2.5.8's 48\u00d748 CSS pixel minimum, prioritized by conversion path position: (1) primary contact/inquiry CTA, (2) primary mobile navigation links, (3) team member social icon links, (4) cookie consent banner action buttons. The fix must expand tap areas without altering visual design \u2014 using CSS padding and ::after pseudo-element overlays \u2014 and must propagate to every instance of the team grid and mobile navigation components, not just the About page. (quick win)",
+      "Enforce a minimum 48\u00d748 CSS pixel interactive surface on all touch targets across the contact page template \u2014 including CTA buttons, icon-only links (phone, email, social), form field labels, and inline anchor links \u2014 without altering their visual footprint. The fix uses a layered strategy: (1) a scoped CSS utility class that expands the tap surface via min-height/min-width and padding floors, (2) a ::before pseudo-element tap-target expander for icon-only controls where visual resizing is unacceptable, (3) a form-field association audit to ensure labels are block-level and correctly linked, and (4) a platform-level audit of the global button/link component to prevent recurrence on other pages. All changes must be WCAG 2.5.8 compliant, visually non-destructive, and backwards-compatible to iOS Safari 14 / Android Chrome 88. (quick win)",
+      "Add a persistent, accessible tel: link contact affordance to the base template so that mobile users have a frictionless, single-tap path to initiate a call. This is a template-level fix that propagates to every page inheriting the base layout. The implementation has three layers: (1) a tel: link in the primary navigation/header for all viewports, (2) a mobile-only sticky call-to-action bar that persists as the user scrolls, and (3) a structured data telephone property on the Organization schema so search engines surface the number in rich results and Google's mobile SERP call button. All three layers are complementary \u2014 the header link serves desktop and mobile users who are already engaged, the sticky bar captures high-intent mobile users mid-scroll who have not yet committed to contacting, and the schema layer captures users who have not yet landed on the site. (quick win)"
+    ],
+    "notes": "Top 5 quick wins from prioritized roadmap."
+  },
+  {
+    "type": "roadmap",
+    "title": "Remediation Roadmap",
+    "content": [
+      "30 Days: 47 item(s)",
+      "60 Days: 21 item(s)",
+      "90 Days: 4 item(s)",
+      "Backlog: 20 item(s)"
+    ],
+    "notes": "Detailed roadmap available in deliverables."
+  },
+  {
+    "type": "thankyou",
+    "title": "Thank You",
+    "content": [
+      "w.k.t.w.",
+      "We Know The Why",
+      "",
+      "Next Steps:",
+      "Review deliverables and ticket backlog",
+      "Schedule implementation kickoff",
+      "Questions? Let's discuss."
+    ],
+    "notes": ""
+  }
+]

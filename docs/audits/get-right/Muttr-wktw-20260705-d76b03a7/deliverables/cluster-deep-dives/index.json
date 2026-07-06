@@ -1,0 +1,95 @@
+[
+  {
+    "cluster_id": "cluster_001",
+    "name": "Consent Infrastructure Failure \u2014 Banner Present but Non-Functional",
+    "file": "cluster_001_consent_infrastructure_failure_banner_present_but_non_functional.md",
+    "finding_count": 8,
+    "is_systemic": true,
+    "compliance_implications": [
+      "gdpr",
+      "wcag"
+    ]
+  },
+  {
+    "cluster_id": "cluster_002",
+    "name": "Site-Wide Dark Color Palette Contrast Failures",
+    "file": "cluster_002_site_wide_dark_color_palette_contrast_failures.md",
+    "finding_count": 2,
+    "is_systemic": true,
+    "compliance_implications": [
+      "wcag"
+    ]
+  },
+  {
+    "cluster_id": "cluster_003",
+    "name": "Touch Target Sizing \u2014 Global Navigation and Footer Pattern",
+    "file": "cluster_003_touch_target_sizing_global_navigation_and_footer_pattern.md",
+    "finding_count": 3,
+    "is_systemic": true,
+    "compliance_implications": [
+      "wcag"
+    ]
+  },
+  {
+    "cluster_id": "cluster_004",
+    "name": "Conversion Path Architecture \u2014 No On-Page Forms, No Inline CTAs, No Trust Signals",
+    "file": "cluster_004_conversion_path_architecture_no_on_page_forms_no_inline_ctas_no_trus.md",
+    "finding_count": 9,
+    "is_systemic": true,
+    "compliance_implications": []
+  },
+  {
+    "cluster_id": "cluster_005",
+    "name": "Analytics Blindness \u2014 No Conversion Tracking, No Event Measurement, Client-Side Only",
+    "file": "cluster_005_analytics_blindness_no_conversion_tracking_no_event_measurement_clie.md",
+    "finding_count": 3,
+    "is_systemic": true,
+    "compliance_implications": []
+  },
+  {
+    "cluster_id": "cluster_006",
+    "name": "Contact Form Accessibility \u2014 Missing Labels and Unverified Error Handling",
+    "file": "cluster_006_contact_form_accessibility_missing_labels_and_unverified_error_handl.md",
+    "finding_count": 6,
+    "is_systemic": false,
+    "compliance_implications": [
+      "wcag"
+    ]
+  },
+  {
+    "cluster_id": "cluster_007",
+    "name": "Cache Configuration \u2014 Static Assets Revalidating on Every Request",
+    "file": "cluster_007_cache_configuration_static_assets_revalidating_on_every_request.md",
+    "finding_count": 4,
+    "is_systemic": true,
+    "compliance_implications": []
+  },
+  {
+    "cluster_id": "cluster_008",
+    "name": "JetBrains Mono Font Loaded Globally \u2014 Unnecessary on Non-Technical Pages",
+    "file": "cluster_008_jetbrains_mono_font_loaded_globally_unnecessary_on_non_technical_pag.md",
+    "finding_count": 2,
+    "is_systemic": true,
+    "compliance_implications": []
+  },
+  {
+    "cluster_id": "cluster_009",
+    "name": "SEO Metadata and Structured Data \u2014 Unverifiable Properties",
+    "file": "cluster_009_seo_metadata_and_structured_data_unverifiable_properties.md",
+    "finding_count": 4,
+    "is_systemic": false,
+    "compliance_implications": [
+      "performance_as_liability"
+    ]
+  },
+  {
+    "cluster_id": "cluster_010",
+    "name": "CSP Absence \u2014 No Script Injection Protection",
+    "file": "cluster_010_csp_absence_no_script_injection_protection.md",
+    "finding_count": 3,
+    "is_systemic": true,
+    "compliance_implications": [
+      "gdpr"
+    ]
+  }
+]

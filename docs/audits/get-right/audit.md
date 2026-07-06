@@ -21,7 +21,7 @@ Muttr audit of weknowthewhy.com (run `Muttr-we-know-the-why-20260624-0dc08e79`).
   itself (duplication, empty ticket, stack mismatch, mismeasurement). Public-record;
   each has a Verify section for the Muttr agent.
 - **[gtm-investigation.md](./gtm-investigation.md)** — console-side analytics checklist
-  handed to Brandon (GTM owner). The ~10 "redundant analytics" tickets live in the GTM
+  handed to the analytics lead (GTM owner). The ~10 "redundant analytics" tickets live in the GTM
   container, not the repo.
 - **`Muttr-…/deliverables/`** — raw audit output (tickets, clusters, exec summary).
 - **`Muttr-…/verification/tests.json`** — 1,221 post-launch regression tests.

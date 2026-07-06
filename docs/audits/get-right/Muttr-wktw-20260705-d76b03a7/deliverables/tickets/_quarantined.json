@@ -1,0 +1,7 @@
+[
+  {
+    "file": "schema-coverage-low.json",
+    "finding_id": "",
+    "reason": "missing finding_id"
+  }
+]

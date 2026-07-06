@@ -1,0 +1,413 @@
+[
+  {
+    "id": "a11y-1-form-missing-label",
+    "title": "Ensure the Netlify hidden form-name input is explicitly typed as hidden (type=\"hidden\"), which removes it from the accessibility tree, keyboard tab order, and visual rendering per HTML spec \u2014 eliminating the WCAG 4.1.2 and 1.3.1 violation without breaking Netlify form submission.",
+    "file": "a11y-1-form-missing-label_ensure_the_netlify_hidden_form_name_input_is_explicitl.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "det-wcag-missing-name-role-value-https-weknowthewhy-com-contact",
+      "form-1-missing-label"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "a11y-2-touch-targets-undersized",
+    "title": "Enforce a 48x48 CSS pixel minimum touch target on all interactive elements site-wide via a global Astro layout style, scoped to avoid breaking desktop pointer UX. Apply targeted overrides in the navigation and footer components where layout compression creates the worst violations.",
+    "file": "a11y-2-touch-targets-undersized_enforce_a_48x48_css_pixel_minimum_touch_target_o.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "conv-ux-001-touch-target-form-suppression",
+      "mob-touch-001",
+      "navigation-search-functionality",
+      "touch-targets-ux-impact"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "a11y-4-lang-attribute-pass",
+    "title": "Maintain the passing lang='en' declaration on <html> and extend coverage to any inline multilingual content segments per WCAG 3.1.2 (Language of Parts, Level AA). No corrective action is required for the base declaration \u2014 this proposal documents the guard rail to prevent regression and closes the one residual risk identified in the finding.",
+    "file": "a11y-4-lang-attribute-pass_maintain_the_passing_lang_en_declaration_on_html_and.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "a11y-alt-text-present-pass",
+    "title": "Verify and enforce meaningful alt text quality on the three team member images (brandon-griner.webp, jon-lister.webp, jason-bauman.webp) in the Team/About template. Attribute presence is confirmed; attribute content is unverified. Promote the data model from implicit (filename-derived or editor-entered freeform) to explicit (structured, co-located with the person record) so alt text is enforced at the component boundary, not left to editorial discretion.",
+    "file": "a11y-alt-text-present-pass_verify_and_enforce_meaningful_alt_text_quality_on_the.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+    "title": "Restore visible underlines on all inline text links site-wide via a scoped child-theme CSS override, ensuring links within body content, navigation, footers, and widgets are distinguishable by more than color alone \u2014 satisfying WCAG 2.1 SC 1.4.1 (Use of Color).\n\nAffected selectors captured by the detector (1 element(s)):\n  - li > a:nth-of-type(1)",
+    "file": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about_restore_visible_un.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "a11y-compound-contrast-color-indicator-failure",
+      "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "a11y-font-display-swap-pass",
+    "title": "Harden the existing font loading strategy against future template drift by: (1) verifying crossorigin attributes are present on all font preload links, (2) adding a build-time guard that fails the Astro build if a <code> or <pre> element appears in any component marked as above-fold, and (3) documenting the preload contract as a named constant in the font config so future contributors cannot silently violate it.",
+    "file": "a11y-font-display-swap-pass_harden_the_existing_font_loading_strategy_against_fu.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "interactive-footer-button-purpose-unclear",
+    "title": "Replace the unlabeled, potentially non-functional footer consent re-trigger button with an accessible, functional 'Cookie Settings' button that correctly invokes the consent management UI \u2014 or, if no consent platform is active, remove the dead interactive element entirely.",
+    "file": "interactive-footer-button-purpose-unclear_replace_the_unlabeled_potentially_non.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "a11y-icon-links-empty-accessible-name-svg"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "a11y-no-forms-no-images",
+    "title": "Establish a visual evidence brief and Astro component scaffolding for the case-study template so that when client-approved assets arrive, they slot into an already-accessible, performance-correct image pipeline \u2014 and add a build-time content lint that warns when a published case study ships with zero images.",
+    "file": "a11y-no-forms-no-images_establish_a_visual_evidence_brief_and_astro_component_sc.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "analytics-no-ga4-no-conversion-tracking",
+    "title": "Implement Plausible custom event tracking for all conversion actions (contact form submission, mailto: clicks, CTA button clicks) and configure a first-party proxy to defeat ad blockers. No new analytics platform needed \u2014 leverage the existing Plausible investment.",
+    "file": "analytics-no-ga4-no-conversion-tracking_implement_plausible_custom_event_trackin.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "analytics-plausible-single-point-failure-conversion-blindspot",
+      "ux-analytics-client-side-only-data-loss"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "api-1-minimal-network-waterfall",
+    "title": "Preserve and extend the existing minimal-waterfall architecture to heavier page types (product, search, checkout) by codifying the structural decisions that produced this result into reusable Astro patterns: build-time data fetching, single consolidated stylesheets, same-origin font serving, and async-only third-party scripts.",
+    "file": "api-1-minimal-network-waterfall_preserve_and_extend_the_existing_minimal_waterfa.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "backwards-compat-astro-static-pass",
+    "title": "Add woff fallback alongside existing woff2 font declarations to eliminate font-load failure on IE11/Android 4.x, and document the confirmed absence of @supports gaps as a deliberate policy. No architectural changes required \u2014 this is a cosmetic polish pass on an already-strong backwards compatibility posture.",
+    "file": "backwards-compat-astro-static-pass_add_woff_fallback_alongside_existing_woff2_fo.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "consent-banner-not-rendering",
+    "title": "Replace the broken consent banner with a self-contained Astro component that renders visibly by default (no JS required to show), wires consent state to Google Consent Mode v2, fires gtag('consent', 'update') on user action, persists choice to localStorage, and fixes all three downstream WCAG violations (button contrast, touch target size, accessible names). The component must be CSS-visible without JavaScript so that a JS error can never suppress it again.",
+    "file": "consent-banner-not-rendering_replace_the_broken_consent_banner_with_a_self_conta.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "ghost-2-consent-banner-hidden-interactive",
+      "prescan-escalation-console-errors",
+      "privacy-1-no-pre-consent-cookies",
+      "privacy-2-pre-consent-plausible-fires",
+      "privacy-consent-banner-absent"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "content-to-code-ratio-css-heavy",
+    "title": "Verify Tailwind's purge/tree-shake is active in production and add per-route CSS splitting for content-sparse pages. If purge is already active and the 106KB is genuinely minimal, add HTTP/2 server push hints and preload the stylesheet to eliminate any render-blocking latency \u2014 the architectural concern is real but the urgency is conditional on whether the stylesheet is render-blocking.",
+    "file": "content-to-code-ratio-css-heavy_verify_tailwind_s_purge_tree_shake_is_active_in.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "prescan-override-1-contact-form-severity",
+    "title": "Replace the hub-and-spoke /contact/ conversion model with a distributed inline conversion architecture. Implement a reusable Astro ContactCTA component containing a native HTML form (Netlify Forms), a trust signal slot, and a mailto: fallback that is analytics-instrumented. Inject this component at the terminal section of every high-intent page template (service pages, /proof/, About, article pages). Retire the bare mailto: link as a primary CTA.",
+    "file": "prescan-override-1-contact-form-severity_replace_the_hub_and_spoke_contact_conve.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "conv-contact-cta-path-missing",
+      "conv-ux-001",
+      "mobile-mailto-not-tel-friendly",
+      "no-click-to-call-mobile-contact-friction",
+      "ux-conversion-01",
+      "ux-conversion-cta-clarity-competing-actions",
+      "ux-conversion-no-form-on-page"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "conversion-no-error-recovery-evidence",
+    "title": "Replace the full-page POST submission on /contact/ with a fetch-based submission pattern that (1) preserves all field values on failure, (2) surfaces actionable error messages for network failures, server rejections, and validation mismatches, (3) prevents duplicate submissions via a serialized async lock, and (4) persists draft state to sessionStorage so a browser crash or accidental navigation does not discard a composed message.",
+    "file": "conversion-no-error-recovery-evidence_replace_the_full_page_post_submission_on_c.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "escalation-resolution-csp",
+    "title": "Add a Content-Security-Policy response header to the Netlify configuration that restricts script execution to same-origin and plausible.io, covering the site's 7 inline scripts via hashes and its single external script dependency.",
+    "file": "escalation-resolution-csp_add_a_content_security_policy_response_header_to_the_n.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [
+      "det-security-headers-https-weknowthewhy-com-about",
+      "js-plausible-only-third-party",
+      "prescan-escalation-csp-confirmed-absent"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-contact",
+    "title": "Correct the heading hierarchy on /contact/ so the document outline reads h1 \u2192 h2 (no skipped levels), eliminating the WCAG 2.1 SC 1.3.1 and 2.4.6 violations. If any corrected heading must visually match the former h3 size, apply a scoped utility class \u2014 never re-introduce a semantic skip to achieve a visual target.",
+    "file": "det-wcag-improper-content-structure-https-weknowthewhy-com-contact_correct_the_h.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "dom-quality-excellent",
+    "title": "Codify the existing DOM discipline as an enforced architectural baseline \u2014 automated CI gates, a reusable Astro layout contract, and a DOM audit utility \u2014 so this clean state is preserved as the site scales rather than eroded by future template additions or third-party script integrations.",
+    "file": "dom-quality-excellent_codify_the_existing_dom_discipline_as_an_enforced_architec.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "escalation-2-og-twitter-meta-unverifiable",
+    "title": "Create an enforced meta tag contract in the Astro base layout that guarantees every page ships with complete Open Graph and Twitter Card tags, using frontmatter values with validated fallback defaults, and failing the build when high-value page types omit required fields.",
+    "file": "escalation-2-og-twitter-meta-unverifiable_create_an_enforced_meta_tag_contract_i.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "escalation-4-blogposting-schema-completeness",
+    "title": "Create a centralized SEO metadata resolution layer in the Astro build pipeline that enforces required BlogPosting JSON-LD properties (especially `image`), provides a fallback chain (frontmatter \u2192 first content image \u2192 site-wide default), and validates at build time. Apply the same resolution logic to Open Graph and Twitter Card meta tags to close the sibling gaps from the same architectural root cause.",
+    "file": "escalation-4-blogposting-schema-completeness_create_a_centralized_seo_metadata_r.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "escalation-6-console-errors-unverifiable",
+    "title": "Replace the 7 unauditable inline scripts on /contact/ with a single, observable Astro component that: (1) captures and surfaces JS runtime errors to the user, (2) preserves form state on failure, (3) implements a serial async submission guard, (4) correctly identifies and hides the Netlify form-name field from the accessibility tree, and (5) fixes the confirmed h1\u2192h3 heading skip and missing programmatic label. Add a Playwright smoke test that simulates submission and asserts no unhandledrejection events fire.",
+    "file": "escalation-6-console-errors-unverifiable_replace_the_7_unauditable_inline_script.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "escalation-review-2-unknown-schema",
+    "title": "Replace the site's unvalidated, prop-threaded JSON-LD generation with a typed schema contract layer: (1) a SchemaOrg.astro component that enforces required properties at render time and throws build-time errors on invalid/incomplete schema, (2) a build-time Zod validation script that runs as an Astro integration and fails the Netlify build if any page ships semantically incomplete JSON-LD, and (3) corrected schema definitions for the three confirmed defect vectors: BreadcrumbList missing item URLs, Organization missing absolute logo URL, and unknown/misspelled @type on the about page.",
+    "file": "escalation-review-2-unknown-schema_replace_the_site_s_unvalidated_prop_threaded.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "js-2-jetbrains-mono-font-loaded-unnecessarily",
+    "title": "Eliminate the JetBrains Mono font download on non-technical pages by (1) auditing and removing the CSS rule(s) that trigger the font request on every page, and (2) relocating the @font-face declaration and any consuming selectors into a scoped Astro component (<CodeBlock> or equivalent) so the font is only bundled into pages that actually render code content.",
+    "file": "js-2-jetbrains-mono-font-loaded-unnecessarily_eliminate_the_jetbrains_mono_font.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "font-face-overload-3-families",
+      "resource-loading-font-strategy-good"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "ghost-1-no-js-injection-pass",
+    "title": "Codify the zero-hydration architectural constraint for this page template as an automated CI assertion, preventing future contributors from accidentally introducing Astro island directives (client:load, client:idle, client:visible, client:only) that would break the static-only contract and reintroduce hydration-gap risk.",
+    "file": "ghost-1-no-js-injection-pass_codify_the_zero_hydration_architectural_constraint.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "ghost-markup-no-duplicate-landmarks",
+    "title": "Close the open audit thread by adding a deterministic, build-time duplicate-ID enumeration script that runs as part of the Astro build pipeline. This converts a probabilistic assumption ('no duplicates detected') into a verified, CI-enforced guarantee \u2014 catching the three residual risk vectors (island key-derived IDs, third-party embed injections caught at SSG time, and author copy-paste errors) before they reach production.",
+    "file": "ghost-markup-no-duplicate-landmarks_close_the_open_audit_thread_by_adding_a_dete.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "ghost-markup-no-orphaned-assets",
+    "title": "Replace the single-session Chrome DevTools CSS Coverage measurement with a multi-template, multi-viewport, interaction-exercising PurgeCSS audit integrated into the Astro build pipeline. The goal is not to fix a CSS problem \u2014 none is confirmed \u2014 but to establish a repeatable, trustworthy measurement baseline that covers all page templates, all viewport breakpoints, and interaction states, and to resolve the 1824KB parsed vs 7KB transfer discrepancy before it is misread as a real payload problem in a future audit.",
+    "file": "ghost-markup-no-orphaned-assets_replace_the_single_session_chrome_devtools_css_c.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "inp-hydration-low-risk",
+    "title": "Implement Inline Intent Capture on consent banner buttons to eliminate the 50\u2013400ms dead-click window between DOM paint and event handler binding, and prevent silent consent-state loss that creates GDPR/CCPA regulatory exposure.",
+    "file": "inp-hydration-low-risk_implement_inline_intent_capture_on_consent_banner_buttons.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "inp-interaction-excellent",
+    "title": "Codify the architectural constraints that produce 24ms INP as enforced Astro conventions \u2014 preventing future contributors from inadvertently introducing the failure modes this page currently avoids. No corrective action is required; the objective is to make the current performance posture durable.",
+    "file": "inp-interaction-excellent_codify_the_architectural_constraints_that_produce_24ms.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "inp-no-forms-no-serial-queue-concern",
+    "title": "Document the audit exemption formally and verify that the Atomic Intent Protocol audit has been independently applied to /contact/ and all other mutation-endpoint pages. No code change is required on this page. The only actionable work is pipeline hygiene and an optional UX investigation into whether the navigational link pattern is the optimal conversion path for this page's funnel role.",
+    "file": "inp-no-forms-no-serial-queue-concern_document_the_audit_exemption_formally_and_v.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "mobile-privacy-policy-link-critically-undersized",
+    "title": "Augment the privacy policy link inside the consent banner to meet the WCAG 2.5.8 minimum 48\u00d748 CSS pixel touch target, scoped exclusively to the consent banner component so no other anchor elements on the site are affected.",
+    "file": "mobile-privacy-policy-link-critically-undersized_augment_the_privacy_policy_link.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "privacy-consent-touch-target-compounded-gdpr-risk"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "prescan-escalation-internal-links",
+    "title": "Add a build-time broken link checker to the Astro/Netlify CI pipeline that verifies all 14 internal hrefs resolve to real generated routes before deployment completes. The checker runs as a post-build step, fails the Netlify build on any broken link, and produces a structured report. No runtime code is added to the site.",
+    "file": "prescan-escalation-internal-links_add_a_build_time_broken_link_checker_to_the_as.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [
+      "prescan-escalation-skip-link-truncation"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "resource-1-lcp-unverified",
+    "title": "Instrument the text-primary LCP candidate with a PerformanceObserver that captures the real LCP timestamp client-side and reports it to CrUX-compatible field data, eliminating the lab tooling measurement gap. No rendering changes are needed \u2014 the underlying font strategy is correct. The fix is purely observability: surface the sub-300ms LCP that is already happening so it can be monitored, verified against CrUX field data, and defended in audits.",
+    "file": "resource-1-lcp-unverified_instrument_the_text_primary_lcp_candidate_with_a_perfo.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "resource-3-no-srcset-on-images",
+    "title": "Replace static <img src> tags in the team headshot template with a responsive <picture> component that emits srcset/sizes for DPR negotiation and serves correctly-dimensioned WebP variants via Astro's built-in Image component or a hand-authored <picture> element backed by Netlify Image CDN transforms.",
+    "file": "resource-3-no-srcset-on-images_replace_static_img_src_tags_in_the_team_headshot.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "ux-content-02"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "resource-loading-css-coverage-measurement-artifact",
+    "title": "Replace the current CSS coverage measurement approach with a deterministic, multi-signal audit pipeline that (1) separates CSS bytes from font bytes at the resource classification layer, (2) gates coverage snapshot timing to post-DOMContentLoaded + post-JS-style-injection, and (3) cross-validates coverage output against three independent signals before accepting a result. The goal is not to 'fix' the CSS itself \u2014 the actual stylesheet may be fine \u2014 but to produce a trustworthy measurement so that real unused CSS waste can be detected, quantified, and acted on. Until the measurement is reliable, every CSS-related passing finding on every page is unverifiable.",
+    "file": "resource-loading-css-coverage-measurement-artifact_replace_the_current_css_cover.md",
+    "confidence_tier": "reviewer_identified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "server-4-cache-control-revalidate-every-request",
+    "title": "Create a Netlify `_headers` file in Astro's `public/` directory that applies immutable caching to content-hashed assets under `/_astro/*` and long-lived caching to self-hosted font files, overriding Netlify's default `max-age=0, must-revalidate` on every static resource.",
+    "file": "server-4-cache-control-revalidate-every-request_create_a_netlify_headers_file_in.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "resource-loading-css-parse-budget-disproportionate",
+      "server-transport-cdn-cache-status-missing",
+      "server-transport-no-brotli"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "revenue-no-service-page-link-in-article",
+    "title": "Establish a two-layer internal linking system: (1) a hand-authored contextual CTA block embedded in the audit-failures article body at the point of maximum persuasion, and (2) a reusable Astro component with a content-map config that enforces topic-to-service-page linking for all current and future articles \u2014 preventing the authoring gap from recurring without relying on author discipline.",
+    "file": "revenue-no-service-page-link-in-article_establish_a_two_layer_internal_linking_s.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [
+      "trust-signals-absent-at-conversion-points"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "revenue-no-social-proof-above-fold",
+    "title": "Distribute trust signals (testimonials, client logos, quantitative proof points) inline at decision-making moments across Homepage, About, Service, and Article page templates \u2014 replacing the siloed /proof/ page model with a persuasion layer woven into the conversion path. The /proof/ page is retained but becomes a destination linked from inline trust modules, not the sole container of social proof.",
+    "file": "revenue-no-social-proof-above-fold_distribute_trust_signals_testimonials_client.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "server-7-dns-prefetch-preconnect-minimal-external",
+    "title": "Add dns-prefetch and preconnect hints for plausible.io in the Astro layout component's <head>. This is a byproduct fix \u2014 implement it in the same pass as the _headers/netlify.toml cluster fix to avoid a standalone deployment cycle for a sub-minute change.",
+    "file": "server-7-dns-prefetch-preconnect-minimal-external_add_dns_prefetch_and_preconnec.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "server-transport-no-redirect-chains-pass",
+    "title": "Validate that the PASS reflects full production coverage, not a partial crawl. Instrument a Playwright-based network audit that captures all requests (first-party and third-party) on the live production page, then wire the results into CI so mixed content or redirect chain regressions are caught before deploy \u2014 not after.",
+    "file": "server-transport-no-redirect-chains-pass_validate_that_the_pass_reflects_full_pr.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "stability-2-content-visibility-not-needed",
+    "title": "No implementation action required. Establish a DOM-complexity threshold in the codebase so future page templates are evaluated for content-visibility: auto eligibility before shipping, rather than retroactively.",
+    "file": "stability-2-content-visibility-not-needed_no_implementation_action_required_esta.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "structured-data-privacy-policy-webpage-schema",
+    "title": "Inject a JSON-LD structured data block on the privacy policy page template that declares the page as a schema.org WebPage with @type WebPage (subtyped as a legal/policy document via additionalType), and populates the dateModified, datePublished, name, url, description, and inLanguage properties. This gives search engines a machine-readable signal of policy currency and page purpose, converting a generic content page into a verifiable legal document in the knowledge graph.",
+    "file": "structured-data-privacy-policy-webpage-schema_inject_a_json_ld_structured_data_b.md",
+    "confidence_tier": "reviewer_identified",
+    "also_satisfies": [
+      "ux-mobile-2"
+    ],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "ux-interactive-no-dead-zones-detected",
+    "title": "Establish a regression guard that continuously validates mobile interaction integrity for conditionally-rendered components (authenticated views, A/B variants, geo-targeted content, post-scroll injections) that were outside the crawl snapshot scope. The current pass is bounded by static DOM state; this guard closes the audit gap without modifying any passing behavior.",
+    "file": "ux-interactive-no-dead-zones-detected_establish_a_regression_guard_that_continuo.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "ux-mobile-consent-banner-viewport-impact",
+    "title": "Replace the hand-rolled consent banner with a fully accessible, mobile-first Astro component that: (1) fixes the invisible accept button (1.00:1 contrast), (2) enforces 48\u00d748px minimum touch targets on all interactive elements including the privacy policy link, (3) caps banner height to \u226440vh on viewports <768px via a compact single-row layout, (4) prevents scroll-lock on mobile so page content remains reachable, (5) captures pre-hydration intent via inline onclick to eliminate dead-button window, and (6) re-triggers correctly from the footer mystery button via a named CustomEvent.",
+    "file": "ux-mobile-consent-banner-viewport-impact_replace_the_hand_rolled_consent_banner.md",
+    "confidence_tier": "unverified",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "ux-revenue-no-pricing-signals",
+    "title": "Add engagement model and pricing signal components to the homepage, primary service pages, and About page. These components do not require publishing actual prices \u2014 they communicate engagement structure (retainer vs. project vs. advisory), typical scope indicators (team size, duration, deliverable type), and a qualification anchor (e.g., 'Engagements typically begin at X' or 'We work with teams of Y\u2013Z'). The goal is to move the contact form from a discovery mechanism to a conversion mechanism by giving budget-qualified visitors enough signal to self-qualify before submitting.",
+    "file": "ux-revenue-no-pricing-signals_add_engagement_model_and_pricing_signal_components.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  },
+  {
+    "id": "visual-stability-cls-zero-pass",
+    "title": "Preserve the architectural conditions producing CLS 0.000 on this text-only template, and extend equivalent CLS discipline to page types that do not inherit these conditions (product pages, listing grids, hero image pages, JS-injected banner/consent overlay pages).",
+    "file": "visual-stability-cls-zero-pass_preserve_the_architectural_conditions_producing_c.md",
+    "confidence_tier": "confirmed",
+    "also_satisfies": [],
+    "remediation_surface": "source_code"
+  }
+]

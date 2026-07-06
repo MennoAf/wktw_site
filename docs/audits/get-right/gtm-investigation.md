@@ -1,6 +1,6 @@
-# GTM Investigation — for Brandon
+# GTM / Analytics Investigation — Console-Side Checklist
 
-**Owner:** Brandon (manages the GTM container)
+**Owner:** analytics lead (whoever manages the GTM container)
 **Container:** `GTM-5VQTG6TH`
 **Raised:** 2026-06-25
 **Source:** Get Right audit — worklog item [WL-22](./worklog.md#f--gtm-ui--analytics--not-repo-work-verify-in-console)
@@ -11,7 +11,7 @@ The audit raised ~10 tickets about "redundant / dual-beacon analytics" — all o
 **standalone `gtag.js`** in the page HTML. We grepped the site source: **there is none.** The
 repo only contains the Consent Mode v2 helper, one GTM loader, and Plausible. So if a duplicate
 GA4 beacon is real, it is **configured inside the GTM container** — the Google console, which
-only you can see. None of this is fixable in the codebase, so it's broken out here for you.
+only the container's admin can see. None of this is fixable in the codebase, so it's broken out here.
 
 ## What the audit observed (live, in production)
 
@@ -46,11 +46,11 @@ couldn't see inside the container.
       then create the matching GA4 Event tag + trigger in GTM. Tell us the event contract and
       we'll wire the dataLayer push.
 
-## Decisions for Brandon
+## Decisions (console-side)
 
 - [ ] **Keep GA4/GTM, or drop it?** Several audit tickets ask whether GTM is even justified given
       zero ad pixels. Plausible is our primary, always-on, cookieless analytics. If GA4 isn't
-      earning its keep, the simplest fix is to remove GTM entirely and go Plausible-only. Your call.
+      earning its keep, the simplest fix is to remove GTM entirely and go Plausible-only. Open question.
 - [ ] If we keep GTM, it must stay **consent-gated** (it's the only thing on the site that needs a
       consent banner now — Plausible is GDPR-compliant and stays on; fonts are being self-hosted).
 
@@ -63,8 +63,8 @@ couldn't see inside the container.
   `js-unused-bytes-low-but-present`, `resource-loading-dual-analytics-redundancy`, `escalation-1` (gtag part).
 - **WL-23** (split code/console): `ux-analytics-form-submit-untracked`, `analytics-cta-conversion-tracking-gap`.
 
-## Findings log (Brandon to fill in)
+## Findings log (console review)
 
-<!-- Record what you actually found in the console, and what you changed. -->
+<!-- Record what the console review found, and what changed. -->
 
-- 2026-06-25 — Investigation doc created, awaiting Brandon's console review.
+- 2026-06-25 — Investigation doc created, awaiting console review.

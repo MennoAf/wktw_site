@@ -1,4 +1,4 @@
-# Feedback for Muttr — Audit Tooling Defects
+# Hardening Muttr — What Our Own Audit Surfaced, and How We Fixed It
 
 **Re:** `Muttr-we-know-the-why-20260624-0dc08e79`
 **Filed:** 2026-06-25
@@ -6,7 +6,7 @@
 
 > This is part of the public record. We run Muttr on our own site, find where the tool's
 > output falls short, and fix it in the open — the same standard we hold client work to.
-> Each item below is a defect in the **audit tool**, not the site. They are written in the
+> Each item below is an improvement to the **audit tool**, not the site — a place the output fell short and how we closed it. They are written in the
 > same shape as Muttr's own tickets (lighter), and each carries a **Verify** section the
 > Muttr agent completes when the fix ships. Evidence is grounded in the actual repo
 > (`weknowthewhy.com`, Astro static + Tailwind v4 + Svelte).
@@ -71,7 +71,7 @@
 
 **Observed:** `tickets/unknown_untitled.md` ships with `finding_id: ""`, `title: "Untitled Finding"`, `severity: unknown`, empty Fix, empty Code, and `[None]` in the index. It is a null record that reached the deliverable.
 
-**Why it matters:** An empty ticket in a paid/public deliverable reads as a pipeline failure. It also corrupts the count (it's one of the "80 findings").
+**Why it matters:** An empty ticket in a paid/public deliverable reads as an incomplete pipeline pass. It also corrupts the count (it's one of the "80 findings").
 
 **Fix:** Validate every ticket before write — drop or quarantine any finding missing `finding_id`, `title`, or `fix_summary`. Never emit `Untitled Finding`.
 
@@ -155,14 +155,14 @@
 
 ---
 
-## MUTTR-05 — Mismeasured / hallucinated artifacts
+## MUTTR-05 — Mismeasured artifacts (ungrounded payload figures)
 
 **Severity:** high · **Category:** Measurement grounding
 **Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-07-01**
 
 **Observed:** `resource-loading-js-unused-absolute-bytes-static-page` and `js-unused-bytes-low-but-present` assert a **2.56MB application bundle with ~475KB unused JS**, citing "cart, product configurators, checkout, filter/sort systems." This static Astro site has **no e-commerce** and ships **one 28KB Svelte chunk** total (`dist/_astro/client.svelte.*.js`). The numbers and the named features are imported from a generic template, not measured here.
 
-**Why it matters:** A fabricated 2.5MB bundle and invented "checkout" features are the kind of error that discredits an otherwise solid audit at a glance.
+**Why it matters:** An ungrounded 2.5MB bundle figure and template-inherited "checkout" features are the kind of error that undercuts an otherwise solid audit at a glance.
 
 **Fix:** Ground every payload/byte claim in the run's own measured transfer. Never inherit feature assumptions (cart/checkout) from a template the target doesn't exhibit. If a metric can't be measured, mark it `unmeasured`, don't synthesize one.
 
@@ -230,7 +230,7 @@
 - `ux-mobile-hamburger-discoverability` (aria part) — button already has `aria-label` + `aria-expanded`.
 - `privacy-cookies-…-dark-pattern` — privacy link already in banner body; Accept/Decline already use primary/ghost hierarchy.
 
-**Why it matters:** Telling a client to "install a sitemap" they already have, or "add an aria-label" already present, erodes credibility and wastes the fix budget.
+**Why it matters:** Telling a client to "install a sitemap" they already have, or "add an aria-label" already present, costs reviewer trust and wastes the fix budget.
 
 **Fix:** Re-check current page source/state for each finding immediately before emission; suppress or downgrade to "already addressed — verify" when the remediation is present.
 
@@ -371,7 +371,7 @@ card; a no-repo reviewer needs the full narrative. Today only the second is serv
 
 **The idea:** When a client *does* have repo access, the single highest-value step is grounding each
 finding against source before acting — the step that caught, on this audit alone: a phantom standalone
-`gtag.js` (~10 tickets pointed at code that doesn't exist), a fabricated 2.5MB JS bundle, an
+`gtag.js` (~10 tickets pointed at code that doesn't exist), an ungrounded 2.5MB JS bundle, an
 already-installed sitemap flagged as missing, and a 1:1 contrast "failure" that was a detector
 artifact. Today that step is **tacit** — the executor has to invent the greps. Muttr should ship it as
 an explicit, **platform-aware "Repo-Grounding Guide"**: an optional output that tells a repo-holding
@@ -415,13 +415,13 @@ platform's grounding idioms.
 
 ## Summary
 
-| ID | Defect | Severity |
+| ID | Item | Severity |
 | --- | --- | --- |
 | MUTTR-01 | Duplicate tickets within a cluster | high |
 | MUTTR-02 | Empty/malformed ticket emitted | high |
 | MUTTR-03 | Wrong tech-stack assumed in fix code | high |
 | MUTTR-04 | Findings auditing the wrong layer | high |
-| MUTTR-05 | Mismeasured / hallucinated artifacts | high |
+| MUTTR-05 | Mismeasured artifacts (ungrounded payload figures) | high |
 | MUTTR-06 | "Confirmed" tier includes unverified | medium |
 | MUTTR-07 | Stale findings reported as open | medium |
 | MUTTR-08 | Passing checks framed as findings | low |
