@@ -1,0 +1,589 @@
+{
+  "pages": [
+    {
+      "url": "https://weknowthewhy.com",
+      "issue_count": 6,
+      "issues": [
+        {
+          "id": "conv-contact-cta-path-missing",
+          "title": "Add a primary above-the-fold CTA on the homepage that creates a direct, frictionless conversion path to the contact form. This is a template-level architectural fix: the homepage must actively route users toward the client's stated primary KPI (contact_form submission) rather than passively existing as a brand landing page. Three coordinated changes are required: (1) a hero-section CTA button linking to the contact page or a contact anchor, (2) a persistent 'Contact' link in the sticky navigation, and (3) an inline contextual prompt in the value proposition section. All three must be implemented together \u2014 any single element in isolation is insufficient because users scan pages non-linearly and may enter the viewport at different scroll depths.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "analytics-plausible-single-point-failure-conversion-blindspot",
+          "title": "Eliminate the single-point-of-failure analytics architecture by: (1) deploying Plausible via a first-party proxy endpoint to survive ad-blocker interception, (2) completing the abandoned dataLayer instrumentation with a proper GTM pageview trigger and contact_form conversion event, and (3) adding a server-side form submission signal via a lightweight measurement endpoint so that contact_form conversions are recorded even when all client-side scripts are blocked. The objective is a three-layer redundant measurement stack: proxied client-side Plausible, GTM-managed dataLayer events, and a server-side conversion ping \u2014 ensuring the conversion rate numerator and denominator are captured from the same audience segment, including privacy-tool users.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "h1 > span:nth-of-type(1)",
+            "div > a:nth-of-type(1)",
+            "div > div:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-missing-name-role-value-https-weknowthewhy-com-contact",
+          "title": "Missing name/role/value [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > svg:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "a11y-compound-contrast-color-indicator-failure",
+          "title": "Resolve a compound WCAG failure on inline link elements that simultaneously violates 1.4.3 (insufficient contrast ratio) and 1.4.1 (color as sole distinguishing indicator). Both criteria must be fixed together in a single design system change \u2014 fixing only one leaves the compound failure partially intact and may create a false sense of compliance. The fix must: (1) increase link foreground color luminance to achieve \u22654.5:1 contrast against the page background, (2) add a non-color visual indicator (text-decoration: underline is the lowest-effort, highest-compatibility option) to distinguish links from surrounding body text, and (3) ensure hover/focus states independently satisfy both criteria. Because the link style is defined globally in the site's base CSS or Astro layout component, a single targeted change propagates the fix to every inline link across every page.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/about",
+      "issue_count": 4,
+      "issues": [
+        {
+          "id": "a11y-icon-links-empty-accessible-name-svg",
+          "title": "Add accessible names to all 9 icon-only links and simultaneously resolve the overlapping touch target failures. Each link currently computes an empty accessible name because its only content is an inline SVG (no <title>), an icon font glyph (<i> or <span> with a Unicode character), or a background-image icon with no child text \u2014 all of which contribute zero text to the browser's accessible name computation. The fix has three structural variants depending on element type, plus a mandatory touch target remediation that must be applied in the same pass. The footer button missing an aria-label (a11y-footer-button-missing-aria-label) shares the same root cause and must be fixed in the same template edit.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "mob-touch-001",
+          "title": "Expand all 16 undersized touch targets on the About page to meet WCAG 2.5.8's 48\u00d748 CSS pixel minimum, prioritized by conversion path position: (1) primary contact/inquiry CTA, (2) primary mobile navigation links, (3) team member social icon links, (4) cookie consent banner action buttons. The fix must expand tap areas without altering visual design \u2014 using CSS padding and ::after pseudo-element overlays \u2014 and must propagate to every instance of the team grid and mobile navigation components, not just the About page.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "li > span:nth-of-type(1)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/contact",
+      "issue_count": 4,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "li > span:nth-of-type(1)",
+            "form > button:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "det-wcag-missing-name-role-value-https-weknowthewhy-com-contact",
+          "title": "Missing name/role/value [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "form > input:nth-of-type(1)",
+            "#message"
+          ]
+        },
+        {
+          "id": "det-wcag-improper-content-structure-https-weknowthewhy-com-contact",
+          "title": "Improper content structure [WCAG]",
+          "severity": "low",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/insights/why-most-audits-dont-change-anything",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "conv-ux-001",
+          "title": "Add a conversion scaffold to the article template: an end-of-article inline contact form, a sticky sidebar/bottom-bar CTA, and a structured 'next step' prompt \u2014 all rendered server-side in the template layout so every article page inherits the conversion pathway without per-article editorial effort. The fix is a template-level structural change, not a content change.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "li > span:nth-of-type(1)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/legal/privacy",
+      "issue_count": 5,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "structured-data-privacy-policy-webpage-schema",
+          "title": "Inject a JSON-LD structured data block on the privacy policy page template that declares the page as a schema.org WebPage with @type WebPage (subtyped as a legal/policy document via additionalType), and populates the dateModified, datePublished, name, url, description, and inLanguage properties. This gives search engines a machine-readable signal of policy currency and page purpose, converting a generic content page into a verifiable legal document in the knowledge graph.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "li > span:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "privacy-consent-touch-target-compounded-gdpr-risk",
+          "title": "Remediate the two-layer consent manipulation pathway on the consent banner by simultaneously: (1) enforcing WCAG 2.5.8-compliant minimum 48\u00d748 CSS pixel touch targets with adequate spacing on all three consent action buttons (Accept, Decline, Manage Preferences), and (2) equalising the visual weight and interactive affordance of Decline and Manage Preferences relative to Accept \u2014 so that neither physical interaction imprecision nor visual hierarchy suppression can independently or jointly produce accidental or coerced consent. The fix must be verified on mobile viewports (320px\u2013428px) where the banner renders in its most constrained layout, and must not regress the existing dark-pattern remediation already in progress under finding privacy-cookies-consent-banner-dark-pattern.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "resource-loading-css-coverage-measurement-artifact",
+          "title": "Replace the current CSS coverage measurement approach with a deterministic, multi-signal audit pipeline that (1) separates CSS bytes from font bytes at the resource classification layer, (2) gates coverage snapshot timing to post-DOMContentLoaded + post-JS-style-injection, and (3) cross-validates coverage output against three independent signals before accepting a result. The goal is not to 'fix' the CSS itself \u2014 the actual stylesheet may be fine \u2014 but to produce a trustworthy measurement so that real unused CSS waste can be detected, quantified, and acted on. Until the measurement is reliable, every CSS-related passing finding on every page is unverifiable.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/legal/terms",
+      "issue_count": 2,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "li > span:nth-of-type(1)"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/proof/our-site",
+      "issue_count": 3,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "conv-ux-001-touch-target-form-suppression",
+          "title": "Enforce a minimum 48\u00d748 CSS pixel interactive surface on all touch targets across the contact page template \u2014 including CTA buttons, icon-only links (phone, email, social), form field labels, and inline anchor links \u2014 without altering their visual footprint. The fix uses a layered strategy: (1) a scoped CSS utility class that expands the tap surface via min-height/min-width and padding floors, (2) a ::before pseudo-element tap-target expander for icon-only controls where visual resizing is unacceptable, (3) a form-field association audit to ensure labels are block-level and correctly linked, and (4) a platform-level audit of the global button/link component to prevent recurrence on other pages. All changes must be WCAG 2.5.8 compliant, visually non-destructive, and backwards-compatible to iOS Safari 14 / Android Chrome 88.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "li > span:nth-of-type(1)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/the-get-right/content",
+      "issue_count": 4,
+      "issues": [
+        {
+          "id": "no-click-to-call-mobile-contact-friction",
+          "title": "Add a persistent, accessible tel: link contact affordance to the base template so that mobile users have a frictionless, single-tap path to initiate a call. This is a template-level fix that propagates to every page inheriting the base layout. The implementation has three layers: (1) a tel: link in the primary navigation/header for all viewports, (2) a mobile-only sticky call-to-action bar that persists as the user scrolls, and (3) a structured data telephone property on the Organization schema so search engines surface the number in rich results and Google's mobile SERP call button. All three layers are complementary \u2014 the header link serves desktop and mobile users who are already engaged, the sticky bar captures high-intent mobile users mid-scroll who have not yet committed to contacting, and the schema layer captures users who have not yet landed on the site.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        },
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "li > span:nth-of-type(1)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        },
+        {
+          "id": "resource-loading-css-parse-budget-disproportionate",
+          "title": "Reduce the browser's CSS parse budget from 1.53MB uncompressed to a target of 20\u201360KB per route by identifying the stylesheet's origin (Tailwind, Bootstrap, or CMS bundle), enabling unused-rule elimination at build time, and \u2014 where the build pipeline permits \u2014 splitting critical-path CSS from deferred CSS. The goal is to eliminate 200\u2013600ms of render-blocking CSSOM construction on low-end Android devices without altering any visual output.",
+          "severity": "medium",
+          "category": null,
+          "compliance_domains": [],
+          "elements": []
+        }
+      ]
+    },
+    {
+      "url": "https://weknowthewhy.com/the-get-right/platform",
+      "issue_count": 2,
+      "issues": [
+        {
+          "id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+          "title": "Color as sole indicator [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "li > a:nth-of-type(1)"
+          ]
+        },
+        {
+          "id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+          "title": "Insufficient contrast ratio [WCAG]",
+          "severity": "medium",
+          "category": "accessibility",
+          "compliance_domains": [
+            "wcag"
+          ],
+          "elements": [
+            "div > a:nth-of-type(6)",
+            "li > span:nth-of-type(1)",
+            "div > a:nth-of-type(1)",
+            "#consent-accept"
+          ]
+        }
+      ]
+    }
+  ],
+  "site_wide": [
+    {
+      "id": "analytics-no-ga4-no-conversion-tracking",
+      "title": "No GA4 or equivalent full-featured analytics \u2014 conversion tracking and enhanced measurement absent",
+      "severity": "critical",
+      "category": "analytics_tracking",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "ux-analytics-client-side-only-data-loss",
+      "title": "All tracking is client-side only \u2014 ad blocker and ITP data loss unmitigated, no server-side fallback",
+      "severity": "medium",
+      "category": "analytics_tracking",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "privacy-consent-banner-absent",
+      "title": "Consent banner not rendered despite consent infrastructure present in DOM",
+      "severity": "medium",
+      "category": "privacy_cookies",
+      "compliance_domains": [
+        "gdpr",
+        "ccpa"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "consent-banner-not-rendering",
+      "title": "Consent banner present but analytics not integrated with consent state \u2014 users cannot grant meaningful consent",
+      "severity": "medium",
+      "category": "analytics_tracking",
+      "compliance_domains": [
+        "gdpr",
+        "ccpa"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "prescan-escalation-console-errors",
+      "title": "JS runtime console errors unverifiable without live browser execution logs",
+      "severity": "medium",
+      "category": "dom_quality",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "escalation-6-console-errors-unverifiable",
+      "title": "JS runtime errors cannot be verified \u2014 form submission integrity at risk",
+      "severity": "medium",
+      "category": "resource_loading",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "det-security-headers-https-weknowthewhy-com-about",
+      "title": "Missing recommended security headers",
+      "severity": "medium",
+      "category": "security_headers",
+      "compliance_domains": [
+        "gdpr"
+      ],
+      "pages_affected": [
+        "https://weknowthewhy.com/about",
+        "https://weknowthewhy.com/contact",
+        "https://weknowthewhy.com",
+        "https://weknowthewhy.com/insights/why-most-audits-dont-change-anything",
+        "https://weknowthewhy.com/legal/privacy",
+        "https://weknowthewhy.com/legal/terms",
+        "https://weknowthewhy.com/proof/our-site",
+        "https://weknowthewhy.com/the-get-right/content",
+        "https://weknowthewhy.com/the-get-right/platform"
+      ]
+    },
+    {
+      "id": "privacy-2-pre-consent-plausible-fires",
+      "title": "Plausible analytics script loads before consent interaction \u2014 potential pre-consent tracking",
+      "severity": "medium",
+      "category": "privacy_cookies",
+      "compliance_domains": [
+        "gdpr"
+      ],
+      "pages_affected": []
+    },
+    {
+      "id": "backwards-compat-astro-static-pass",
+      "title": "Astro static HTML with minimal JS \u2014 strong backwards compatibility posture",
+      "severity": "low",
+      "category": "backwards_compatibility",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "js-minimal-payload-pass",
+      "title": "JavaScript payload minimal \u2014 29KB total, single async external script \u2014 PASS",
+      "severity": "low",
+      "category": "javascript_third_party",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "font-face-overload-3-families",
+      "title": "JetBrains Mono font loaded unnecessarily on non-technical pages \u2014 unused weight",
+      "severity": "low",
+      "category": "mobile_ux",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "privacy-1-no-pre-consent-cookies",
+      "title": "No Cookie Consent Mechanism Detected \u2014 But No Pre-Consent Tracking Either",
+      "severity": "low",
+      "category": "privacy_cookies",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "ghost-markup-no-orphaned-assets",
+      "title": "No orphaned CSS detected \u2014 100% CSS coverage, no unused stylesheets",
+      "severity": "low",
+      "category": "cms_ghost_markup",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "resource-6-css-not-render-blocking-concern",
+      "title": "Single 7KB stylesheet \u2014 no render-blocking or critical CSS concerns",
+      "severity": "low",
+      "category": "resource_loading",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "js-plausible-only-third-party",
+      "title": "Single third-party script (Plausible Analytics) \u2014 minimal third-party footprint",
+      "severity": "low",
+      "category": "javascript_third_party",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "ghost-1-no-js-injection-pass",
+      "title": "Zero JS-injected DOM elements \u2014 raw and rendered DOM identical \u2014 PASS",
+      "severity": "low",
+      "category": "dom_quality",
+      "compliance_domains": [],
+      "pages_affected": []
+    },
+    {
+      "id": "content-to-code-ratio-css-heavy",
+      "title": "[SUBJECTIVE] CSS Payload Dominates Transfer \u2014 106KB CSS vs ~3KB Content",
+      "severity": "low",
+      "category": "content_quality",
+      "compliance_domains": [],
+      "pages_affected": []
+    }
+  ],
+  "page_count": 9,
+  "site_wide_count": 17
+}

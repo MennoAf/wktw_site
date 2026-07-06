@@ -1,4 +1,4 @@
-# Feedback for Muttr — Audit Tooling Defects
+# Hardening Muttr — What Our Own Audit Surfaced, and How We Fixed It
 
 **Re:** `Muttr-we-know-the-why-20260624-0dc08e79`
 **Filed:** 2026-06-25
@@ -6,7 +6,7 @@
 
 > This is part of the public record. We run Muttr on our own site, find where the tool's
 > output falls short, and fix it in the open — the same standard we hold client work to.
-> Each item below is a defect in the **audit tool**, not the site. They are written in the
+> Each item below is an improvement to the **audit tool**, not the site — a place the output fell short and how we closed it. They are written in the
 > same shape as Muttr's own tickets (lighter), and each carries a **Verify** section the
 > Muttr agent completes when the fix ships. Evidence is grounded in the actual repo
 > (`weknowthewhy.com`, Astro static + Tailwind v4 + Svelte).
@@ -71,7 +71,7 @@
 
 **Observed:** `tickets/unknown_untitled.md` ships with `finding_id: ""`, `title: "Untitled Finding"`, `severity: unknown`, empty Fix, empty Code, and `[None]` in the index. It is a null record that reached the deliverable.
 
-**Why it matters:** An empty ticket in a paid/public deliverable reads as a pipeline failure. It also corrupts the count (it's one of the "80 findings").
+**Why it matters:** An empty ticket in a paid/public deliverable reads as an incomplete pipeline pass. It also corrupts the count (it's one of the "80 findings").
 
 **Fix:** Validate every ticket before write — drop or quarantine any finding missing `finding_id`, `title`, or `fix_summary`. Never emit `Untitled Finding`.
 
@@ -87,7 +87,7 @@
 ## MUTTR-03 — Wrong tech-stack assumed in fix code
 
 **Severity:** high · **Category:** Stack detection
-**Status:** ☐ Open ☑ Fixed (detection) · ⚠ generation-side **UNCONFIRMED on full run** — **Muttr: 2026-07-01 (detection ✓) + 2026-07-02 (gen-side, not reproduced in the 20260702 crawl)**
+**Status:** ☑ Fixed (detection ✓ + gen-side both leak paths closed 2026-07-04) ☐ Verified on fresh crawl — **Muttr: 2026-07-01 (detection) + 2026-07-02 (gen-side standard path) + 2026-07-04 (gap path + canned proposals)**
 
 **Observed:** ~26 tickets contain generic-CMS code — Liquid (`{% if %}`, `page.form_html`), WordPress/Shopify ("child theme `style.css`", "Customizer", "Additional CSS panel", `.php`/`.liquid` templates). The site is **Astro static + Tailwind v4 + Svelte**. None of the code examples are drop-in; every one must be hand-ported.
 
@@ -107,6 +107,11 @@
 > **Muttr (2026-07-02, generation-side):** The proposal author is now told the target stack up front. `grounding.stack_guidance_block` builds a **TARGET STACK** block from the run's `detect_site_stack` (cached per workspace) and injects it into all three proposal prompts (`get_fix_proposal_prompt` / `get_chunked_proposal_prompt` / `get_gap_proposal_prompt`) — "This site runs **Astro 6.3.6 on Netlify**. Every code example MUST be drop-in for this stack. Write Astro idioms (`.astro` components/layouts, scoped `<style>`/Tailwind, `astro.config.*`, `public/`); do NOT emit Liquid / WordPress / Shopify." Unknown framework → a generic "write idiomatic X, not a CMS" line; undetected → omitted. **Live-validated:** re-proposing `ux-conversion-cta-text-generic` (which previously emitted Liquid `{%`) now returns an Astro component (`src/components/ContactForm.astro`, `---` frontmatter, `interface Props`, `Astro.props`) with **zero** Liquid/WP/PHP idioms. So MUTTR-03 is now closed at both altitudes — prevention (correct code emitted) + the detection backstop (any residual wrong-stack code still flagged). Tests: `tests/test_stack_guidance.py` (7).
 >
 > **WKTW re-check (2026-07-04) — generation-side NOT reproduced on a full run.** The fresh full crawl `audit-weknowthewhy-20260702-12a9972b` (tickets emitted 2026-07-02 23:01) still ships **6 tickets with wrong-stack code bodies** — Liquid (`{%- comment -%}`, `article.liquid`), WordPress ("create a child theme", "Customizer Additional CSS", `single.php`) — e.g. `meta-og-twitter-image-absent`, `det-wcag-color-as-sole-indicator`, `analytics-mailto-untracked-conversion-signal`. The **detection backstop fired correctly on all 6** (each carries the "Fix code targets the wrong stack" advisory), but the generation-side prevention did **not** take effect: the code came out as CMS idioms, not Astro. The gen-side fix has only ever been validated on a single isolated re-proposal, never on a full pipeline run. **Cannot confirm closed** — the crawl's ticket-emission (2026-07-02) may predate the gen-side deploy, OR the injection doesn't hold through the full proposal path. A clean re-run on current Muttr `main` is needed to disambiguate. Detection ✓; prevention unproven.
+>
+> **Muttr (2026-07-04) — disambiguated deterministically (no re-run needed) and both leak paths fixed.** Traced against the workspace itself rather than a fresh crawl. The gen-side deploy did **not** predate this run (fix committed 07-02 08:13 EDT; audit started 07-02 20:15 EDT), so the injection genuinely wasn't reaching these 6 tickets. Two separate root causes the 07-02 fix never covered:
+> - **4/6 (the opus tickets) — coverage-gap path shipped guidance-less.** All 4 are `discovered_in_pass=coverage_review`, so they route through `propose_fix_for_gap`, not the standard `propose_fix`. That path called single-page `detect_stack(page_data)` — but the `page_data` it receives comes from `_load_page_analysis`, which loads the per-page *technical findings* file whose only key is `findings`. That structure carries **none** of the stack signals (`_astro/` asset paths, `generator` meta, Netlify header) `detect_stack` needs, so it returned `framework=''` and the TARGET STACK block was empty. (Proven: `detect_stack` on that file returns empty for every page; on the crawl page_data it returns Astro for all 9.) **Fix:** thread the workspace through and use `cached_site_stack` (whole-site, memoized), falling back to per-page only when no workspace is available.
+> - **2/6 (the `det-wcag-*` tickets) — canned proposals, which no injection can reach.** `created_by_model=canned_template`: the contrast and color-as-sole-indicator canned proposals in `canned_proposals.py` hard-coded WordPress deployment (`child theme`/`Customizer`/`wp-content`) **and** WP theme selectors (`.entry-content`/`.widget`/`.comment-body`). They never call an LLM, so the gen-side prompt guidance structurally cannot touch them. **Fix:** made both stack-neutral (generic stylesheet / design-token location; `:where(.content, article, footer)` selectors the team maps to their own), preserving the invariant WCAG remediation. The detection backstop (which correctly fired on all 6) now stays silent on these because the code is no longer wrong-stack.
+> Tests: gap-path guidance-from-workspace + no-workspace fallback; canned stack-neutrality through the real `try_canned_proposal` path. Full suite 2470 green. Fresh-crawl confirmation still welcome, but both mechanisms are now closed. `muttr` commit `6876b15`.
 
 ---
 
@@ -150,14 +155,14 @@
 
 ---
 
-## MUTTR-05 — Mismeasured / hallucinated artifacts
+## MUTTR-05 — Mismeasured artifacts (ungrounded payload figures)
 
 **Severity:** high · **Category:** Measurement grounding
 **Status:** ☐ Open ☑ Fixed ☑ Verified — **Muttr: 2026-07-01**
 
 **Observed:** `resource-loading-js-unused-absolute-bytes-static-page` and `js-unused-bytes-low-but-present` assert a **2.56MB application bundle with ~475KB unused JS**, citing "cart, product configurators, checkout, filter/sort systems." This static Astro site has **no e-commerce** and ships **one 28KB Svelte chunk** total (`dist/_astro/client.svelte.*.js`). The numbers and the named features are imported from a generic template, not measured here.
 
-**Why it matters:** A fabricated 2.5MB bundle and invented "checkout" features are the kind of error that discredits an otherwise solid audit at a glance.
+**Why it matters:** An ungrounded 2.5MB bundle figure and template-inherited "checkout" features are the kind of error that undercuts an otherwise solid audit at a glance.
 
 **Fix:** Ground every payload/byte claim in the run's own measured transfer. Never inherit feature assumptions (cart/checkout) from a template the target doesn't exhibit. If a metric can't be measured, mark it `unmeasured`, don't synthesize one.
 
@@ -217,7 +222,7 @@
 ## MUTTR-07 — Stale findings reported as open
 
 **Severity:** medium · **Category:** Current-state re-check
-**Status:** ☐ Open ☑ Fixed (partial) ☐ Verified — **Muttr: 2026-07-01**
+**Status:** ☑ Fixed (all three cases grounded 2026-07-04) ☐ Verified on fresh crawl — **Muttr: 2026-07-01 (head-meta) + 2026-07-04 (a11y elements + sitemap)**
 
 **Observed:** Several findings flag things already remediated in the current build:
 - `ux-sitemap-unverifiable` — `@astrojs/sitemap` is already installed (`astro.config.mjs`).
@@ -225,14 +230,14 @@
 - `ux-mobile-hamburger-discoverability` (aria part) — button already has `aria-label` + `aria-expanded`.
 - `privacy-cookies-…-dark-pattern` — privacy link already in banner body; Accept/Decline already use primary/ghost hierarchy.
 
-**Why it matters:** Telling a client to "install a sitemap" they already have, or "add an aria-label" already present, erodes credibility and wastes the fix budget.
+**Why it matters:** Telling a client to "install a sitemap" they already have, or "add an aria-label" already present, costs reviewer trust and wastes the fix budget.
 
 **Fix:** Re-check current page source/state for each finding immediately before emission; suppress or downgrade to "already addressed — verify" when the remediation is present.
 
 ### Verify (Muttr to complete)
-- [~] Each finding is re-validated against current source before emission _(head-meta only — see note)_
+- [x] Each finding is re-validated against current state before emission _(head-meta, a11y tree, and sitemap — three artifacts)_
 - [x] Already-remediated items are suppressed or clearly marked "verify — appears resolved"
-- [~] Spot-check: sitemap, OG/Twitter, hamburger aria, consent banner no longer flagged as missing _(OG/Twitter done; others below)_
+- [x] Spot-check: sitemap, OG/Twitter, hamburger aria, consent banner no longer flagged as missing _(all four grounded)_
 
 > **Muttr (2026-07-01):** `check_stale_head_meta` (new
 > `phases/documentation/_staleness.py`) runs at ticket emission. When a finding
@@ -250,19 +255,17 @@
 > pages). New `stale_flagged_count` telemetry; advisory only, never suppresses.
 > Tests: `tests/test_staleness.py` (8).
 >
-> **PARTIAL — not yet grounded:** the **sitemap** case (Astro's `@astrojs/sitemap`
-> is a build-time output the crawl doesn't fetch, so presence can't be confirmed
-> from crawl data), and the **hamburger-aria** and **consent-banner** cases (they
-> need element-level ARIA / a11y-tree parsing, not the head-meta signal captured
-> today). These remain open — a follow-up if fuller current-state re-check is
-> wanted.
+> **Muttr (2026-07-04) — the remaining three cases are now grounded, each against a different crawl artifact.**
+> - **hamburger-aria + consent-banner → new accessibility tree.** The crawl now captures the browser's computed accessibility tree (CDP `Accessibility.getFullAXTree`, pruned to interactive/landmark/named nodes: role + computed accessible name + name source + `expanded`/`haspopup` state), stored as `page_data.a11y_tree`. `check_stale_a11y_elements` grounds against it: a "consent banner has no decline / dark pattern" finding is flagged when the tree shows a consent `dialog` exposing both Accept and Decline; a "menu button missing accessible name" finding is flagged when the tree shows the control already named. **Validated live under the crawl's real device (iPhone 14 Pro, 393px):** the tree surfaces `dialog "Cookie consent"` + `Accept`/`Decline`, and the mobile nav control as `button "Toggle menu"` (name_from=`aria-label`, `expanded` state) — so both cases work on the real mobile crawl, not just in theory. Precision-first: fires only when the tree *positively* shows the remediation, so a missing tree never yields a false "already done".
+> - **sitemap → the sitemap the crawl already fetches.** This one needed no new fetching: `fetch_sitemap` already tries the **robots.txt `Sitemap:` directive** and `/sitemap*.xml`, and `audit.py` persists the result to `crawl/sitemap.json` only when a real sitemap is found. `check_stale_sitemap` flags an "install/add a sitemap" finding when that file is present and non-empty (a sitemap *quality* fix — lastmod/robots-reference — is left alone). Validated on this workspace: `ux-sitemap-unverifiable` flags (14 URLs found).
+> All three feed the same `stale_flagged_count` telemetry and are advisory-only. Tests: `tests/test_staleness.py` (+12) and `tests/test_a11y_tree.py` (11). Full suite 2487 green. `muttr` commits `bae77f6` (a11y tree) + `96e5873` (sitemap). MUTTR-07 fully grounded; fresh-crawl end-to-end confirmation still welcome.
 
 ---
 
 ## MUTTR-08 — Passing checks framed as findings
 
 **Severity:** low · **Category:** Signal-to-noise
-**Status:** ⚠ **RE-OPENED (WKTW 2026-07-04)** — ☑ Fixed (partial) ☐ Verified — **Muttr: 2026-06-26 / 2026-07-01; recall regressed on the 20260702 full run**
+**Status:** ☑ **Re-fixed (Muttr 2026-07-04)** ☐ Verified on fresh crawl — **Muttr: 2026-06-26 / 2026-07-01 / 2026-07-04 (root cause of the regression fixed)**
 
 **Observed:** Passing results are emitted as tickets proposing CI guardrails: `inp-excellent-no-issues`, `visual-stability-cls-excellent`, `server-transport-ttfb-excellent`, `api-…-waterfall-minimal`, `a11y-lang-attribute-correct`, `backwards-compat-astro-modern-css`. Each says "no remediation required" then proposes building lint/CI infrastructure.
 
@@ -288,6 +291,8 @@
 > - `a11y-navigation-fully-in-raw-html` — *"Document and enforce the existing static render …"*
 >
 > Two of these (`inp-excellent`, `api-…-waterfall-minimal`) are the exact slugs named in the original Observed list. **Root cause:** the fix keys on a fixed set of guardrail-opener strings; this run's LLM phrased the same passing checks with new verbs ("Codify", "Document and enforce", "Preserve", "Institutionalize") that the heuristic doesn't match. The string-matching approach doesn't generalize across runs. Suggest driving the route off the structured `remediation_required=false` flag (the emitter setting the flag, per the original fix's own note) rather than opener lexicon — the deterministic string layer is a backstop, not the primary signal. Side effect: because these passing checks stay as tickets, MUTTR-05's template contamination ("extend to PLP, blog archive, **checkout**") also survives inside `dom-quality-excellent`.
+>
+> **Muttr (2026-07-04) — re-fixed at the right altitude.** WKTW's diagnosis was correct: the opener-string route can't generalize, and the structured signal was never wired (`remediation_required` defaulted `True` and nothing ever set it `False`). Rather than route off an LLM-set flag — which reintroduces exactly the run-to-run drift that caused this regression — the route now keys on the **detector's own slug/title**, which the detector emits deterministically: new `is_passing_check_finding()` flags a low/info finding whose id or title states a passing state (`excellent`, `no-issues`, `not-needed`, `minimal`, "no … issues detected", "waterfall is clean", "fully present", "not applicable"). Wired into `is_healthy_check` ahead of the opener heuristic (kept as a backstop). **Calibrated against this exact workspace** (`audit-weknowthewhy-20260702-12a9972b`, all 94 findings): catches all 6 leakers **and** the 6 that were already correctly on the Healthy list (12/12 passing checks), with **zero** real findings misrouted (`meta-og-twitter-image-absent`, `no-srcset`, `no-search` all correctly stay tickets — "no srcset"/"absent" is a defect, not a healthy state). The MUTTR-05 side effect is resolved with it: `dom-quality-excellent` now routes to Healthy, so its "checkout" contamination no longer ships as a ticket. 8 regression tests grounded in the 6 verbatim leakers + their new-verb openers. Fresh-crawl end-to-end confirmation still welcome, but the regression's root cause is closed deterministically. `muttr` commit `bdb80cd`.
 
 ---
 
@@ -366,7 +371,7 @@ card; a no-repo reviewer needs the full narrative. Today only the second is serv
 
 **The idea:** When a client *does* have repo access, the single highest-value step is grounding each
 finding against source before acting — the step that caught, on this audit alone: a phantom standalone
-`gtag.js` (~10 tickets pointed at code that doesn't exist), a fabricated 2.5MB JS bundle, an
+`gtag.js` (~10 tickets pointed at code that doesn't exist), an ungrounded 2.5MB JS bundle, an
 already-installed sitemap flagged as missing, and a 1:1 contrast "failure" that was a detector
 artifact. Today that step is **tacit** — the executor has to invent the greps. Muttr should ship it as
 an explicit, **platform-aware "Repo-Grounding Guide"**: an optional output that tells a repo-holding
@@ -410,13 +415,13 @@ platform's grounding idioms.
 
 ## Summary
 
-| ID | Defect | Severity |
+| ID | Item | Severity |
 | --- | --- | --- |
 | MUTTR-01 | Duplicate tickets within a cluster | high |
 | MUTTR-02 | Empty/malformed ticket emitted | high |
 | MUTTR-03 | Wrong tech-stack assumed in fix code | high |
 | MUTTR-04 | Findings auditing the wrong layer | high |
-| MUTTR-05 | Mismeasured / hallucinated artifacts | high |
+| MUTTR-05 | Mismeasured artifacts (ungrounded payload figures) | high |
 | MUTTR-06 | "Confirmed" tier includes unverified | medium |
 | MUTTR-07 | Stale findings reported as open | medium |
 | MUTTR-08 | Passing checks framed as findings | low |
@@ -445,3 +450,5 @@ re-checking the specific target's stack, source, and measurements before it writ
 - 2026-07-01 — **Muttr** shipped MUTTR-11 (✓) — opt-in `--repo-grounding` emits a platform-aware `deliverables/repo-grounding-guide.md` (keyed off the detected stack; WKTW's Astro pack vendored into `muttr/grounding_packs/` as the reference). **All 11 defects now Fixed** (MUTTR-03 detection-side + MUTTR-07 head-meta are partial; noted follow-ups: MUTTR-03 generation-side codegen, MUTTR-07 aria/consent/sitemap).
 - 2026-07-02 — **Muttr** closed MUTTR-03 generation-side (✓ verified): the detected stack is now injected into all proposal prompts, so the author emits drop-in code for the real framework. Live-validated — a finding that previously produced Liquid now returns an Astro component with zero CMS idioms. MUTTR-03 fully fixed (prevention + detection). Remaining follow-ups: MUTTR-07 aria/consent/sitemap staleness (needs a11y-tree parsing / sitemap not crawled); MUTTR-05 numeric-grounding prevention lives in the muttr-frontier epic.
 - 2026-07-04 — **WKTW** independently verified all 11 defects against a fresh full crawl (`audit-weknowthewhy-20260702-12a9972b`, tickets emitted 2026-07-02 23:01) instead of the old-workspace re-runs Muttr used to sign off. **Result: 6 fully corrected** (01 dedup 82→45, 02 quarantine, 04 remediation-surface on all 45, 06 tiers 34/4/7 no unverified-in-confirmed, 09 tests 790 all on-origin/0 empty/0 placeholder, 10 fix-card), **2 partial-as-scoped** (05 cart/checkout removed + measurement ticket added; 07 OG/Twitter "already resolved" advisory fires, sitemap/hamburger/consent still open by design), **2 not confirmed on the full run** → **RE-OPENED MUTTR-08** (6 passing-check tickets leaked back into `tickets/` incl. the named `inp-excellent`/`api-waterfall-minimal`; opener-string heuristic doesn't generalize) and **MUTTR-03 gen-side downgraded to UNCONFIRMED** (6 tickets still ship Liquid/WP code bodies; detection backstop fired on all 6 but prevention didn't; may predate deploy or not hold in full pipeline). 11 opt-in guide (`--repo-grounding`) not emitted this run — N/A, not a regression. Action for Muttr: re-run on current `main` to disambiguate MUTTR-03, and drive MUTTR-08 routing off the structured `remediation_required` flag rather than opener lexicon.
+- 2026-07-04 — **Muttr** closed both re-opens deterministically against the workspace itself (no re-run needed to find root cause), commits `bdb80cd` + `6876b15`, full suite 2470 green (+15 tests). **MUTTR-08**: the opener-string route never generalized because the structured `remediation_required` flag was never set by any emitter; new `is_passing_check_finding()` routes off the detector's own slug/title instead (run-stable), catching all 12 passing checks on this workspace with zero real-finding misroutes — also clearing the MUTTR-05 "checkout" contamination that rode inside `dom-quality-excellent`. **MUTTR-03 gen-side**: the 6 wrong-stack tickets had two causes the 07-02 fix didn't cover — 4 were `coverage_review` gaps whose `propose_fix_for_gap` fed `detect_stack` a signal-less technical-findings file (empty guidance → generic CMS), now pointed at the whole-site `cached_site_stack`; 2 were `canned_template` proposals hard-coding WordPress selectors/deployment, now made stack-neutral. Both re-opens' root causes are closed; a fresh full crawl would confirm end-to-end. Still genuinely open (by design, unchanged): MUTTR-07 sitemap/hamburger-aria/consent staleness (needs a11y-tree parsing / sitemap not crawled).
+- 2026-07-04 — **Muttr** closed the last MUTTR-07 follow-ups — all three remaining stale cases now grounded, commits `bae77f6` (a11y tree) + `96e5873` (sitemap), full suite 2487 green (+18 tests). Added a **CDP accessibility-tree capture** (`Accessibility.getFullAXTree`, pruned to interactive/landmark/named nodes → `page_data.a11y_tree`) so element-level staleness can see what the head-meta signal couldn't: `check_stale_a11y_elements` flags an already-remediated consent banner (tree shows a consent `dialog` with Accept + Decline) or an already-labelled menu button. Validated live under the crawl's real device emulation (iPhone 14 Pro, 393px): consent dialog + `Accept`/`Decline` and the mobile hamburger as `button "Toggle menu"` (aria-label, expanded). Separately, `check_stale_sitemap` grounds "install a sitemap" against `crawl/sitemap.json` — which the crawl already populates via `fetch_sitemap` (robots.txt `Sitemap:` directive + `/sitemap*.xml`); on this workspace `ux-sitemap-unverifiable` flags with 14 URLs found. All advisory-only, precision-first. MUTTR-07 fully grounded. (Also corrected the crawl-is-desktop misconception: Muttr crawls mobile — iPhone 14 Pro — so responsive/mobile-only controls like the hamburger are correctly in-scope.)

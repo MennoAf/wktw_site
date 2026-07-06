@@ -1,0 +1,2067 @@
+[
+  {
+    "id": "VT-det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com-visual_regression-0",
+    "finding_id": "det-wcag-insufficient-contrast-ratio-https-weknowthewhy-com",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about-visual_regression-0",
+    "finding_id": "det-wcag-color-as-sole-indicator-https-weknowthewhy-com-about",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-det-wcag-missing-name-role-value-https-weknowthewhy-com-contact-visual_regression-0",
+    "finding_id": "det-wcag-missing-name-role-value-https-weknowthewhy-com-contact",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-2-touch-targets-undersized-visual_regression-0",
+    "finding_id": "a11y-2-touch-targets-undersized",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-1-form-missing-label-visual_regression-0",
+    "finding_id": "a11y-1-form-missing-label",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-mobile-privacy-policy-link-critically-undersized-console_error-0",
+    "finding_id": "mobile-privacy-policy-link-critically-undersized",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-privacy-policy-link-critically-undersized-visual_regression-0",
+    "finding_id": "mobile-privacy-policy-link-critically-undersized",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-mobile-privacy-policy-link-critically-undersized-dom_assertion-0",
+    "finding_id": "mobile-privacy-policy-link-critically-undersized",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-privacy-policy-link-critically-undersized-dom_assertion-1",
+    "finding_id": "mobile-privacy-policy-link-critically-undersized",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-privacy-policy-link-critically-undersized-accessibility-0",
+    "finding_id": "mobile-privacy-policy-link-critically-undersized",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-analytics-no-ga4-no-conversion-tracking-console_error-0",
+    "finding_id": "analytics-no-ga4-no-conversion-tracking",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-analytics-no-ga4-no-conversion-tracking-dom_assertion-0",
+    "finding_id": "analytics-no-ga4-no-conversion-tracking",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-analytics-no-ga4-no-conversion-tracking-dom_assertion-1",
+    "finding_id": "analytics-no-ga4-no-conversion-tracking",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-analytics-no-ga4-no-conversion-tracking-dom_assertion-2",
+    "finding_id": "analytics-no-ga4-no-conversion-tracking",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-analytics-no-ga4-no-conversion-tracking-dom_assertion-3",
+    "finding_id": "analytics-no-ga4-no-conversion-tracking",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-analytics-no-ga4-no-conversion-tracking-dom_assertion-4",
+    "finding_id": "analytics-no-ga4-no-conversion-tracking",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-analytics-no-ga4-no-conversion-tracking-accessibility-0",
+    "finding_id": "analytics-no-ga4-no-conversion-tracking",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-privacy-2-pre-consent-plausible-fires-console_error-0",
+    "finding_id": "privacy-2-pre-consent-plausible-fires",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-privacy-2-pre-consent-plausible-fires-dom_assertion-0",
+    "finding_id": "privacy-2-pre-consent-plausible-fires",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-privacy-2-pre-consent-plausible-fires-accessibility-0",
+    "finding_id": "privacy-2-pre-consent-plausible-fires",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-privacy-2-pre-consent-plausible-fires-dom_assertion-1",
+    "finding_id": "privacy-2-pre-consent-plausible-fires",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-privacy-2-pre-consent-plausible-fires-dom_assertion-2",
+    "finding_id": "privacy-2-pre-consent-plausible-fires",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-privacy-2-pre-consent-plausible-fires-accessibility-1",
+    "finding_id": "privacy-2-pre-consent-plausible-fires",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-conversion-no-form-on-page-visual_regression-0",
+    "finding_id": "ux-conversion-no-form-on-page",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-prescan-escalation-csp-confirmed-absent-console_error-0",
+    "finding_id": "prescan-escalation-csp-confirmed-absent",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-csp-confirmed-absent-dom_assertion-0",
+    "finding_id": "prescan-escalation-csp-confirmed-absent",
+    "reason": "unresolvable target_url: 'https://example.netlify.app/'"
+  },
+  {
+    "id": "VT-touch-targets-ux-impact-visual_regression-0",
+    "finding_id": "touch-targets-ux-impact",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-escalation-resolution-csp-console_error-0",
+    "finding_id": "escalation-resolution-csp",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-resolution-csp-dom_assertion-0",
+    "finding_id": "escalation-resolution-csp",
+    "reason": "unresolvable target_url: 'https://example.com/'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-console_error-0",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-visual_regression-0",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-0",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-1",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-2",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-3",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-4",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-5",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-6",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-7",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-8",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-accessibility-0",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-accessibility-1",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-accessibility-2",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-9",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-10",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-11",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-12",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/articles/example-article'"
+  },
+  {
+    "id": "VT-prescan-override-1-contact-form-severity-dom_assertion-13",
+    "finding_id": "prescan-override-1-contact-form-severity",
+    "reason": "unresolvable target_url: '/services/platform-technical-audit'"
+  },
+  {
+    "id": "VT-revenue-no-service-page-link-in-article-console_error-0",
+    "finding_id": "revenue-no-service-page-link-in-article",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-revenue-no-service-page-link-in-article-visual_regression-0",
+    "finding_id": "revenue-no-service-page-link-in-article",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-revenue-no-service-page-link-in-article-dom_assertion-0",
+    "finding_id": "revenue-no-service-page-link-in-article",
+    "reason": "unresolvable target_url: '/articles/why-most-audits-dont-change-anything/'"
+  },
+  {
+    "id": "VT-revenue-no-service-page-link-in-article-dom_assertion-1",
+    "finding_id": "revenue-no-service-page-link-in-article",
+    "reason": "unresolvable target_url: '/articles/why-most-audits-dont-change-anything/'"
+  },
+  {
+    "id": "VT-revenue-no-service-page-link-in-article-accessibility-0",
+    "finding_id": "revenue-no-service-page-link-in-article",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-revenue-no-service-page-link-in-article-accessibility-1",
+    "finding_id": "revenue-no-service-page-link-in-article",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-revenue-no-service-page-link-in-article-dom_assertion-2",
+    "finding_id": "revenue-no-service-page-link-in-article",
+    "reason": "unresolvable target_url: '/articles/why-most-audits-dont-change-anything/'"
+  },
+  {
+    "id": "VT-revenue-no-service-page-link-in-article-dom_assertion-3",
+    "finding_id": "revenue-no-service-page-link-in-article",
+    "reason": "unresolvable target_url: '/articles/why-most-audits-dont-change-anything/'"
+  },
+  {
+    "id": "VT-det-wcag-improper-content-structure-https-weknowthewhy-com-contact-visual_regression-0",
+    "finding_id": "det-wcag-improper-content-structure-https-weknowthewhy-com-contact",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-ux-analytics-client-side-only-data-loss-console_error-0",
+    "finding_id": "ux-analytics-client-side-only-data-loss",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-analytics-client-side-only-data-loss-dom_assertion-0",
+    "finding_id": "ux-analytics-client-side-only-data-loss",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-analytics-client-side-only-data-loss-dom_assertion-1",
+    "finding_id": "ux-analytics-client-side-only-data-loss",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-analytics-client-side-only-data-loss-dom_assertion-2",
+    "finding_id": "ux-analytics-client-side-only-data-loss",
+    "reason": "unresolvable target_url: '/?utm_source=google&utm_medium=cpc&utm_campaign=test'"
+  },
+  {
+    "id": "VT-ux-analytics-client-side-only-data-loss-dom_assertion-3",
+    "finding_id": "ux-analytics-client-side-only-data-loss",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-analytics-client-side-only-data-loss-accessibility-0",
+    "finding_id": "ux-analytics-client-side-only-data-loss",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-2-og-twitter-meta-unverifiable-console_error-0",
+    "finding_id": "escalation-2-og-twitter-meta-unverifiable",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-2-og-twitter-meta-unverifiable-visual_regression-0",
+    "finding_id": "escalation-2-og-twitter-meta-unverifiable",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-escalation-2-og-twitter-meta-unverifiable-dom_assertion-0",
+    "finding_id": "escalation-2-og-twitter-meta-unverifiable",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-2-og-twitter-meta-unverifiable-dom_assertion-1",
+    "finding_id": "escalation-2-og-twitter-meta-unverifiable",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-2-og-twitter-meta-unverifiable-accessibility-0",
+    "finding_id": "escalation-2-og-twitter-meta-unverifiable",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-conversion-01-visual_regression-0",
+    "finding_id": "ux-conversion-01",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-js-2-jetbrains-mono-font-loaded-unnecessarily-console_error-0",
+    "finding_id": "js-2-jetbrains-mono-font-loaded-unnecessarily",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-js-2-jetbrains-mono-font-loaded-unnecessarily-visual_regression-0",
+    "finding_id": "js-2-jetbrains-mono-font-loaded-unnecessarily",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-js-2-jetbrains-mono-font-loaded-unnecessarily-dom_assertion-0",
+    "finding_id": "js-2-jetbrains-mono-font-loaded-unnecessarily",
+    "reason": "unresolvable target_url: '/blog/some-post'"
+  },
+  {
+    "id": "VT-js-2-jetbrains-mono-font-loaded-unnecessarily-dom_assertion-1",
+    "finding_id": "js-2-jetbrains-mono-font-loaded-unnecessarily",
+    "reason": "unresolvable target_url: '/contact'"
+  },
+  {
+    "id": "VT-js-2-jetbrains-mono-font-loaded-unnecessarily-dom_assertion-2",
+    "finding_id": "js-2-jetbrains-mono-font-loaded-unnecessarily",
+    "reason": "unresolvable target_url: '/blog/some-post'"
+  },
+  {
+    "id": "VT-js-2-jetbrains-mono-font-loaded-unnecessarily-dom_assertion-3",
+    "finding_id": "js-2-jetbrains-mono-font-loaded-unnecessarily",
+    "reason": "unresolvable target_url: '/contact'"
+  },
+  {
+    "id": "VT-js-2-jetbrains-mono-font-loaded-unnecessarily-accessibility-0",
+    "finding_id": "js-2-jetbrains-mono-font-loaded-unnecessarily",
+    "reason": "unresolvable target_url: '/blog/some-post'"
+  },
+  {
+    "id": "VT-interactive-footer-button-purpose-unclear-visual_regression-0",
+    "finding_id": "interactive-footer-button-purpose-unclear",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-console_error-0",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-visual_regression-0",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-dom_assertion-0",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-dom_assertion-1",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-dom_assertion-2",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-dom_assertion-3",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-accessibility-0",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-accessibility-1",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-accessibility-2",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-dom_assertion-4",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: '/services/example'"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-dom_assertion-5",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: '/services/example'"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-accessibility-3",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-dom_assertion-6",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-dom_assertion-7",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-accessibility-4",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-revenue-no-pricing-signals-accessibility-5",
+    "finding_id": "ux-revenue-no-pricing-signals",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-conversion-01-visual_regression-0",
+    "finding_id": "ux-conversion-01",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-form-1-missing-label-visual_regression-0",
+    "finding_id": "form-1-missing-label",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-prescan-escalation-internal-links-console_error-0",
+    "finding_id": "prescan-escalation-internal-links",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-internal-links-visual_regression-0",
+    "finding_id": "prescan-escalation-internal-links",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-prescan-escalation-internal-links-dom_assertion-0",
+    "finding_id": "prescan-escalation-internal-links",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-prescan-escalation-internal-links-dom_assertion-1",
+    "finding_id": "prescan-escalation-internal-links",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-escalation-4-blogposting-schema-completeness-console_error-0",
+    "finding_id": "escalation-4-blogposting-schema-completeness",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-4-blogposting-schema-completeness-visual_regression-0",
+    "finding_id": "escalation-4-blogposting-schema-completeness",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-escalation-4-blogposting-schema-completeness-dom_assertion-0",
+    "finding_id": "escalation-4-blogposting-schema-completeness",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-4-blogposting-schema-completeness-dom_assertion-1",
+    "finding_id": "escalation-4-blogposting-schema-completeness",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-4-blogposting-schema-completeness-dom_assertion-2",
+    "finding_id": "escalation-4-blogposting-schema-completeness",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-4-blogposting-schema-completeness-dom_assertion-3",
+    "finding_id": "escalation-4-blogposting-schema-completeness",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-4-blogposting-schema-completeness-accessibility-0",
+    "finding_id": "escalation-4-blogposting-schema-completeness",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-visual_regression-0",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-dom_assertion-0",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-dom_assertion-1",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: '/about/'"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-dom_assertion-2",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: '/proof/'"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-accessibility-0",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-accessibility-1",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-dom_assertion-3",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: '/services/audit/'"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-dom_assertion-4",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-dom_assertion-5",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: '/articles/'"
+  },
+  {
+    "id": "VT-trust-signals-absent-at-conversion-points-accessibility-2",
+    "finding_id": "trust-signals-absent-at-conversion-points",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-4-cache-control-revalidate-every-request-console_error-0",
+    "finding_id": "server-4-cache-control-revalidate-every-request",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-review-2-unknown-schema-console_error-0",
+    "finding_id": "escalation-review-2-unknown-schema",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-review-2-unknown-schema-visual_regression-0",
+    "finding_id": "escalation-review-2-unknown-schema",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-escalation-review-2-unknown-schema-dom_assertion-0",
+    "finding_id": "escalation-review-2-unknown-schema",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-review-2-unknown-schema-dom_assertion-1",
+    "finding_id": "escalation-review-2-unknown-schema",
+    "reason": "unresolvable target_url: '/legal/terms'"
+  },
+  {
+    "id": "VT-escalation-review-2-unknown-schema-dom_assertion-2",
+    "finding_id": "escalation-review-2-unknown-schema",
+    "reason": "unresolvable target_url: '/about'"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-console_error-0",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-visual_regression-0",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-dom_assertion-0",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-dom_assertion-1",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-dom_assertion-2",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-dom_assertion-3",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-dom_assertion-4",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-dom_assertion-5",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-accessibility-0",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-conversion-no-error-recovery-evidence-accessibility-1",
+    "finding_id": "conversion-no-error-recovery-evidence",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-console_error-0",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-visual_regression-0",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-dom_assertion-0",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: '/services/content-authority-audit'"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-dom_assertion-1",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: '/services/content-authority-audit'"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-dom_assertion-2",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: '/services/content-authority-audit'"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-accessibility-0",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-accessibility-1",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-dom_assertion-3",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: '/services/content-authority-audit'"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-dom_assertion-4",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: '/blog/article-with-related-service'"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-dom_assertion-5",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: '/services/content-authority-audit'"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-dom_assertion-6",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: '/services/content-authority-audit'"
+  },
+  {
+    "id": "VT-ux-conversion-cta-clarity-competing-actions-dom_assertion-7",
+    "finding_id": "ux-conversion-cta-clarity-competing-actions",
+    "reason": "unresolvable target_url: '/services/content-authority-audit'"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-console_error-0",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-dom_assertion-0",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-dom_assertion-1",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-dom_assertion-2",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-accessibility-0",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-accessibility-1",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-accessibility-2",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-dom_assertion-3",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-dom_assertion-4",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-dom_assertion-5",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-dom_assertion-6",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-console-errors-accessibility-3",
+    "finding_id": "prescan-escalation-console-errors",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-console_error-0",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-visual_regression-0",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-0",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-1",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-2",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-3",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-4",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-5",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/about'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-6",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/about'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-7",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-accessibility-0",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-accessibility-1",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-accessibility-2",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-accessibility-3",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-accessibility-4",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-accessibility-5",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-8",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-9",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-revenue-no-social-proof-above-fold-dom_assertion-10",
+    "finding_id": "revenue-no-social-proof-above-fold",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-server-transport-cdn-cache-status-missing-console_error-0",
+    "finding_id": "server-transport-cdn-cache-status-missing",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-escalation-6-console-errors-unverifiable-accessibility-0",
+    "finding_id": "escalation-6-console-errors-unverifiable",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-escalation-6-console-errors-unverifiable-accessibility-1",
+    "finding_id": "escalation-6-console-errors-unverifiable",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-escalation-6-console-errors-unverifiable-accessibility-2",
+    "finding_id": "escalation-6-console-errors-unverifiable",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-escalation-6-console-errors-unverifiable-dom_assertion-0",
+    "finding_id": "escalation-6-console-errors-unverifiable",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-escalation-6-console-errors-unverifiable-dom_assertion-1",
+    "finding_id": "escalation-6-console-errors-unverifiable",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-escalation-6-console-errors-unverifiable-dom_assertion-2",
+    "finding_id": "escalation-6-console-errors-unverifiable",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-escalation-6-console-errors-unverifiable-dom_assertion-3",
+    "finding_id": "escalation-6-console-errors-unverifiable",
+    "reason": "unresolvable target_url: '/contact/'"
+  },
+  {
+    "id": "VT-ux-mobile-consent-banner-viewport-impact-visual_regression-0",
+    "finding_id": "ux-mobile-consent-banner-viewport-impact",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-console_error-0",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-visual_regression-0",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-dom_assertion-0",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-dom_assertion-1",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-dom_assertion-2",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-accessibility-0",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-dom_assertion-3",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-dom_assertion-4",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-dom_assertion-5",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-no-forms-no-images-dom_assertion-6",
+    "finding_id": "a11y-no-forms-no-images",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-alt-text-present-pass-console_error-0",
+    "finding_id": "a11y-alt-text-present-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-alt-text-present-pass-visual_regression-0",
+    "finding_id": "a11y-alt-text-present-pass",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-alt-text-present-pass-accessibility-0",
+    "finding_id": "a11y-alt-text-present-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-alt-text-present-pass-dom_assertion-0",
+    "finding_id": "a11y-alt-text-present-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-alt-text-present-pass-dom_assertion-1",
+    "finding_id": "a11y-alt-text-present-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-4-lang-attribute-pass-console_error-0",
+    "finding_id": "a11y-4-lang-attribute-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-4-lang-attribute-pass-visual_regression-0",
+    "finding_id": "a11y-4-lang-attribute-pass",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-4-lang-attribute-pass-accessibility-0",
+    "finding_id": "a11y-4-lang-attribute-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-4-lang-attribute-pass-dom_assertion-0",
+    "finding_id": "a11y-4-lang-attribute-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-4-lang-attribute-pass-dom_assertion-1",
+    "finding_id": "a11y-4-lang-attribute-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-skip-link-truncation-console_error-0",
+    "finding_id": "prescan-escalation-skip-link-truncation",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-prescan-escalation-skip-link-truncation-visual_regression-0",
+    "finding_id": "prescan-escalation-skip-link-truncation",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-navigation-raw-html-pass-console_error-0",
+    "finding_id": "a11y-navigation-raw-html-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-navigation-raw-html-pass-visual_regression-0",
+    "finding_id": "a11y-navigation-raw-html-pass",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-navigation-raw-html-pass-dom_assertion-0",
+    "finding_id": "a11y-navigation-raw-html-pass",
+    "reason": "unresolvable target_url: 'http://localhost:4321'"
+  },
+  {
+    "id": "VT-a11y-navigation-raw-html-pass-accessibility-0",
+    "finding_id": "a11y-navigation-raw-html-pass",
+    "reason": "unresolvable target_url: 'http://localhost:4321'"
+  },
+  {
+    "id": "VT-a11y-navigation-raw-html-pass-accessibility-1",
+    "finding_id": "a11y-navigation-raw-html-pass",
+    "reason": "unresolvable target_url: 'http://localhost:4321'"
+  },
+  {
+    "id": "VT-a11y-heading-hierarchy-pass-console_error-0",
+    "finding_id": "a11y-heading-hierarchy-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-heading-hierarchy-pass-visual_regression-0",
+    "finding_id": "a11y-heading-hierarchy-pass",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-heading-hierarchy-pass-dom_assertion-0",
+    "finding_id": "a11y-heading-hierarchy-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-heading-hierarchy-pass-dom_assertion-1",
+    "finding_id": "a11y-heading-hierarchy-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-heading-hierarchy-pass-accessibility-0",
+    "finding_id": "a11y-heading-hierarchy-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-font-display-swap-pass-console_error-0",
+    "finding_id": "a11y-font-display-swap-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-font-display-swap-pass-visual_regression-0",
+    "finding_id": "a11y-font-display-swap-pass",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-font-display-swap-pass-dom_assertion-0",
+    "finding_id": "a11y-font-display-swap-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-font-display-swap-pass-dom_assertion-1",
+    "finding_id": "a11y-font-display-swap-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-font-display-swap-pass-accessibility-0",
+    "finding_id": "a11y-font-display-swap-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-font-display-swap-pass-dom_assertion-2",
+    "finding_id": "a11y-font-display-swap-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-font-face-overload-3-families-console_error-0",
+    "finding_id": "font-face-overload-3-families",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-font-face-overload-3-families-dom_assertion-0",
+    "finding_id": "font-face-overload-3-families",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-font-face-overload-3-families-dom_assertion-1",
+    "finding_id": "font-face-overload-3-families",
+    "reason": "unresolvable target_url: '/blog/code-example'"
+  },
+  {
+    "id": "VT-font-face-overload-3-families-dom_assertion-2",
+    "finding_id": "font-face-overload-3-families",
+    "reason": "unresolvable target_url: '/blog/code-example'"
+  },
+  {
+    "id": "VT-font-face-overload-3-families-accessibility-0",
+    "finding_id": "font-face-overload-3-families",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-2-consent-banner-hidden-interactive-visual_regression-0",
+    "finding_id": "ghost-2-consent-banner-hidden-interactive",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-server-transport-no-redirect-chains-pass-console_error-0",
+    "finding_id": "server-transport-no-redirect-chains-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-transport-no-redirect-chains-pass-dom_assertion-0",
+    "finding_id": "server-transport-no-redirect-chains-pass",
+    "reason": "unresolvable target_url: '${AUDIT_URL}'"
+  },
+  {
+    "id": "VT-backwards-compat-astro-static-pass-console_error-0",
+    "finding_id": "backwards-compat-astro-static-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-backwards-compat-astro-static-pass-dom_assertion-0",
+    "finding_id": "backwards-compat-astro-static-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-backwards-compat-astro-static-pass-dom_assertion-1",
+    "finding_id": "backwards-compat-astro-static-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-navigation-search-functionality-console_error-0",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-navigation-search-functionality-visual_regression-0",
+    "finding_id": "navigation-search-functionality",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-navigation-search-functionality-dom_assertion-0",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-search-functionality-dom_assertion-1",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-search-functionality-dom_assertion-2",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-search-functionality-dom_assertion-3",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-search-functionality-dom_assertion-4",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-search-functionality-dom_assertion-5",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-search-functionality-dom_assertion-6",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-search-functionality-accessibility-0",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-navigation-search-functionality-accessibility-1",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-navigation-search-functionality-accessibility-2",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-navigation-search-functionality-accessibility-3",
+    "finding_id": "navigation-search-functionality",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-mobile-2-console_error-0",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-mobile-2-visual_regression-0",
+    "finding_id": "ux-mobile-2",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-ux-mobile-2-dom_assertion-0",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-accessibility-0",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-dom_assertion-1",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-accessibility-1",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-dom_assertion-2",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-dom_assertion-3",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-accessibility-2",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-dom_assertion-4",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-accessibility-3",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-ux-mobile-2-dom_assertion-5",
+    "finding_id": "ux-mobile-2",
+    "reason": "unresolvable target_url: '/legal/privacy/'"
+  },
+  {
+    "id": "VT-inp-interaction-excellent-console_error-0",
+    "finding_id": "inp-interaction-excellent",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-interaction-excellent-visual_regression-0",
+    "finding_id": "inp-interaction-excellent",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-inp-interaction-excellent-dom_assertion-0",
+    "finding_id": "inp-interaction-excellent",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-interaction-excellent-dom_assertion-1",
+    "finding_id": "inp-interaction-excellent",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-hydration-low-risk-console_error-0",
+    "finding_id": "inp-hydration-low-risk",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-hydration-low-risk-visual_regression-0",
+    "finding_id": "inp-hydration-low-risk",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-inp-hydration-low-risk-dom_assertion-0",
+    "finding_id": "inp-hydration-low-risk",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-hydration-low-risk-dom_assertion-1",
+    "finding_id": "inp-hydration-low-risk",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-hydration-low-risk-accessibility-0",
+    "finding_id": "inp-hydration-low-risk",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-hydration-low-risk-accessibility-1",
+    "finding_id": "inp-hydration-low-risk",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-hydration-low-risk-dom_assertion-2",
+    "finding_id": "inp-hydration-low-risk",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-hydration-low-risk-dom_assertion-3",
+    "finding_id": "inp-hydration-low-risk",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-markup-no-duplicate-landmarks-console_error-0",
+    "finding_id": "ghost-markup-no-duplicate-landmarks",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-markup-no-duplicate-landmarks-visual_regression-0",
+    "finding_id": "ghost-markup-no-duplicate-landmarks",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-ghost-markup-no-duplicate-landmarks-dom_assertion-0",
+    "finding_id": "ghost-markup-no-duplicate-landmarks",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-markup-no-duplicate-landmarks-dom_assertion-1",
+    "finding_id": "ghost-markup-no-duplicate-landmarks",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-markup-no-duplicate-landmarks-dom_assertion-2",
+    "finding_id": "ghost-markup-no-duplicate-landmarks",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-loading-font-strategy-good-console_error-0",
+    "finding_id": "resource-loading-font-strategy-good",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-loading-font-strategy-good-visual_regression-0",
+    "finding_id": "resource-loading-font-strategy-good",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-resource-loading-font-strategy-good-dom_assertion-0",
+    "finding_id": "resource-loading-font-strategy-good",
+    "reason": "unresolvable target_url: '/docs/api-reference'"
+  },
+  {
+    "id": "VT-resource-loading-font-strategy-good-dom_assertion-1",
+    "finding_id": "resource-loading-font-strategy-good",
+    "reason": "unresolvable target_url: '/legal'"
+  },
+  {
+    "id": "VT-resource-loading-font-strategy-good-dom_assertion-2",
+    "finding_id": "resource-loading-font-strategy-good",
+    "reason": "unresolvable target_url: '/legal'"
+  },
+  {
+    "id": "VT-resource-loading-font-strategy-good-dom_assertion-3",
+    "finding_id": "resource-loading-font-strategy-good",
+    "reason": "unresolvable target_url: '/docs/api-reference'"
+  },
+  {
+    "id": "VT-resource-loading-font-strategy-good-accessibility-0",
+    "finding_id": "resource-loading-font-strategy-good",
+    "reason": "unresolvable target_url: '/docs/api-reference'"
+  },
+  {
+    "id": "VT-resource-1-lcp-unverified-console_error-0",
+    "finding_id": "resource-1-lcp-unverified",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-1-lcp-unverified-visual_regression-0",
+    "finding_id": "resource-1-lcp-unverified",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-resource-1-lcp-unverified-dom_assertion-0",
+    "finding_id": "resource-1-lcp-unverified",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-1-lcp-unverified-dom_assertion-1",
+    "finding_id": "resource-1-lcp-unverified",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-1-lcp-unverified-dom_assertion-2",
+    "finding_id": "resource-1-lcp-unverified",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-1-lcp-unverified-accessibility-0",
+    "finding_id": "resource-1-lcp-unverified",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-6-css-not-render-blocking-concern-console_error-0",
+    "finding_id": "resource-6-css-not-render-blocking-concern",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-6-css-not-render-blocking-concern-dom_assertion-0",
+    "finding_id": "resource-6-css-not-render-blocking-concern",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-6-css-not-render-blocking-concern-dom_assertion-1",
+    "finding_id": "resource-6-css-not-render-blocking-concern",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-6-css-not-render-blocking-concern-dom_assertion-2",
+    "finding_id": "resource-6-css-not-render-blocking-concern",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-api-1-minimal-network-waterfall-console_error-0",
+    "finding_id": "api-1-minimal-network-waterfall",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-api-1-minimal-network-waterfall-visual_regression-0",
+    "finding_id": "api-1-minimal-network-waterfall",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-api-1-minimal-network-waterfall-dom_assertion-0",
+    "finding_id": "api-1-minimal-network-waterfall",
+    "reason": "unresolvable target_url: '/blog/'"
+  },
+  {
+    "id": "VT-api-1-minimal-network-waterfall-dom_assertion-1",
+    "finding_id": "api-1-minimal-network-waterfall",
+    "reason": "unresolvable target_url: '/blog/'"
+  },
+  {
+    "id": "VT-api-1-minimal-network-waterfall-dom_assertion-2",
+    "finding_id": "api-1-minimal-network-waterfall",
+    "reason": "unresolvable target_url: '/blog/'"
+  },
+  {
+    "id": "VT-api-1-minimal-network-waterfall-dom_assertion-3",
+    "finding_id": "api-1-minimal-network-waterfall",
+    "reason": "unresolvable target_url: '/blog/'"
+  },
+  {
+    "id": "VT-js-minimal-payload-pass-console_error-0",
+    "finding_id": "js-minimal-payload-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-js-minimal-payload-pass-dom_assertion-0",
+    "finding_id": "js-minimal-payload-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-js-minimal-payload-pass-dom_assertion-1",
+    "finding_id": "js-minimal-payload-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-js-plausible-only-third-party-console_error-0",
+    "finding_id": "js-plausible-only-third-party",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-js-plausible-only-third-party-dom_assertion-0",
+    "finding_id": "js-plausible-only-third-party",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-js-plausible-only-third-party-dom_assertion-1",
+    "finding_id": "js-plausible-only-third-party",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-js-plausible-only-third-party-dom_assertion-2",
+    "finding_id": "js-plausible-only-third-party",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-js-plausible-only-third-party-accessibility-0",
+    "finding_id": "js-plausible-only-third-party",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-mailto-not-tel-friendly-console_error-0",
+    "finding_id": "mobile-mailto-not-tel-friendly",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-mailto-not-tel-friendly-visual_regression-0",
+    "finding_id": "mobile-mailto-not-tel-friendly",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-mobile-mailto-not-tel-friendly-dom_assertion-0",
+    "finding_id": "mobile-mailto-not-tel-friendly",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-mailto-not-tel-friendly-accessibility-0",
+    "finding_id": "mobile-mailto-not-tel-friendly",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-mailto-not-tel-friendly-accessibility-1",
+    "finding_id": "mobile-mailto-not-tel-friendly",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-mailto-not-tel-friendly-dom_assertion-1",
+    "finding_id": "mobile-mailto-not-tel-friendly",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-mailto-not-tel-friendly-dom_assertion-2",
+    "finding_id": "mobile-mailto-not-tel-friendly",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-mobile-mailto-not-tel-friendly-dom_assertion-3",
+    "finding_id": "mobile-mailto-not-tel-friendly",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-visual-stability-cls-zero-pass-console_error-0",
+    "finding_id": "visual-stability-cls-zero-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-visual-stability-cls-zero-pass-visual_regression-0",
+    "finding_id": "visual-stability-cls-zero-pass",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-visual-stability-cls-zero-pass-dom_assertion-0",
+    "finding_id": "visual-stability-cls-zero-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-visual-stability-cls-zero-pass-dom_assertion-1",
+    "finding_id": "visual-stability-cls-zero-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-visual-stability-cls-zero-pass-dom_assertion-2",
+    "finding_id": "visual-stability-cls-zero-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-visual-stability-cls-zero-pass-accessibility-0",
+    "finding_id": "visual-stability-cls-zero-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-visual-stability-cls-zero-pass-dom_assertion-3",
+    "finding_id": "visual-stability-cls-zero-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-stability-2-content-visibility-not-needed-console_error-0",
+    "finding_id": "stability-2-content-visibility-not-needed",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-stability-2-content-visibility-not-needed-visual_regression-0",
+    "finding_id": "stability-2-content-visibility-not-needed",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-stability-2-content-visibility-not-needed-dom_assertion-0",
+    "finding_id": "stability-2-content-visibility-not-needed",
+    "reason": "unresolvable target_url: 'src/layouts/BaseLayout.astro'"
+  },
+  {
+    "id": "VT-stability-2-content-visibility-not-needed-dom_assertion-1",
+    "finding_id": "stability-2-content-visibility-not-needed",
+    "reason": "unresolvable target_url: 'src/layouts/BaseLayout.astro'"
+  },
+  {
+    "id": "VT-stability-2-content-visibility-not-needed-dom_assertion-2",
+    "finding_id": "stability-2-content-visibility-not-needed",
+    "reason": "unresolvable target_url: 'tests/dom-complexity.spec.ts'"
+  },
+  {
+    "id": "VT-dom-quality-excellent-console_error-0",
+    "finding_id": "dom-quality-excellent",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-dom-quality-excellent-visual_regression-0",
+    "finding_id": "dom-quality-excellent",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-dom-quality-excellent-dom_assertion-0",
+    "finding_id": "dom-quality-excellent",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-dom-quality-excellent-dom_assertion-1",
+    "finding_id": "dom-quality-excellent",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-dom-quality-excellent-dom_assertion-2",
+    "finding_id": "dom-quality-excellent",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-dom-quality-excellent-dom_assertion-3",
+    "finding_id": "dom-quality-excellent",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-dom-quality-excellent-dom_assertion-4",
+    "finding_id": "dom-quality-excellent",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-dom-quality-excellent-accessibility-0",
+    "finding_id": "dom-quality-excellent",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-content-to-code-ratio-css-heavy-console_error-0",
+    "finding_id": "content-to-code-ratio-css-heavy",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-content-to-code-ratio-css-heavy-dom_assertion-0",
+    "finding_id": "content-to-code-ratio-css-heavy",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-content-to-code-ratio-css-heavy-dom_assertion-1",
+    "finding_id": "content-to-code-ratio-css-heavy",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-content-to-code-ratio-css-heavy-dom_assertion-2",
+    "finding_id": "content-to-code-ratio-css-heavy",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-content-02-console_error-0",
+    "finding_id": "ux-content-02",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-content-02-visual_regression-0",
+    "finding_id": "ux-content-02",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-ux-content-02-dom_assertion-0",
+    "finding_id": "ux-content-02",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-content-02-dom_assertion-1",
+    "finding_id": "ux-content-02",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-content-02-accessibility-0",
+    "finding_id": "ux-content-02",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-content-02-dom_assertion-2",
+    "finding_id": "ux-content-02",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-content-02-dom_assertion-3",
+    "finding_id": "ux-content-02",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-transport-no-brotli-console_error-0",
+    "finding_id": "server-transport-no-brotli",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-7-dns-prefetch-preconnect-minimal-external-console_error-0",
+    "finding_id": "server-7-dns-prefetch-preconnect-minimal-external",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-7-dns-prefetch-preconnect-minimal-external-dom_assertion-0",
+    "finding_id": "server-7-dns-prefetch-preconnect-minimal-external",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-7-dns-prefetch-preconnect-minimal-external-dom_assertion-1",
+    "finding_id": "server-7-dns-prefetch-preconnect-minimal-external",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-7-dns-prefetch-preconnect-minimal-external-dom_assertion-2",
+    "finding_id": "server-7-dns-prefetch-preconnect-minimal-external",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-1-ttfb-pass-console_error-0",
+    "finding_id": "server-1-ttfb-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-1-ttfb-pass-dom_assertion-0",
+    "finding_id": "server-1-ttfb-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-1-ttfb-pass-dom_assertion-1",
+    "finding_id": "server-1-ttfb-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-1-ttfb-pass-dom_assertion-2",
+    "finding_id": "server-1-ttfb-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-1-ttfb-pass-dom_assertion-3",
+    "finding_id": "server-1-ttfb-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-server-transport-http2-tls13-pass-console_error-0",
+    "finding_id": "server-transport-http2-tls13-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-console_error-0",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-visual_regression-0",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-dom_assertion-0",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-dom_assertion-1",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-accessibility-0",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-accessibility-1",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-dom_assertion-2",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-dom_assertion-3",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-inp-no-forms-no-serial-queue-concern-dom_assertion-4",
+    "finding_id": "inp-no-forms-no-serial-queue-concern",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-ux-interactive-no-dead-zones-detected-console_error-0",
+    "finding_id": "ux-interactive-no-dead-zones-detected",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-interactive-no-dead-zones-detected-visual_regression-0",
+    "finding_id": "ux-interactive-no-dead-zones-detected",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-ux-interactive-no-dead-zones-detected-dom_assertion-0",
+    "finding_id": "ux-interactive-no-dead-zones-detected",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-interactive-no-dead-zones-detected-accessibility-0",
+    "finding_id": "ux-interactive-no-dead-zones-detected",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ux-interactive-no-dead-zones-detected-dom_assertion-1",
+    "finding_id": "ux-interactive-no-dead-zones-detected",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-no-horizontal-scroll-detected-console_error-0",
+    "finding_id": "no-horizontal-scroll-detected",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-no-horizontal-scroll-detected-visual_regression-0",
+    "finding_id": "no-horizontal-scroll-detected",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-no-horizontal-scroll-detected-dom_assertion-0",
+    "finding_id": "no-horizontal-scroll-detected",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-no-horizontal-scroll-detected-dom_assertion-1",
+    "finding_id": "no-horizontal-scroll-detected",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-no-horizontal-scroll-detected-dom_assertion-2",
+    "finding_id": "no-horizontal-scroll-detected",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-depth-acceptable-console_error-0",
+    "finding_id": "navigation-depth-acceptable",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-navigation-depth-acceptable-visual_regression-0",
+    "finding_id": "navigation-depth-acceptable",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-navigation-depth-acceptable-dom_assertion-0",
+    "finding_id": "navigation-depth-acceptable",
+    "reason": "unresolvable target_url: '/the-get-right/platform/'"
+  },
+  {
+    "id": "VT-navigation-depth-acceptable-dom_assertion-1",
+    "finding_id": "navigation-depth-acceptable",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-navigation-depth-acceptable-dom_assertion-2",
+    "finding_id": "navigation-depth-acceptable",
+    "reason": "unresolvable target_url: '/the-get-right/platform/'"
+  },
+  {
+    "id": "VT-resource-3-no-srcset-on-images-visual_regression-0",
+    "finding_id": "resource-3-no-srcset-on-images",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-resource-loading-font-subsetting-console_error-0",
+    "finding_id": "resource-loading-font-subsetting",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-loading-font-subsetting-visual_regression-0",
+    "finding_id": "resource-loading-font-subsetting",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-resource-loading-font-subsetting-dom_assertion-0",
+    "finding_id": "resource-loading-font-subsetting",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-loading-font-subsetting-dom_assertion-1",
+    "finding_id": "resource-loading-font-subsetting",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-resource-loading-font-subsetting-dom_assertion-2",
+    "finding_id": "resource-loading-font-subsetting",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-markup-no-orphaned-assets-console_error-0",
+    "finding_id": "ghost-markup-no-orphaned-assets",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-markup-no-orphaned-assets-dom_assertion-0",
+    "finding_id": "ghost-markup-no-orphaned-assets",
+    "reason": "unresolvable target_url: 'file://css-coverage-report.json'"
+  },
+  {
+    "id": "VT-ghost-markup-no-orphaned-assets-dom_assertion-1",
+    "finding_id": "ghost-markup-no-orphaned-assets",
+    "reason": "unresolvable target_url: 'http://localhost:4321/'"
+  },
+  {
+    "id": "VT-ghost-markup-no-orphaned-assets-dom_assertion-2",
+    "finding_id": "ghost-markup-no-orphaned-assets",
+    "reason": "unresolvable target_url: 'file://css-coverage-report.json'"
+  },
+  {
+    "id": "VT-ghost-markup-no-orphaned-assets-dom_assertion-3",
+    "finding_id": "ghost-markup-no-orphaned-assets",
+    "reason": "unresolvable target_url: 'http://localhost:4321/'"
+  },
+  {
+    "id": "VT-ghost-markup-no-orphaned-assets-dom_assertion-4",
+    "finding_id": "ghost-markup-no-orphaned-assets",
+    "reason": "unresolvable target_url: 'http://localhost:4321/'"
+  },
+  {
+    "id": "VT-interaction-inp-excellent-pass-console_error-0",
+    "finding_id": "interaction-inp-excellent-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-interaction-inp-excellent-pass-visual_regression-0",
+    "finding_id": "interaction-inp-excellent-pass",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-interaction-inp-excellent-pass-accessibility-0",
+    "finding_id": "interaction-inp-excellent-pass",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-interaction-inp-excellent-pass-dom_assertion-0",
+    "finding_id": "interaction-inp-excellent-pass",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-interaction-inp-excellent-pass-dom_assertion-1",
+    "finding_id": "interaction-inp-excellent-pass",
+    "reason": "unresolvable target_url: '/'"
+  },
+  {
+    "id": "VT-ghost-1-no-js-injection-pass-console_error-0",
+    "finding_id": "ghost-1-no-js-injection-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-1-no-js-injection-pass-dom_assertion-0",
+    "finding_id": "ghost-1-no-js-injection-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-1-no-js-injection-pass-dom_assertion-1",
+    "finding_id": "ghost-1-no-js-injection-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-ghost-1-no-js-injection-pass-dom_assertion-2",
+    "finding_id": "ghost-1-no-js-injection-pass",
+    "reason": "unresolvable target_url: ''"
+  },
+  {
+    "id": "VT-a11y-compound-contrast-color-indicator-failure-visual_regression-0",
+    "finding_id": "a11y-compound-contrast-color-indicator-failure",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-a11y-icon-links-empty-accessible-name-svg-visual_regression-0",
+    "finding_id": "a11y-icon-links-empty-accessible-name-svg",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-analytics-plausible-single-point-failure-conversion-blindspot-visual_regression-0",
+    "finding_id": "analytics-plausible-single-point-failure-conversion-blindspot",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-conv-contact-cta-path-missing-visual_regression-0",
+    "finding_id": "conv-contact-cta-path-missing",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-conv-ux-001-visual_regression-0",
+    "finding_id": "conv-ux-001",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-conv-ux-001-touch-target-form-suppression-visual_regression-0",
+    "finding_id": "conv-ux-001-touch-target-form-suppression",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-mob-touch-001-visual_regression-0",
+    "finding_id": "mob-touch-001",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-no-click-to-call-mobile-contact-friction-visual_regression-0",
+    "finding_id": "no-click-to-call-mobile-contact-friction",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-privacy-consent-touch-target-compounded-gdpr-risk-visual_regression-0",
+    "finding_id": "privacy-consent-touch-target-compounded-gdpr-risk",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-resource-loading-css-coverage-measurement-artifact-visual_regression-0",
+    "finding_id": "resource-loading-css-coverage-measurement-artifact",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-resource-loading-css-parse-budget-disproportionate-visual_regression-0",
+    "finding_id": "resource-loading-css-parse-budget-disproportionate",
+    "reason": "visual_regression has no baseline screenshot"
+  },
+  {
+    "id": "VT-structured-data-privacy-policy-webpage-schema-visual_regression-0",
+    "finding_id": "structured-data-privacy-policy-webpage-schema",
+    "reason": "visual_regression has no baseline screenshot"
+  }
+]
