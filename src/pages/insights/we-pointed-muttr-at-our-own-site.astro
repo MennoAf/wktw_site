@@ -1,0 +1,396 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import Button from '../../components/Button.astro';
+import SocialShare from '../../components/SocialShare.astro';
+import AuditTriageFigure from '../../components/AuditTriageFigure.astro';
+import { getPost } from '../../data/insights';
+import { features } from '../../data/features';
+
+// Metadata is the single source of truth in src/data/insights.ts (shared with the
+// /insights listing). The article body below stays bespoke.
+const post = getPost('we-pointed-muttr-at-our-own-site');
+const { title, pageTitle, description, author, authorId, authorTitle, readingTime, tag, dateLabel } = post;
+const publishedDate = post.date;
+const headline = title;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/og-default.png', Astro.site).href;
+
+// Evidence lives in the public repo — direct links so readers land on the artifact,
+// not a folder to click around. (External; the build-time link checker only
+// validates internal links.)
+const repo = 'https://github.com/MennoAf/wktw_site';
+const auditOne = `${repo}/tree/main/docs/audits/get-right/Muttr-we-know-the-why-20260624-0dc08e79`;
+const auditTwo = `${repo}/tree/main/docs/audits/get-right/Muttr-wktw-20260705-d76b03a7`;
+const worklog = `${repo}/blob/main/docs/audits/get-right/worklog.md`;
+const hardeningLog = `${repo}/blob/main/docs/audits/get-right/feedback_for_muttr.md`;
+---
+
+<BaseLayout
+  title={pageTitle ?? title}
+  description={description}
+>
+  <Section band="deep" class="pt-24 pb-14">
+    <div class="max-w-3xl">
+      <p class="eyebrow mb-4">
+        <a href="/insights/" class="text-gilt-mid hover:text-gilt transition-colors">Insights</a> &rsaquo; {tag}
+      </p>
+      <h1 class="mb-6">We pointed Muttr at our own site.</h1>
+      <p class="text-secondary-text text-xl leading-relaxed mb-8">
+        An audit is only as good as its weakest finding. So we ran ours against
+        our own site &mdash; fixed what was real, threw out what wasn't, and used
+        what broke to make the tools better. Including the parts that didn't go clean.
+      </p>
+      <div class="flex flex-wrap items-center gap-4 text-secondary-text text-sm border-t border-gilt-dim/30 pt-6">
+        <span class="text-primary-text font-medium">{author}</span>
+        <span>&middot;</span>
+        <span>{authorTitle}</span>
+        <span>&middot;</span>
+        <time datetime={publishedDate}>{dateLabel}</time>
+        <span>&middot;</span>
+        <span>{readingTime}</span>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <article class="max-w-3xl prose-invert">
+      <div class="space-y-6 text-secondary-text text-lg leading-relaxed">
+
+        <p>
+          We tell clients to
+          <a href="/insights/why-most-audits-dont-change-anything/">demand four things</a>
+          from any audit: every finding traces to a root cause, every finding is
+          implementation-ready, every finding is anchored to revenue, and the whole
+          thing arrives as one ranked plan instead of a folder of PDFs.
+        </p>
+
+        <p>
+          So when it came time to harden our own site, there was only one honest
+          move: point our own tools &mdash; Muttr, Canary, and Delphi &mdash; at
+          <code>weknowthewhy.com</code> and hold the output to our own standard.
+        </p>
+
+        <p>
+          Then we did the part most companies skip. We didn't just read the report.
+          We remediated it, finding by finding, with an AI assistant doing a lot of
+          the hands-on work &mdash; monitoring it closely so we could validate the
+          output. What we learned is worth more than a clean bill of health, so
+          we're publishing all of it.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          What the audit was actually worth
+        </h2>
+
+        <p>The value of the audit is real.</p>
+
+        <p>
+          The first pass flagged roughly eighty issues. Triaged against the actual
+          code, about a dozen were genuine, and they were the kind of mistakes that
+          could be expensive to miss. Here's what Muttr found:
+        </p>
+
+        <ul class="list-disc pl-6 space-y-3">
+          <li>
+            <strong class="text-primary-text">Visitor IP addresses were reaching
+            Google's font CDN before anyone consented</strong> &mdash; a GDPR
+            exposure hiding in a <code>&lt;link&gt;</code> tag. We self-hosted
+            every font and closed it.
+          </li>
+          <li>
+            <strong class="text-primary-text">Google Tag Manager loaded before the
+            consent banner could be answered.</strong> We gated it behind Accept,
+            so nothing non-essential fires until a visitor opts in.
+          </li>
+          <li>
+            <strong class="text-primary-text">The site served no security headers
+            and no Content Security Policy.</strong> We built a per-request,
+            nonce-based CSP.
+          </li>
+          <li>
+            <strong class="text-primary-text">A dozen concrete accessibility
+            defects:</strong> tap targets under the 48px minimum, a heading-order
+            skip repeated across seven pages, links signalled by color alone, no
+            reduced-motion handling. All fixed.
+          </li>
+        </ul>
+
+        <p>None of those were glamorous, and none of them announced themselves.</p>
+
+        <p>
+          That's the point of running an audit at all: a good one finds the
+          specific, unglamorous things that are actually wrong and hands you a
+          ranked plan to fix them. Ours did. That dozen shipped.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          Then the report lied to us
+        </h2>
+
+        <p>
+          The other findings were noise. Not malicious, not random &mdash; a
+          specific, nameable kind of wrong. The root cause has a name, and it's the
+          same one that governs every bad finding we've ever seen.
+        </p>
+
+        <p>
+          <strong class="text-primary-text">Grounding</strong> is the discipline of
+          re-checking the <em>specific</em> thing in front of you instead of
+          reasoning from a generic template of what a thing like it usually looks
+          like. It sounds obvious. It's the first thing to go under time pressure,
+          and it's where almost every bad finding is born.
+        </p>
+
+        <p>Here's what ungrounded looked like, from our own audit:</p>
+
+        <ul class="list-disc pl-6 space-y-3">
+          <li>
+            The tool reported a <strong class="text-primary-text">2.56 MB
+            JavaScript bundle</strong>, ~475 KB of it unused, and attributed the
+            weight to our &ldquo;cart, product configurators, checkout, and
+            filter/sort systems.&rdquo; We have none of those. This is a static
+            marketing site whose entire shipped JavaScript is a single 28 KB
+            component. The tool wasn't measuring our site &mdash; it was describing
+            a generic e-commerce template and stapling our URL to the top.
+          </li>
+          <li>
+            A finding whose own internal name ended in <code>-unverifiable</code>
+            was filed under <strong class="text-primary-text">&ldquo;Confirmed.&rdquo;</strong>
+            The confidence label was tracking <em>where the finding came from</em>,
+            not <em>whether anyone had checked it</em>.
+          </li>
+          <li>
+            Fix snippets arrived written for the wrong platform &mdash; WordPress
+            template language for a site built on Astro &mdash; because the tool
+            free-associated the stack from prose hints instead of reading the
+            actual <code>package.json</code>.
+          </li>
+        </ul>
+
+        <p>
+          None of these are stupid. They're what you get when a system reasons from
+          the average case instead of the case in front of it. A confident severity
+          rating and two hundred pages of color-coded findings can sit on top of a
+          claim that was never grounded in the real target, and nothing in the
+          formatting tells you which is which.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          The AI working on the site did the same thing
+        </h2>
+
+        <p>
+          Mid-remediation, the assistant added a small dependency, saw the package
+          manager report a handful of security advisories, and wrote in its summary
+          that the vulnerabilities &ldquo;came from the new dependency's tree.&rdquo;
+        </p>
+
+        <p>
+          It hadn't checked. One command &mdash; <code>npm ls</code> &mdash; showed
+          the opposite: the package we'd just added has <strong class="text-primary-text">zero</strong>
+          nested dependencies, and every one of those advisories was pre-existing,
+          sitting in the core framework toolchain the whole time. The assistant had
+          reasoned from the obvious template &mdash; <em>the new thing I just added
+          must be the source of the new warning</em> &mdash; instead of grounding
+          the claim against the actual dependency graph.
+        </p>
+
+        <p>
+          It was caught because a human stopped and said &ldquo;run the audit and
+          let's verify&rdquo; before the claim went anywhere. The fix was the same
+          one command that should have run in the first place.
+        </p>
+
+        <p>
+          This is a known issue with AI-based tools. In an effort to be fast and
+          save tokens, models make assumptions whenever possible and only check the
+          data when they're forced to. We have a lot of forced grounding in our
+          systems already, but you always surface new edge cases once the tool runs
+          under real load.
+        </p>
+
+        <p>
+          We're leaving that in on purpose. An AI that helps fix an audit committing,
+          in miniature, the exact failure the audit tool is criticized for isn't an
+          embarrassing footnote. It's the proof that grounding is a property of the
+          <em>work</em>, not of the <em>worker</em>. Tools do it. People do it. AIs
+          do it. The only defense is structural.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          What actually kept us honest
+        </h2>
+
+        <p>Four habits did the load-bearing work, and none of them are clever:</p>
+
+        <ol class="list-decimal pl-6 space-y-3">
+          <li>
+            <strong class="text-primary-text">A human as the ground-truth
+            interrupt.</strong> The single highest-leverage move wasn't writing
+            code &mdash; it was someone pausing to say &ldquo;verify that before you
+            write it down.&rdquo; These grounding errors don't survive a request to
+            verify, because it forces the AI to look at the actual code.
+          </li>
+          <li>
+            <strong class="text-primary-text">Verification you can falsify.</strong>
+            &ldquo;The link checker passes&rdquo; is not evidence. <em>Feeding it a
+            deliberately broken link and confirming it fails</em> is. &ldquo;Search
+            works&rdquo; is not evidence. <em>Pulling a real entry out of the built
+            search index and watching the query resolve</em> is. If a check can't
+            fail, it isn't a check.
+          </li>
+          <li>
+            <strong class="text-primary-text">Scope honesty.</strong> The audit
+            proposed a tidy three-tier pricing grid we could drop onto the site. We
+            deleted it &mdash; publishing tiers we don't sell would have described a
+            business that doesn't exist, which was, ironically, the audit's own
+            stated number-one risk.
+          </li>
+          <li>
+            <strong class="text-primary-text">The value was in the no's as much as
+            the yeses.</strong> Eighty findings in; a dozen real fixes out. The rest
+            were stale, false, or passing checks dressed up as problems. Most of the
+            work &mdash; and most of the trust &mdash; was in the triage.
+          </li>
+        </ol>
+
+        <AuditTriageFigure />
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          We fixed the tool, then re-ran it, and the same mistakes didn't come back
+        </h2>
+
+        <p>
+          Every ungrounded finding we caught, we logged against the tool itself.
+          Then we shipped the fixes &mdash; grounding the payload measurement so it
+          reads the real bundle, grounding the code snippets so they match the
+          actual stack, teaching the confidence label to track <em>verification</em>
+          instead of <em>origin</em>, and adding a repo-grounding pass that reads the
+          source before it reasons about it.
+        </p>
+
+        <p>Then we re-audited <code>weknowthewhy.com</code>. The trajectory is the proof:</p>
+
+        <ul class="list-disc pl-6 space-y-3">
+          <li>
+            <strong class="text-primary-text">The phantom 2.56 MB bundle was
+            gone.</strong> This time, Muttr measured the JavaScript correctly. Its
+            one performance finding was real and precise.
+          </li>
+          <li>
+            <strong class="text-primary-text">The wrong-stack fix snippets were
+            gone.</strong> No more WordPress advice for an Astro site.
+          </li>
+          <li>
+            <strong class="text-primary-text">The report got shorter and
+            cleaner</strong> &mdash; fewer findings, and the tool now quarantines
+            its own malformed and ungrounded output before it ever reaches you.
+          </li>
+          <li>
+            <strong class="text-primary-text">The real fixes held.</strong> The
+            privacy, security, and accessibility work from round one didn't
+            reappear &mdash; because it was actually fixed, and the tool was now
+            grounded enough to confirm it.
+          </li>
+        </ul>
+
+        <p>
+          The second audit wasn't perfect, and we won't pretend it was. It caught
+          one fresh false positive: it flagged our working cookie banner as broken
+          and invisible, having measured it in a hidden state instead of on the
+          rendered page. That one ungrounded measurement caused eight cascading
+          findings. We caught it the same way we caught everything in the first
+          audit: we traced it to a single root cause and filed the fix against the
+          tool. That's the next improvement cycle, already in motion.
+        </p>
+
+        <p>
+          That's the compounding part, and it's the honest version of a promise:
+          <strong class="text-primary-text">the failure modes we find, we train
+          out.</strong> Each site we audit makes the next audit sharper. By the time
+          our tools run on <em>your</em> site, the specific mistakes in this
+          write-up have already been grounded out of them &mdash; and the ones they
+          haven't met yet get the same treatment, in the open, the moment they
+          surface.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          Don't take our word for it
+        </h2>
+
+        <p>
+          Our site is open source. The code is on
+          <a href={repo} target="_blank" rel="noopener noreferrer">GitHub</a>
+          &mdash; diff every change we made. So is the raw evidence: the
+          <a href={auditOne} target="_blank" rel="noopener noreferrer">first audit</a>
+          and the
+          <a href={auditTwo} target="_blank" rel="noopener noreferrer">re-audit</a>;
+          the <a href={worklog} target="_blank" rel="noopener noreferrer">triage log</a>
+          showing how we sorted real findings from noise, finding by finding, each
+          tied to the commit that closed it; and the
+          <a href={hardeningLog} target="_blank" rel="noopener noreferrer">tool-hardening log</a>
+          where we fixed Muttr in the open.
+        </p>
+
+        <p>
+          That's the reason we wrote this. It's one thing to claim your audit works.
+          It's another to show how you prove it. Our audit found value, and we also
+          found out how to make our process better &mdash; and we're showing you both.
+        </p>
+
+        <h2 class="text-primary-text text-2xl font-heading font-bold mt-12 mb-4">
+          The takeaway
+        </h2>
+
+        <p>
+          An audit is only as good as its weakest grounding. So is an AI assistant,
+          or a human under deadline. Verbosity, severity ratings, and confident
+          prose are not evidence &mdash; they're useful when the evidence is
+          validated, and noise when it's not.
+        </p>
+
+        <p>
+          The deliverable that ships is the one where every claim has been re-checked
+          against the specific target and can be proven wrong if it's wrong. That's
+          not a nice-to-have we discovered. It's the entire thesis of what we build
+          &mdash; now corroborated from the inside by watching a tool, an AI, and
+          ourselves all fail and recover on the same axis, and by a second audit
+          that was measurably better than the first because we did the work.
+        </p>
+      </div>
+
+      <div class="mt-16 plate p-8 md:p-10">
+        <h3 class="text-primary-text text-xl mb-4">Want the same rigor on your site?</h3>
+        <p class="text-secondary-text mb-6">
+          The Get Right runs three structural audits on your site and turns
+          root-cause findings into one prioritized, revenue-ranked roadmap your team
+          can ship from &mdash; every finding proven against your actual site, not a
+          template. Talk to a founder to get started.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <Button href="/contact">Talk to a Founder</Button>
+          <Button href="/proof/our-site" variant="secondary">See our own results</Button>
+        </div>
+      </div>
+
+      {features.socialShare && <SocialShare url={canonical} title={headline} />}
+    </article>
+  </Section>
+
+  <!-- Structured Data: BlogPosting with author linked to the founder Person @id -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": headline,
+    "description": description,
+    "datePublished": publishedDate,
+    "dateModified": publishedDate,
+    "author": { "@id": authorId },
+    "publisher": { "@id": "https://weknowthewhy.com/#organization" },
+    "mainEntityOfPage": canonical,
+    "url": canonical,
+    "articleSection": tag,
+    "image": ogImage,
+  })} />
+</BaseLayout>

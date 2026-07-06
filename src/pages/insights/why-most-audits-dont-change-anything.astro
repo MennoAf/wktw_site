@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
 import Button from '../../components/Button.astro';
 import SocialShare from '../../components/SocialShare.astro';
+import ShapeShipsFigure from '../../components/ShapeShipsFigure.astro';
 import { getPost } from '../../data/insights';
 import { features } from '../../data/features';
 
@@ -257,6 +258,8 @@ const ogImage = new URL('/og-default.png', Astro.site).href;
           If you're commissioning an audit &mdash; any audit, from anyone &mdash;
           here's the four-line spec to hand them before you sign:
         </p>
+
+        <ShapeShipsFigure />
 
         <ol class="list-decimal pl-6 space-y-3">
           <li>

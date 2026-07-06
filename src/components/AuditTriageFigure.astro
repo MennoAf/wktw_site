@@ -1,0 +1,101 @@
+---
+// Informative figure for the self-audit retrospective: how ~80 raw findings
+// resolve into a dozen real fixes vs. mostly noise. Numbers are grounded in the
+// Get Right worklog disposition table (docs/audits/get-right/worklog.md).
+// Pure HTML/CSS in the site tokens — no image asset, no inline styles (CSP-safe).
+const rows = [
+  { name: 'Real fixes',            sub: 'shipped',                 value: 12, tone: 'real'  },
+  { name: 'Additive',              sub: 'optional enhancements',   value: 7,  tone: 'add'   },
+  { name: 'Netlify config',        sub: null,                      value: 3,  tone: 'cfg'   },
+  { name: 'Tag-manager console',   sub: null,                      value: 1,  tone: 'con'   },
+  { name: 'Stale · false · passing', sub: 'no-op',                 value: 16, tone: 'noise' },
+];
+const max = 16;
+---
+
+<figure class="triage plate p-6 sm:p-8 my-8">
+  <figcaption class="triage__cap">
+    <span>Figure — audit triage</span>
+    <span class="triage__src">source: Get Right worklog</span>
+  </figcaption>
+
+  <p class="triage__head">
+    <b>≈80 raw findings</b> <span class="triage__arw">→</span> deduped to
+    <b>39 distinct items</b> <span class="triage__arw">→</span> sorted:
+  </p>
+
+  <div class="triage__bars">
+    {rows.map((r) => (
+      <div class="triage__row">
+        <div class="triage__label">
+          <span class="triage__name">{r.name}{r.sub && <span class="triage__sub"> {r.sub}</span>}</span>
+          <span class="triage__val">{r.value}</span>
+        </div>
+        <div class="triage__track">
+          <div class={`triage__fill triage__fill--${r.tone}`} data-w={Math.round((r.value / max) * 100)}></div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="triage__kicker">
+    <b>Twelve were real defects worth shipping. Sixteen were non-issues.</b>
+    Separating them — proving each against the actual site — is the audit.
+  </p>
+</figure>
+
+<style>
+  .triage__cap {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--color-gilt-mid); margin-bottom: 1.25rem;
+  }
+  .triage__src { color: var(--color-gilt-dim); }
+  .triage__head {
+    font-family: var(--font-mono); font-size: 0.9rem; color: var(--color-secondary-text);
+    line-height: 1.6; margin-bottom: 1.4rem;
+  }
+  .triage__head b { color: var(--color-primary-text); font-weight: 600; }
+  .triage__arw { color: var(--color-gilt-mid); }
+
+  .triage__bars { display: flex; flex-direction: column; gap: 0.85rem; }
+  .triage__label {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    font-size: 0.9rem; margin-bottom: 0.35rem;
+  }
+  .triage__name { color: var(--color-primary-text); }
+  .triage__sub { color: var(--color-gilt-dim); font-size: 0.78rem; }
+  .triage__val {
+    font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+    font-size: 0.92rem; color: var(--color-secondary-text);
+  }
+  .triage__track {
+    height: 12px; background: var(--color-bg-inset);
+    border-radius: 999px; overflow: hidden;
+  }
+  .triage__fill { height: 100%; border-radius: 999px; }
+
+  /* Widths driven by data-w so no inline style attribute is emitted (CSP-clean). */
+  .triage__fill[data-w="75"]  { width: 75%; }
+  .triage__fill[data-w="44"]  { width: 44%; }
+  .triage__fill[data-w="19"]  { width: 19%; }
+  .triage__fill[data-w="6"]   { width: 6%; }
+  .triage__fill[data-w="100"] { width: 100%; }
+
+  .triage__fill--real  { background: linear-gradient(90deg, var(--color-gilt-mid), var(--color-accent)); }
+  .triage__fill--add   { background: var(--color-gilt); }
+  .triage__fill--cfg   { background: var(--color-gilt-mid); }
+  .triage__fill--con   { background: var(--color-gilt-dim); }
+  .triage__fill--noise {
+    background: repeating-linear-gradient(45deg,
+      var(--color-border-subtle), var(--color-border-subtle) 6px,
+      #3a2f2a 6px, #3a2f2a 12px);
+  }
+
+  .triage__kicker {
+    margin-top: 1.5rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border-subtle);
+    font-size: 0.95rem; color: var(--color-secondary-text); line-height: 1.6;
+  }
+  .triage__kicker b { color: var(--color-gilt-bright); font-weight: 600; }
+</style>

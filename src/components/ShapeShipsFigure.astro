@@ -1,0 +1,91 @@
+---
+// Informative figure for "Why most audits don't change anything": the four swaps
+// that decide whether a report ships or gets shelved. Mirrors the retrospective's
+// triage figure (same gilt vocabulary) so the two articles read as a pair.
+const swaps = [
+  { from: 'Symptoms',              to: 'Root causes' },
+  { from: 'Advisory prose',        to: 'Implementation-ready' },
+  { from: 'Best-practice anchored', to: 'Revenue-anchored' },
+  { from: 'A folder of findings',  to: 'One ranked roadmap' },
+];
+---
+
+<figure class="shape plate p-6 sm:p-8 my-8">
+  <figcaption class="shape__cap">
+    <span>Figure — the shape that ships</span>
+    <span class="shape__src">four swaps</span>
+  </figcaption>
+
+  <div class="shape__grid">
+    <div class="shape__head">What most audits deliver</div>
+    <div aria-hidden="true"></div>
+    <div class="shape__head shape__head--right">What actually ships</div>
+
+    {swaps.map((s) => (
+      <>
+        <div class="shape__cell shape__cell--left">{s.from}</div>
+        <div class="shape__arw" aria-hidden="true">→</div>
+        <div class="shape__cell shape__cell--right">{s.to}</div>
+      </>
+    ))}
+  </div>
+
+  <div class="shape__foot">
+    <span class="shape__foot-l">↳ the shared drive</span>
+    <span aria-hidden="true"></span>
+    <span class="shape__foot-r">↳ done</span>
+  </div>
+</figure>
+
+<style>
+  .shape__cap {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--color-gilt-mid); margin-bottom: 1.25rem;
+  }
+  .shape__src { color: var(--color-gilt-dim); }
+
+  .shape__grid {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: stretch; gap: 0.5rem 1rem;
+  }
+  .shape__head {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--color-gilt-mid); padding-bottom: 0.25rem;
+  }
+  .shape__head--right { text-align: right; color: var(--color-gilt-bright); }
+
+  .shape__cell {
+    padding: 0.7rem 0.9rem; border-radius: 9px; font-size: 0.94rem;
+    display: flex; align-items: center;
+  }
+  .shape__cell--left {
+    background: var(--color-bg-inset); color: var(--color-secondary-text);
+    border: 1px solid var(--color-border-subtle);
+  }
+  .shape__cell--right {
+    background: linear-gradient(180deg, rgba(255,179,0,0.06), transparent), var(--color-bg-surface);
+    color: var(--color-primary-text); border: 1px solid var(--color-gilt-dim);
+    justify-content: flex-end; text-align: right;
+  }
+  .shape__arw {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-gilt-mid); font-family: var(--font-mono);
+  }
+
+  .shape__foot {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.5rem 1rem;
+    margin-top: 0.9rem; font-family: var(--font-mono); font-size: 0.72rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .shape__foot-l { color: var(--color-gilt-dim); }
+  .shape__foot-r { text-align: right; color: var(--color-accent); }
+
+  @media (max-width: 560px) {
+    .shape__grid, .shape__foot { grid-template-columns: 1fr; }
+    .shape__arw { transform: rotate(90deg); padding: 0.15rem 0; }
+    .shape__cell--right { justify-content: flex-start; text-align: left; }
+    .shape__head--right { text-align: left; }
+    .shape__foot-r { text-align: left; }
+  }
+</style>
