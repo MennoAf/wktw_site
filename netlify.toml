@@ -35,6 +35,19 @@
     # enforcing via the CSP_MODE=enforce env var. A static CSP here would only
     # conflict with it.
 
+# Stealth mode — keep the site out of search results while we're pre-launch.
+# This header, not robots.txt, is what actually deindexes us: crawlers fetch the
+# page (robots.txt deliberately still allows that), read `noindex`, and drop the
+# URL. See public/robots.txt for the full reasoning.
+#
+# TO GO LIVE: delete this entire block. Nothing else needs to change. Expect a
+# few weeks for Google to recrawl and reinstate; a Search Console recrawl
+# request speeds it up.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 # Content-hashed build assets — safe to cache forever (WL-19).
 [[headers]]
   for = "/_astro/*"

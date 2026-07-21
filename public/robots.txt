@@ -1,3 +1,23 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# We're in stealth. Crawl all you like — you just won't find us in the results.
+#
+# Yes, this is intentional. We took ourselves out of Google because we're in the
+# business of making clients money, not ranking ourselves number one. When we
+# want the traffic back it's one deleted header and about three weeks.
+#
+# The actual work is done by `X-Robots-Tag: noindex, nofollow` (netlify.toml).
+# This file stays open on purpose: a crawler has to FETCH a page to read that
+# header. `Disallow: /` here would block the fetch, the noindex would never be
+# seen, and we'd sit in the index forever as a URL with no snippet — the exact
+# outcome we're avoiding. A directive nobody reads is a directive nobody obeys.
+#
+# The sitemap below is listed deliberately for the same reason: it hands
+# crawlers the full URL list so they recrawl everything and hit the noindex
+# sooner rather than discovering pages one link at a time.
+#
+# Undo: delete the X-Robots-Tag block in netlify.toml. Don't touch this file.
+# ─────────────────────────────────────────────────────────────────────────────
+
 User-agent: *
 Allow: /
 
